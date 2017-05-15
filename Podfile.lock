@@ -1,0 +1,45 @@
+PODS:
+  - AVOSCloud (3.8.2)
+  - AVOSCloudCrashReporting (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudCrashReporting/_ARC (= 3.8.2)
+    - AVOSCloudCrashReporting/_NOARC (= 3.8.2)
+  - AVOSCloudCrashReporting/_ARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudCrashReporting/_NOARC (= 3.8.2)
+  - AVOSCloudCrashReporting/_NOARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+  - AVOSCloudIM (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudIM/_ARC (= 3.8.2)
+    - AVOSCloudIM/_NOARC (= 3.8.2)
+  - AVOSCloudIM/_ARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+    - AVOSCloudIM/_NOARC (= 3.8.2)
+  - AVOSCloudIM/_NOARC (3.8.2):
+    - AVOSCloud (= 3.8.2)
+  - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - AVOSCloud
+  - AVOSCloudCrashReporting
+  - AVOSCloudIM
+  - Masonry
+  - MBProgressHUD
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  AVOSCloud: fc3a1ae341a1421b66f8828fbc9850ddb6eaaa7c
+  AVOSCloudCrashReporting: 6c1d7e2381bdbb12456c773898c89390953edacc
+  AVOSCloudIM: 7c8ba883afde0f0bceabd5aa9856d407bb4b06ee
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: a9fb5983cde93a0023b7aa5fc4f79f8033b7535d
+
+COCOAPODS: 1.1.1

@@ -1,0 +1,18 @@
+//
+//  NoteService.h
+//  Notes
+//
+//  Created by 徐琬璇 on 2017/5/10.
+//  Copyright © 2017年 noneTobacco. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "NoteObject.h"
+
+@interface NoteService : NSObject
+
+
++ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content callback:(void(^)(BOOL succeeded))callback;
+
+
+@end

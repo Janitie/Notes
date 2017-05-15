@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import "WXApi.h"
+
 @interface AppDelegate ()
 
 @end
@@ -16,10 +20,50 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [self wechatRegister];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+    MainTableViewController *root = [MainTableViewController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:root];
+    [self.window setRootViewController:nav];
+    [self.window makeKeyAndVisible];
+    
+    [AVOSCloud setApplicationId:@"BQuc8AC0uFuUfMO2hmtirFcr-gzGzoHsz" clientKey:@"UYafhCVztDte7zr1lwO8fQ7O"];
+
+
     return YES;
 }
 
+- (void)wechatRegister {
+    [ShareSDK registerApp:@"1d9d0406fd4c6"
+          activePlatforms:@[ @(SSDKPlatformTypeWechat) ]
+                 onImport:^(SSDKPlatformType platformType)
+     {
+         switch (platformType)
+         {
+             case SSDKPlatformTypeWechat:
+                 [ShareSDKConnector connectWeChat:[WXApi class]];
+                 break;
+             default:
+                 break;
+         }
+     }
+          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
+     {
+         
+         switch (platformType)
+         {
+             case SSDKPlatformTypeWechat:
+                 [appInfo SSDKSetupWeChatByAppId:@"wx7379c514e42a8c3d"
+                                       appSecret:@"48e5d3bceea3e15c1016c851d88ade3b"];
+                 break;
+             default:
+                 break;
+         }
+     }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -49,6 +93,9 @@
     [self saveContext];
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary*)options {
+    return YES;
+}
 
 #pragma mark - Core Data stack
 
