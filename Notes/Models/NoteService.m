@@ -46,4 +46,21 @@
     }];
 }
 
++ (void)deleteWithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
+    NSString * queryCQL = [NSString stringWithFormat:@"delete from %@ where objectId='%@'",NoteClass,objId];
+//   [AVQuery doCloudQueryWithCQL:que
+//                          error:(NSError * _Nullable __autoreleasing * _Nullable) {
+//                              
+//                          }]
+    [AVQuery doCloudQueryInBackgroundWithCQL:queryCQL
+                                    callback:^(AVCloudQueryResult * _Nullable result, NSError * _Nullable error) {
+                                        if (error == nil) {
+                                            callback(NO);
+                                        }
+                                        else {
+                                            callback(YES);
+                                        }
+                                    }];
+}
+
 @end

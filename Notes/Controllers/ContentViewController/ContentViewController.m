@@ -11,7 +11,12 @@
 #import "LabelView.h"
 
 @interface ContentViewController ()
-
+{
+    NoteObject * _note;
+//    NSString * _title;
+//    NSString * _content;
+    BOOL _isUpdating;
+}
 @property(nonatomic,strong) LabelView * tagView;
 
 @end
@@ -34,30 +39,57 @@
     self.titleField.delegate = self;
     self.textView.delegate = self;
     
-//    NSArray * labelArray = [[NSArray alloc] initWithObjects:@"today",@"tomorrow",@"yesterday",@"tonight", nil];
-    
-    
+    self.titleField.text = _note.title;
+    self.textView.text = _note.content;
+//    NSString * openId = _note.avObject.objectId;
 }
+
+- (void)setDataNoteObject:(NoteObject *)note {
+    _note = note;
+    _isUpdating = YES;
+}
+
 
 #pragma mark - button
 
 - (IBAction)backButtonDo:(id)sender {
-    if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
-        [NoteService creatNewNoteWithTitle:self.titleField.text
-                                   content:self.textView.text
-                                      type:self.isNote
-                                  callback:^(BOOL succeeded) {
-                                      if (succeeded) {
-                                          [self.navigationController popViewControllerAnimated:YES];
-                                      }
-                                      else {
-                                          NSLog(@"error saving");
-                                      }
-                                  }];
+    if (_isUpdating == NO) {
+        if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
+            [NoteService creatNewNoteWithTitle:self.titleField.text
+                                       content:self.textView.text
+                                          type:self.isNote
+                                      callback:^(BOOL succeeded) {
+                                          if (succeeded) {
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          }
+                                          else {
+                                              NSLog(@"error saving");
+                                          }
+                                      }];
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
     else {
-        [self.navigationController popViewControllerAnimated:YES];
+        if ([self.titleField.text isEqualToString:@""] && [self.textView.text isEqualToString:@""]) {
+            //delete
+            [NoteService deleteWithObjectId:_note.avObject.objectId
+                                   callback:^(BOOL isSuccess) {
+                                       if (isSuccess) {
+                                           [self.navigationController popViewControllerAnimated:YES];
+                                       }
+                                       else {
+                                           NSLog(@"error deleting");
+                                       }
+                                   }];
+            _isUpdating = NO;
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
+    
     
 }
 

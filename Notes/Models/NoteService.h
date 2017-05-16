@@ -16,4 +16,6 @@
 
 + (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback;
 
++ (void)deleteWithObjectId:(NSString *)objId callback:(void (^)(BOOL isSuccess))callback;
+
 @end

@@ -19,9 +19,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="393" height="62.5"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6v-5k-M2R">
-                        <rect key="frame" x="18" y="19.5" width="162" height="24"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6v-5k-M2R">
+                        <rect key="frame" x="18" y="20" width="162" height="24"/>
+                        <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -39,9 +39,10 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.04.06" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g93-ye-Rb0">
-                        <rect key="frame" x="120" y="43.5" width="60" height="13"/>
+                        <rect key="frame" x="120" y="44" width="60" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="0ZE-T4-st0"/>
+                            <constraint firstAttribute="height" constant="13" id="tb3-QO-dWs"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="9"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,7 +57,6 @@
                     <constraint firstItem="g93-ye-Rb0" firstAttribute="top" secondItem="P6v-5k-M2R" secondAttribute="bottom" id="DyS-Q6-buY"/>
                     <constraint firstItem="P6v-5k-M2R" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Kjt-eD-rTD"/>
                     <constraint firstItem="49E-5f-ma2" firstAttribute="leading" secondItem="P6v-5k-M2R" secondAttribute="trailing" constant="16" id="Yoa-hs-gxe"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="g93-ye-Rb0" secondAttribute="bottom" constant="-2" id="crf-FJ-eqs"/>
                     <constraint firstItem="49E-5f-ma2" firstAttribute="leading" secondItem="g93-ye-Rb0" secondAttribute="trailing" constant="16" id="h0x-or-Hll"/>
                     <constraint firstAttribute="trailingMargin" secondItem="KX8-hk-YEu" secondAttribute="trailing" constant="8" id="o78-61-HH6"/>
                     <constraint firstItem="P6v-5k-M2R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="rMd-Ib-lLG"/>

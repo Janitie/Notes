@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NoteObject.h"
 
 @interface ContentViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
@@ -23,6 +24,8 @@
 @property (assign, nonatomic) BOOL isNote;
 
 - (instancetype)initWithBOOL:(BOOL)isNote;
+
+- (void)setDataNoteObject:(NoteObject *)note;
 
 
 @end
