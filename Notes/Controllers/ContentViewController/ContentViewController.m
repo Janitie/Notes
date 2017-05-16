@@ -53,7 +53,9 @@
 #pragma mark - button
 
 - (IBAction)backButtonDo:(id)sender {
+    //NEW
     if (_isUpdating == NO) {
+        //只要有一个不空就新建
         if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
             [NoteService creatNewNoteWithTitle:self.titleField.text
                                        content:self.textView.text
@@ -67,11 +69,11 @@
                                           }
                                       }];
         }
-        else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
     }
+    
+    //EXISTED
     else {
+        //当全空时删除
         if ([self.titleField.text isEqualToString:@""] && [self.textView.text isEqualToString:@""]) {
             //delete
             [NoteService deleteWithObjectId:_note.avObject.objectId
@@ -83,14 +85,24 @@
                                            NSLog(@"error deleting");
                                        }
                                    }];
-            _isUpdating = NO;
         }
+        //只要有改动就上传刷新
         else {
-            [self.navigationController popViewControllerAnimated:YES];
+            [NoteService updateTitle:self.titleField.text
+                             Content:self.textView.text
+                        WithObjectId:_note.avObject.objectId
+                            callback:^(BOOL success) {
+                                if (success) {
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }
+                                else {
+                                    NSLog(@"error");
+                                }
+                            }];
         }
+        _isUpdating = NO;
     }
-    
-    
+
 }
 
 - (IBAction)labelButtonDo:(id)sender {

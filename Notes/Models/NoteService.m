@@ -46,21 +46,50 @@
     }];
 }
 
++ (void)findInNoteBoxWithObjId:(NSString *)objId Callback:(void (^)(BOOL succeeded,NoteObject * noteObject))callback {
+    AVQuery * query = [AVQuery queryWithClassName:NoteClass];
+    [query whereKey:@"objectId" equalTo:objId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (objects && objects.count > 0) {
+            NoteObject * note = [NoteObject objectWithObject:objects[0]];
+            callback(YES,note);
+        }
+        else {
+            callback(NO,nil);
+        }
+    }];
+}
+
 + (void)deleteWithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
     NSString * queryCQL = [NSString stringWithFormat:@"delete from %@ where objectId='%@'",NoteClass,objId];
-//   [AVQuery doCloudQueryWithCQL:que
-//                          error:(NSError * _Nullable __autoreleasing * _Nullable) {
-//                              
-//                          }]
+
     [AVQuery doCloudQueryInBackgroundWithCQL:queryCQL
                                     callback:^(AVCloudQueryResult * _Nullable result, NSError * _Nullable error) {
                                         if (error == nil) {
-                                            callback(NO);
-                                        }
-                                        else {
                                             callback(YES);
                                         }
+                                        else {
+                                            callback(NO);
+                                        }
                                     }];
+}
+
++ (void)updateTitle:(NSString *)newTitle Content:(NSString *)newContent WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
+    [self findInNoteBoxWithObjId:objId
+                        Callback:^(BOOL succeeded, NoteObject *noteObject) {
+                            if (succeeded) {
+                                noteObject.title = newTitle;
+                                noteObject.content = newContent;
+                                [noteObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                    if (succeeded) {
+                                        callback(YES);
+                                    }
+                                    else {
+                                        callback(error);
+                                    }
+                                }];
+                            }
+                        }];
 }
 
 @end
