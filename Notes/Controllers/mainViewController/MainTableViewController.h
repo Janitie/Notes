@@ -14,11 +14,14 @@
 
 @property (nonatomic, strong) UITableView * tableView;
 
-@property (nonatomic, strong) UIButton * faceBtn;
+@property (nonatomic, strong) UIImageView * faceBtn;
 @property (nonatomic, strong) UILabel * userName;
 
 @property (nonatomic, strong) UIButton * naviRight;
 @property (nonatomic, strong) NewButton * bottomBtn;
+
+#pragma mark - Data Source
+@property (nonatomic, strong) NSArray * dataSource;
 
 
 @end

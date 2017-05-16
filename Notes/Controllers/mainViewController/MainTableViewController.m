@@ -18,8 +18,10 @@
 
 #import "INSSearchBar.h"
 #import "LLSlideMenu.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry.h>
 
+#import "NoteService.h"
 
 @interface MainTableViewController () <INSSearchBarDelegate>
 
@@ -58,12 +60,38 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    BOOL isLogin = [[NSUserDefaults standardUserDefaults] valueForKey:@"isLogin"];
+    if (isLogin == YES) {
+        NSString * userName = [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"];
+        self.userName.text = userName;
+        
+        NSURL * userIcon = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:@"userIcon"]];
+        [self.faceBtn sd_setImageWithURL:userIcon];
+    }
+    
+    // get Data
+    [self loadData];
+}
+
 - (void) makeConstraints {
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom);
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.height.mas_equalTo(CGRectGetHeight(self.bottomBtn.frame));
         make.width.mas_equalTo(CGRectGetWidth(self.bottomBtn.frame));
+    }];
+}
+
+#pragma mark - Data Handle
+- (void)loadData {
+    [NoteService fetchNotes:nil callback:^(BOOL isSuccess, NSArray<NoteObject *> *results) {
+        if (isSuccess) {
+            self.dataSource = results;
+            [self.tableView reloadData];
+        }
     }];
 }
 
@@ -104,6 +132,24 @@
         _bottomBtn.delegate = self;
     }
     return _bottomBtn;
+}
+
+- (UIImageView *)faceBtn {
+    if (_faceBtn == nil) {
+        _faceBtn = [[UIImageView alloc] initWithFrame:CGRectMake(74, 71, 80, 80)];
+        [_faceBtn setImage:[UIImage imageNamed:@"defaultUser"]];
+        [_faceBtn setUserInteractionEnabled:YES];
+        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTapAction)];
+        [_faceBtn addGestureRecognizer:tapGes];
+        
+        _faceBtn.layer.masksToBounds = YES;
+        _faceBtn.layer.cornerRadius = CGRectGetHeight(_faceBtn.frame)/2.0f;
+    }
+    return _faceBtn;
+}
+
+- (NSArray *) dataSource {
+    return _dataSource;
 }
 
 #pragma mark - navigationBar
@@ -151,10 +197,7 @@
     _slideMenu.ll_springFramesNum = 30;     // 关键帧数量
     
 //    Whats in that Slide View
-    _faceBtn = [[UIButton alloc] initWithFrame:CGRectMake(74, 71, 80, 80)];
-    [_faceBtn setImage:[UIImage imageNamed:@"defaultUser"] forState:UIControlStateNormal];
-    [_faceBtn addTarget:self action:@selector(imageViewTapAction) forControlEvents:UIControlEventTouchUpInside];
-    [_slideMenu addSubview:_faceBtn];
+    [_slideMenu addSubview:self.faceBtn];
     
     _userName = [[UILabel alloc] initWithFrame:CGRectMake(64, 156, 100, 28)];
     _userName.text = @"DefalutName";
@@ -177,6 +220,14 @@
 
 }
 - (void)quitWechat {
+    //quit
+    
+    //UI
+    [self.faceBtn setImage:[UIImage imageNamed:@"defaultUser"]];
+    self.userName.text = @"Default_User";
+    
+    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
     NSLog(@"quit wechat");
 }
 
@@ -218,6 +269,10 @@
     }
     
 //    Blur is better
+    
+    
+    
+    
   
 }
 
@@ -275,7 +330,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return [self.dataSource count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -294,6 +349,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NoteObject * note = self.dataSource[indexPath.row];
     UITableViewCell * cell = nil;
     if (indexPath.row == 0) {
         FirstTableViewCell * fCell = [tableView dequeueReusableCellWithIdentifier:[FirstTableViewCell cellIdentifier] forIndexPath:indexPath];
@@ -302,6 +358,8 @@
     }
     else if (indexPath.row % 2 == 0) {
         NoteTableViewCell * nCell = [tableView dequeueReusableCellWithIdentifier:[NoteTableViewCell cellIdentifier] forIndexPath:indexPath];
+        nCell.content.text = note.content;
+        nCell.date.text = note.createAt;
         cell = nCell;
     } else {
         CheckTableViewCell * cCell = [tableView dequeueReusableCellWithIdentifier:[CheckTableViewCell cellIdentifier] forIndexPath:indexPath];
@@ -312,41 +370,6 @@
 }
 
 
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Table view delegate
@@ -378,15 +401,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

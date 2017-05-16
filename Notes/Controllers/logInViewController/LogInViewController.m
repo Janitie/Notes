@@ -36,11 +36,15 @@
          if (state == SSDKResponseStateSuccess)
          {
              
-             NSLog(@"uid=%@",user.uid);
+             NSLog(@"uid=%@",user.icon);
              NSLog(@"%@",user.credential);
              NSLog(@"token=%@",user.credential.token);
              NSLog(@"nickname=%@",user.nickname);
              [self dismissViewControllerAnimated:YES completion:nil];
+             
+             [[NSUserDefaults standardUserDefaults] setValue:user.icon forKey:@"userIcon"];
+             [[NSUserDefaults standardUserDefaults] setValue:user.nickname forKey:@"userName"];
+             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
          }
          
          else

@@ -13,6 +13,10 @@ static NSString * KeyNote = @"noteId";
 
 @implementation ReaderObject
 
+- (NSString *)className {
+    return ReaderClass;
+}
+
 #pragma mark - setter
 - (void)setNoteId:(NSString *)noteId {
     [self.avObject setObject:noteId forKey:KeyNote];

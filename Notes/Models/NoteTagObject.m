@@ -12,6 +12,11 @@ static NSString * KeyNote = @"noteId";
 static NSString * KeyTag = @"tagId";
 
 @implementation NoteTagObject
+
+- (NSString *)className {
+    return NoteTagClass;
+}
+
 #pragma mark - setter
 - (void)setNoteId:(NSString *)noteId {
     [self.avObject setObject:noteId forKey:KeyNote];

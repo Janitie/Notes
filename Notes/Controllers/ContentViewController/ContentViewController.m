@@ -27,7 +27,7 @@
     self.titleField.delegate = self;
     self.textView.delegate = self;
     
-    NSArray * labelArray = [[NSArray alloc] initWithObjects:@"today",@"tomorrow",@"yesterday",@"tonight", nil];
+//    NSArray * labelArray = [[NSArray alloc] initWithObjects:@"today",@"tomorrow",@"yesterday",@"tonight", nil];
     
     
 }
@@ -35,7 +35,22 @@
 #pragma mark - button
 
 - (IBAction)backButtonDo:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
+        [NoteService creatNewNoteWithTitle:self.titleField.text
+                                   content:self.textView.text
+                                  callback:^(BOOL succeeded) {
+                                      if (succeeded) {
+                                          [self.navigationController popViewControllerAnimated:YES];
+                                      }
+                                      else {
+                                          NSLog(@"error saving");
+                                      }
+                                  }];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 - (IBAction)labelButtonDo:(id)sender {

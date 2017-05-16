@@ -13,6 +13,10 @@ static NSString * KeyName = @"tagName";
 
 @implementation TagObject
 
+- (NSString *)className {
+    return TagClass;
+}
+
 #pragma mark - setter
 - (void)setTagName:(NSString *)tagName {
     [self.avObject setObject:tagName forKey:KeyName];

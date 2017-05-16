@@ -14,6 +14,10 @@ static NSString * KeyAuthor = @"authorId";
 
 @implementation NoteObject
 
+- (NSString *)className {
+    return NoteClass;
+}
+
 #pragma mark - setter
 //- (void)test {
 //    
@@ -22,7 +26,7 @@ static NSString * KeyAuthor = @"authorId";
 //}
 
 - (void) setTitle:(NSString *)title {
-    [self.avObject setValue:title forKey:KeyTitle];
+    [self.avObject setObject:title forKey:KeyTitle];
 }
 
 - (void)setContent:(NSString *)content {

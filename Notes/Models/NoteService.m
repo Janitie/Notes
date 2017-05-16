@@ -20,25 +20,27 @@
             callback(YES);
         }
         else {
-            callback(error);
+            callback(NO);
         }
     }];
-    
-//    NoteObject * newCheck = [CheckObject newObject];
-//    newCheck.title = title;
-//    newCheck.finishTime = fTime;
-//    newCheck.user = [UserObject currentUser].user;
-//    newCheck.isComplete = NO;
-//    
-//    [newCheck.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (succeeded) {
-//            callback(YES);
-//        }
-//        else {
-//            callback(error);
-//        }
-//    }];
 
+}
+
++ (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback {
+    AVQuery *query = [AVQuery queryWithClassName:NoteClass];
+//    [query whereKey:@"userId" equalTo:userId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (error) {
+            callback (NO, nil);
+        } else {
+            NSMutableArray * objectResults = [NSMutableArray array];
+            for (AVObject * avObj in objects) {
+                NoteObject * obj = [NoteObject objectWithObject:avObj];
+                [objectResults addObject:obj];
+            }
+            callback (YES, objectResults);
+        }
+    }];
 }
 
 @end

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface NoteTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *content;
+@property (weak, nonatomic) IBOutlet UIImageView *userIcon;
+@property (weak, nonatomic) IBOutlet UILabel *date;
 
 + (CGFloat)cellHeight:(id)data;
 

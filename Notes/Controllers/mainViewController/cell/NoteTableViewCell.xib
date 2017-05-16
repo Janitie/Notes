@@ -69,6 +69,11 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="2Wd-Va-2BV" secondAttribute="bottom" id="eTj-c9-FAu"/>
             </constraints>
+            <connections>
+                <outlet property="content" destination="ITP-bK-3NE" id="EVw-Ia-Cj1"/>
+                <outlet property="date" destination="GIA-rC-1Dj" id="GOr-9s-gDk"/>
+                <outlet property="userIcon" destination="ZT7-Xz-EVQ" id="9Cf-cd-Psk"/>
+            </connections>
             <point key="canvasLocation" x="68.5" y="132"/>
         </tableViewCell>
     </objects>
