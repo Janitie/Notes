@@ -12,7 +12,7 @@
 @interface NoteService : NSObject
 
 
-+ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content callback:(void(^)(BOOL succeeded))callback;
++ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content type:(BOOL)isNote callback:(void(^)(BOOL succeeded))callback;
 
 + (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback;
 

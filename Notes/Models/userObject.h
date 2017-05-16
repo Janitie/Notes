@@ -31,8 +31,8 @@ static NSString * UserClass = @"_User";
 - (NSString *)createAt;
 
 
++ (instancetype)newUser;
 + (instancetype)currentUser;
-
-//+ (instancetype)userWithUser:(AVUser *)user;
++ (instancetype)userWithUser:(AVUser *)user;
 
 @end

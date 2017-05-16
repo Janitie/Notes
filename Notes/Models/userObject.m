@@ -31,14 +31,36 @@ static NSString * KeyIcon = @"iconUrl";
     return self;
 }
 
++ (instancetype)newUser {
+    userObject *newUser = [userObject new];
+    newUser.user = [AVUser user];
+    return newUser;
+}
+
++ (instancetype)currentUser {
+    userObject * currentUser = [userObject new];
+    currentUser.user = [AVUser currentUser];
+    if (currentUser.user){
+        return currentUser;
+    } else {
+        return NULL;
+    }
+}
+
++ (instancetype)userWithUser:(AVUser *)user
+{
+    userObject * existUser = [userObject new];
+    existUser.user = user;
+    return existUser;
+}
+
+#pragma mark - Methods
+
 - (NSString *)className
 {
     return UserClass;
 }
 
-+ (instancetype)currentUser {
-    return [[self class] new];
-}
 
 - (NSString *)createAt
 {
@@ -56,7 +78,7 @@ static NSString * KeyIcon = @"iconUrl";
 
 #pragma mark - setter
 - (void)setUsername:(NSString *)username {
-    [self.user setValue:username forKey:KeyName];
+    self.user.username = username;
 }
 
 - (void)setWxopenId:(NSString *)wxopenId {
@@ -74,7 +96,7 @@ static NSString * KeyIcon = @"iconUrl";
 
 #pragma mark - getter
 - (NSString *)username {
-    return [self.user objectForKey:KeyName];
+    return self.user.username;
 }
 
 - (NSString *)iconUrl {

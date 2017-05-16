@@ -13,8 +13,6 @@
 
 #import "LogInViewController.h"
 #import "ContentViewController.h"
-#import "NoteEditViewController.h"
-#import "CheckEditViewController.h"
 
 #import "INSSearchBar.h"
 #import "LLSlideMenu.h"
@@ -190,7 +188,8 @@
     // 设置菜单宽度
     _slideMenu.ll_menuWidth = 227.0f;
     // 设置菜单背景色
-    _slideMenu.ll_menuBackgroundColor = [UIColor colorWithRed:233/255.0f green:233/255.0f blue:233/255.0f alpha:1.0f];
+//    _slideMenu.ll_menuBackgroundColor = [UIColor colorWithRed:233/255.0f green:233/255.0f blue:233/255.0f alpha:1.0f];
+    _slideMenu.ll_menuBackgroundColor = [UIColor colorWithRed:117/255.0f green:67/255.0f blue:185/255.0f alpha:0.8f];
     // 设置弹力和速度，  默认的是20,15,60
     _slideMenu.ll_springDamping = 30;       // 阻力
     _slideMenu.ll_springVelocity = 20;      // 速度
@@ -201,13 +200,13 @@
     
     _userName = [[UILabel alloc] initWithFrame:CGRectMake(64, 156, 100, 28)];
     _userName.text = @"DefalutName";
-    [_userName setTextColor:[UIColor darkGrayColor]];
+    [_userName setTextColor:[UIColor whiteColor]];
     [_userName setTextAlignment:NSTextAlignmentCenter];
     [_slideMenu addSubview:_userName];
     
     UIButton * quitWechat = [[UIButton alloc] initWithFrame:CGRectMake(78, 614, 80, 25)];
     [quitWechat setTitle:@"退出登录" forState:UIControlStateNormal];
-    [quitWechat setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [quitWechat setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [quitWechat setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [quitWechat addTarget:self action:@selector(quitWechat) forControlEvents:UIControlEventTouchUpInside];
     [_slideMenu addSubview:quitWechat];
@@ -334,13 +333,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NoteObject * note = self.dataSource[indexPath.row];
     if (indexPath.row == 0) {
         return [FirstTableViewCell cellHeight:nil];
     }
-    else if (indexPath.row % 2 == 0) {
+    else if (note.isShared == false) {
         return [NoteTableViewCell cellHeight:nil];
     } else {
-        return [CheckTableViewCell cellHeight:nil];
+        NoteObject * note = self.dataSource[indexPath.row];
+        // 用何種字體進行顯示
+        UIFont *font = [UIFont systemFontOfSize:14];
+        // 該行要顯示的內容
+        NSString *content = note.content;
+        // 計算出顯示完內容需要的最小尺寸
+        CGSize size = [content sizeWithFont:font constrainedToSize:CGSizeMake(375.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
+        // 這裏返回需要的高度
+        return size.height+50;
     }
     
     
@@ -356,13 +364,16 @@
         cell = fCell;
         cell.userInteractionEnabled = NO;
     }
-    else if (indexPath.row % 2 == 0) {
+    else if (note.isShared == false) {
         NoteTableViewCell * nCell = [tableView dequeueReusableCellWithIdentifier:[NoteTableViewCell cellIdentifier] forIndexPath:indexPath];
         nCell.content.text = note.content;
         nCell.date.text = note.createAt;
         cell = nCell;
     } else {
         CheckTableViewCell * cCell = [tableView dequeueReusableCellWithIdentifier:[CheckTableViewCell cellIdentifier] forIndexPath:indexPath];
+        cCell.content.text = note.content;
+        cCell.time.text = note.createAt;
+        cCell.title.text = note.title;
         cell = cCell;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -388,12 +399,12 @@
 
 #pragma mark - newBtn delegate
 - (void)leftButtonDidPush {
-    ContentViewController * noteEdit = [[ContentViewController alloc] init];
+    ContentViewController * noteEdit = [[ContentViewController alloc] initWithBOOL:YES];
     [self.navigationController pushViewController:noteEdit animated:YES];
 }
 
 - (void)rightButtonDidPush {
-    ContentViewController * checkEdit = [[ContentViewController alloc] init];
+    ContentViewController * checkEdit = [[ContentViewController alloc] initWithBOOL:NO];
     [self.navigationController pushViewController:checkEdit animated:YES];
 }
 

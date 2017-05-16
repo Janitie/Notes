@@ -10,10 +10,13 @@
 
 @implementation NoteService
 
-+ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content callback:(void (^)(BOOL))callback {
++ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content type:(BOOL)isNote callback:(void (^)(BOOL))callback {
     NoteObject * newNote = [NoteObject newObject];
     newNote.title = title;
     newNote.content = content;
+    newNote.isNote = isNote;
+    newNote.isComplete = NO;
+    newNote.isShared = NO;
 
     [newNote.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {

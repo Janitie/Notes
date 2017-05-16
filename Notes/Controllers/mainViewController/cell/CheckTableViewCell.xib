@@ -12,48 +12,36 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="170" id="KGk-i7-Jjw" customClass="CheckTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="63" id="KGk-i7-Jjw" customClass="CheckTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="63"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <rect key="frame" x="0.0" y="0.0" width="393" height="62.5"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如何用手机拍出看起来很高级的照片呢" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6v-5k-M2R">
-                        <rect key="frame" x="19" y="38" width="166" height="63.5"/>
-                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6v-5k-M2R">
+                        <rect key="frame" x="18" y="19.5" width="162" height="24"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KX8-hk-YEu">
-                        <rect key="frame" x="213" y="8" width="164" height="153.5"/>
-                        <string key="text">1、俯拍大法好
-2、装饰构成
-3、注意细节
-4、前后景
-5、举个栗子
-6、成套系
-1、Vsco
-2、黄油相机
-正如之前所说的，以上并不是我拍照遵循的原则，只是我从自己的照片中总结出来的方法论。
-我拍照没啥原则，只有习惯和喜好。
-大家多拍，就会有自己的风格。</string>
-                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="11"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KX8-hk-YEu">
+                        <rect key="frame" x="213" y="22" width="164" height="18.5"/>
+                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49E-5f-ma2">
-                        <rect key="frame" x="196" y="0.0" width="1" height="170"/>
+                        <rect key="frame" x="196" y="0.0" width="1" height="62.5"/>
                         <color key="backgroundColor" red="0.45882352939999999" green="0.26274509800000001" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="1" id="8tL-Fx-HBo"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.04.06" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g93-ye-Rb0">
-                        <rect key="frame" x="73" y="128" width="60" height="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.04.06" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g93-ye-Rb0">
+                        <rect key="frame" x="120" y="43.5" width="60" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="0ZE-T4-st0"/>
-                            <constraint firstAttribute="height" constant="12" id="bRz-2V-vH4"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="9"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -63,21 +51,25 @@
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="49E-5f-ma2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="0GN-9D-WiT"/>
+                    <constraint firstItem="KX8-hk-YEu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="1Lj-YP-j77"/>
                     <constraint firstItem="KX8-hk-YEu" firstAttribute="leading" secondItem="49E-5f-ma2" secondAttribute="trailing" constant="16" id="AK6-h9-j9E"/>
-                    <constraint firstItem="KX8-hk-YEu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="HiK-fh-8KD"/>
-                    <constraint firstItem="P6v-5k-M2R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="30" id="J7H-ns-aZ5"/>
-                    <constraint firstItem="KX8-hk-YEu" firstAttribute="bottom" secondItem="49E-5f-ma2" secondAttribute="bottom" constant="-8.5" id="NlQ-Qs-Xbe"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="P6v-5k-M2R" secondAttribute="bottom" constant="60" id="Zay-xj-50d"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="g93-ye-Rb0" secondAttribute="bottom" constant="22" id="crf-FJ-eqs"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="P6v-5k-M2R" secondAttribute="trailing" constant="200" id="d2b-p5-dxu"/>
+                    <constraint firstItem="g93-ye-Rb0" firstAttribute="top" secondItem="P6v-5k-M2R" secondAttribute="bottom" id="DyS-Q6-buY"/>
+                    <constraint firstItem="P6v-5k-M2R" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Kjt-eD-rTD"/>
+                    <constraint firstItem="49E-5f-ma2" firstAttribute="leading" secondItem="P6v-5k-M2R" secondAttribute="trailing" constant="16" id="Yoa-hs-gxe"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="g93-ye-Rb0" secondAttribute="bottom" constant="-2" id="crf-FJ-eqs"/>
+                    <constraint firstItem="49E-5f-ma2" firstAttribute="leading" secondItem="g93-ye-Rb0" secondAttribute="trailing" constant="16" id="h0x-or-Hll"/>
                     <constraint firstAttribute="trailingMargin" secondItem="KX8-hk-YEu" secondAttribute="trailing" constant="8" id="o78-61-HH6"/>
-                    <constraint firstItem="P6v-5k-M2R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="11" id="rMd-Ib-lLG"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="g93-ye-Rb0" secondAttribute="trailing" constant="252" id="vQT-Nh-mFV"/>
+                    <constraint firstItem="P6v-5k-M2R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="rMd-Ib-lLG"/>
                     <constraint firstAttribute="bottomMargin" secondItem="49E-5f-ma2" secondAttribute="bottom" constant="-8" id="yPu-x3-fOi"/>
                     <constraint firstItem="49E-5f-ma2" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="zRp-Dd-Shw"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="17.5" y="97"/>
+            <connections>
+                <outlet property="content" destination="KX8-hk-YEu" id="7pX-5X-T3L"/>
+                <outlet property="time" destination="g93-ye-Rb0" id="11e-xf-cQt"/>
+                <outlet property="title" destination="P6v-5k-M2R" id="MkE-x1-tin"/>
+            </connections>
+            <point key="canvasLocation" x="17.5" y="101.5"/>
         </tableViewCell>
     </objects>
 </document>

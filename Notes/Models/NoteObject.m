@@ -12,6 +12,10 @@ static NSString * KeyTitle = @"title";
 static NSString * KeyContent = @"content";
 static NSString * KeyAuthor = @"authorId";
 
+static NSString * keyisNote = @"isNote";
+static NSString * keyisComplete = @"isComplete";
+static NSString * keyisShared = @"isShared";
+
 @implementation NoteObject
 
 - (NSString *)className {
@@ -19,11 +23,6 @@ static NSString * KeyAuthor = @"authorId";
 }
 
 #pragma mark - setter
-//- (void)test {
-//    
-//    self.title = @"";
-//    NSLog(@"%@", self.title);
-//}
 
 - (void) setTitle:(NSString *)title {
     [self.avObject setObject:title forKey:KeyTitle];
@@ -37,6 +36,18 @@ static NSString * KeyAuthor = @"authorId";
     [self.avObject setObject:authorId forKey:KeyAuthor];
 }
 
+- (void)setIsNote:(BOOL)isNote {
+    [self.avObject setObject:[NSNumber numberWithBool:isNote] forKey:keyisNote];
+}
+
+- (void)setIsComplete:(BOOL)isComplete {
+    [self.avObject setObject:[NSNumber numberWithBool:isComplete] forKey:keyisComplete];
+}
+
+- (void)setIsShared:(BOOL)isShared {
+    [self.avObject setObject:[NSNumber numberWithBool:isShared] forKey:keyisShared];
+}
+
 #pragma mark - getter
 - (NSString *)title {
     return [self.avObject objectForKey:KeyTitle];
@@ -48,6 +59,18 @@ static NSString * KeyAuthor = @"authorId";
 
 - (NSString *)authorId {
     return [self.avObject objectForKey:KeyAuthor];
+}
+
+- (BOOL)isNote {
+    return [self.avObject objectForKey:keyisNote];
+}
+
+- (BOOL)isComplete {
+    return [self.avObject objectForKey:keyisComplete];
+}
+
+- (BOOL)isShared {
+    return [self.avObject objectForKey:keyisShared];
 }
 
 

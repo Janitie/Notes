@@ -49,9 +49,7 @@
                              }];
         }
         else if (_longPressGes.state == UIGestureRecognizerStateChanged) {
-            
-            NSLog(@"long press changed:x = %f, y = %f", point.x, point.y);
-            
+//            NSLog(@"long press changed:x = %f, y = %f", point.x, point.y);
         }
         else if (_longPressGes.state == UIGestureRecognizerStateEnded) {
             

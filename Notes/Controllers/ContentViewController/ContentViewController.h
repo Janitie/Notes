@@ -20,5 +20,9 @@
 
 @property (strong, nonatomic) IBOutlet UIView *inputBottomView;
 
+@property (assign, nonatomic) BOOL isNote;
+
+- (instancetype)initWithBOOL:(BOOL)isNote;
+
 
 @end

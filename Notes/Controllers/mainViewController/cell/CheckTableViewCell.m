@@ -22,8 +22,11 @@
 }
 
 #pragma mark - Class Method
-+ (CGFloat)cellHeight:(id)data {
-    return 170.0f;
+
+- (void)cellHeightLayout:(NSString *)content {
+    self.content.lineBreakMode = NSLineBreakByWordWrapping;
+    self.content.preferredMaxLayoutWidth = CGRectGetWidth(self.content.frame);
+    self.content.text = content;
 }
 
 + (NSString *)cellIdentifier {

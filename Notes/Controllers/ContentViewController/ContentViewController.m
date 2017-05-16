@@ -18,6 +18,13 @@
 
 @implementation ContentViewController
 
+- (instancetype)initWithBOOL:(BOOL)isNote {
+    if ([super init]) {
+        self.isNote = isNote;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -38,6 +45,7 @@
     if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
         [NoteService creatNewNoteWithTitle:self.titleField.text
                                    content:self.textView.text
+                                      type:self.isNote
                                   callback:^(BOOL succeeded) {
                                       if (succeeded) {
                                           [self.navigationController popViewControllerAnimated:YES];

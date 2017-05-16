@@ -15,6 +15,7 @@
     // Initialization code
 }
 
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -23,6 +24,8 @@
 
 #pragma mark - Class Method
 + (CGFloat)cellHeight:(id)data {
+  
+    
     return 84.0f;
 }
 

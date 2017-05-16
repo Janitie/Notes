@@ -16,6 +16,9 @@ static NSString * NoteClass = @"Note";
 
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSString * content;
-@property (nonatomic) NSString * authorId;      
+@property (nonatomic) NSString * authorId;
 
+@property (nonatomic) BOOL isNote;
+@property (nonatomic) BOOL isComplete;
+@property (nonatomic) BOOL isShared;
 @end
