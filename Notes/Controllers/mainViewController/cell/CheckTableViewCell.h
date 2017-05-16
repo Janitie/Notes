@@ -15,8 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *content;
 
 
-- (void)cellHeightLayout:(NSString *)content;
-
 + (NSString *)cellIdentifier;
 
 + (UINib *)cellNib;

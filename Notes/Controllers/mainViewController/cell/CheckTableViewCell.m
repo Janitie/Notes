@@ -23,12 +23,6 @@
 
 #pragma mark - Class Method
 
-- (void)cellHeightLayout:(NSString *)content {
-    self.content.lineBreakMode = NSLineBreakByWordWrapping;
-    self.content.preferredMaxLayoutWidth = CGRectGetWidth(self.content.frame);
-    self.content.text = content;
-}
-
 + (NSString *)cellIdentifier {
     return NSStringFromClass([self class]);
 }
