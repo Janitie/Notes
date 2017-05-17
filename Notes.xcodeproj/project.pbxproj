@@ -56,6 +56,10 @@
 		3B61DC2F1EC3403E00F94ED9 /* ReaderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC2E1EC3403E00F94ED9 /* ReaderObject.m */; };
 		3B61DC321EC341E800F94ED9 /* NoteTagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC311EC341E800F94ED9 /* NoteTagObject.m */; };
 		3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC341EC34FDE00F94ED9 /* NoteService.m */; };
+		3BC661371ECBDAD2001D1BFB /* CheckEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */; };
+		3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */; };
+		3BC661391ECBDAD2001D1BFB /* CheckSonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661351ECBDAD2001D1BFB /* CheckSonCell.m */; };
+		3BC6613A1ECBDAD2001D1BFB /* CheckSonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661361ECBDAD2001D1BFB /* CheckSonCell.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
 		AD1CA5551ECB3B13005D331F /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1CA5541ECB3B13005D331F /* LabelView.m */; };
 		AD1CA5581ECB3B4F005D331F /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1CA5571ECB3B4F005D331F /* TagView.m */; };
@@ -513,12 +517,14 @@
 				3B1BDA6C1EBCAEFF00C24315 /* ShareSDKUI.bundle in Resources */,
 				3B1BDA691EBCAEFF00C24315 /* ShareSDKConfigFile.bundle in Resources */,
 				3B1BDA4E1EBB05DF00C24315 /* Assets.xcassets in Resources */,
+				3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */,
 				3B1BDA9B1EC065B600C24315 /* CheckTableViewCell.xib in Resources */,
 				3B1BDAA51EC065F100C24315 /* MainTableViewController.xib in Resources */,
 				3B1BDA9C1EC065B600C24315 /* FirstTableViewCell.xib in Resources */,
 				3B08DD8F1EC714E3007457F2 /* Main.storyboard in Resources */,
 				3B1BDA721EBCAEFF00C24315 /* ShareSDK.bundle in Resources */,
 				3B1BDA9D1EC065B600C24315 /* NoteTableViewCell.xib in Resources */,
+				3BC6613A1ECBDAD2001D1BFB /* CheckSonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +599,7 @@
 				3B498AC21EB1C2A8006D6AB1 /* main.m in Sources */,
 				3B08DD8D1EC7149F007457F2 /* UIView+SetRect.m in Sources */,
 				3B1BDAB61EC0E7EE00C24315 /* TagObject.m in Sources */,
+				3BC661391ECBDAD2001D1BFB /* CheckSonCell.m in Sources */,
 				3B1BDAB31EC0D0A900C24315 /* BaseDataModel.m in Sources */,
 				3B1BDAA01EC065B600C24315 /* NoteTableViewCell.m in Sources */,
 				3B1BDA901EC064C600C24315 /* ContentViewController.m in Sources */,

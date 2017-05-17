@@ -11,7 +11,11 @@
 #import "LabelView.h"
 
 @interface ContentViewController ()
+{
+    NoteObject * _note;
 
+    BOOL _isUpdating;
+}
 @property(nonatomic,strong) LabelView * tagView;
 
 @end
@@ -21,6 +25,7 @@
 - (instancetype)initWithBOOL:(BOOL)isNote {
     if ([super init]) {
         self.isNote = isNote;
+        
     }
     return self;
 }
@@ -34,31 +39,77 @@
     self.titleField.delegate = self;
     self.textView.delegate = self;
     
-//    NSArray * labelArray = [[NSArray alloc] initWithObjects:@"today",@"tomorrow",@"yesterday",@"tonight", nil];
+    self.titleField.text = _note.title;
+    self.textView.text = _note.content;
     
     
 }
 
+- (void)setDataNoteObject:(NoteObject *)note {
+    _note = note;
+    _isUpdating = YES;
+}
+
+
 #pragma mark - button
 
 - (IBAction)backButtonDo:(id)sender {
-    if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
-        [NoteService creatNewNoteWithTitle:self.titleField.text
-                                   content:self.textView.text
-                                      type:self.isNote
-                                  callback:^(BOOL succeeded) {
-                                      if (succeeded) {
-                                          [self.navigationController popViewControllerAnimated:YES];
-                                      }
-                                      else {
-                                          NSLog(@"error saving");
-                                      }
-                                  }];
-    }
-    else {
-        [self.navigationController popViewControllerAnimated:YES];
+    //NEW
+    if (_isUpdating == NO) {
+        //只要有一个不空就新建
+        if (![self.titleField.text isEqualToString:@""] || ![self.textView.text isEqualToString:@""] ) {
+            [NoteService creatNewNoteWithTitle:self.titleField.text
+                                       content:self.textView.text
+                                          type:self.isNote
+                                      callback:^(BOOL succeeded) {
+                                          if (succeeded) {
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          }
+                                          else {
+                                              NSLog(@"error saving");
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          }
+                                      }];
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
     
+    //EXISTED
+    else {
+        //当全空时删除
+        if ([self.titleField.text isEqualToString:@""] && [self.textView.text isEqualToString:@""]) {
+            //delete
+            [NoteService deleteWithObjectId:_note.avObject.objectId
+                                   callback:^(BOOL isSuccess) {
+                                       if (isSuccess) {
+                                           [self.navigationController popViewControllerAnimated:YES];
+                                       }
+                                       else {
+                                           NSLog(@"error deleting");
+                                           [self.navigationController popViewControllerAnimated:YES];
+                                       }
+                                   }];
+        }
+        //只要有改动就上传刷新
+        else {
+            [NoteService updateTitle:self.titleField.text
+                             Content:self.textView.text
+                        WithObjectId:_note.avObject.objectId
+                            callback:^(BOOL success) {
+                                if (success) {
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }
+                                else {
+                                    NSLog(@"error");
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }
+                            }];
+        }
+        _isUpdating = NO;
+    }
+
 }
 
 - (IBAction)labelButtonDo:(id)sender {
@@ -75,11 +126,6 @@
  
 
 #pragma mark - textFieldDelegate
-
-//- (void)textFieldDidEndEditing:(UITextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-
-
-
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

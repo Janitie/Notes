@@ -13,6 +13,7 @@
 
 #import "LogInViewController.h"
 #import "ContentViewController.h"
+#import "CheckEditViewController.h"
 
 #import "INSSearchBar.h"
 #import "LLSlideMenu.h"
@@ -338,17 +339,28 @@
         return [FirstTableViewCell cellHeight:nil];
     }
     else if (note.isShared == false) {
+        
         return [NoteTableViewCell cellHeight:nil];
     } else {
-        NoteObject * note = self.dataSource[indexPath.row];
         // 用何種字體進行顯示
-        UIFont *font = [UIFont systemFontOfSize:14];
+        UIFont *fontContent = [UIFont systemFontOfSize:13];
+        UIFont *fontTitle = [UIFont systemFontOfSize:17];
         // 該行要顯示的內容
         NSString *content = note.content;
+        NSString *title = note.title;
         // 計算出顯示完內容需要的最小尺寸
-        CGSize size = [content sizeWithFont:font constrainedToSize:CGSizeMake(375.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
-        // 這裏返回需要的高度
-        return size.height+50;
+        CGSize sizeContent = [content sizeWithFont:fontContent constrainedToSize:CGSizeMake(164.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
+        CGSize sizeTitle = [title sizeWithFont:fontTitle constrainedToSize:CGSizeMake(162.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
+        
+        if(sizeTitle.height >= sizeContent.height) {
+            CGFloat cellHeight = sizeTitle.height + 50.0f;
+            return cellHeight;
+        }
+        else {
+            CGFloat cellHeight = sizeContent.height + 50.0f;
+            return cellHeight;
+        }
+        
     }
     
     
@@ -387,13 +399,9 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    ContentViewController *detailViewController = [[ContentViewController alloc] initWithNibName:nil bundle:nil];
-    
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
+    NoteObject * note = self.dataSource[indexPath.row];
+    ContentViewController *detailViewController = [[ContentViewController alloc] init];
+    [detailViewController setDataNoteObject:note];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
@@ -404,7 +412,7 @@
 }
 
 - (void)rightButtonDidPush {
-    ContentViewController * checkEdit = [[ContentViewController alloc] initWithBOOL:NO];
+    CheckEditViewController * checkEdit = [[CheckEditViewController alloc] initWithBOOL:NO];
     [self.navigationController pushViewController:checkEdit animated:YES];
 }
 
