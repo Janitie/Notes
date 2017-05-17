@@ -11,6 +11,7 @@
 @protocol checkCellTextViewDelegate <NSObject>
 
 - (void)adjustCellHeight;
+- (void)didPushEnterAddHeight:(CGFloat)height;
 
 @end
 

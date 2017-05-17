@@ -37,6 +37,11 @@
 
 - (IBAction)deleteButtonDo:(id)sender {
     self.checkContentView.text = @"";
+    self.checkContentView.frame = CGRectMake(40, 10, 305, self.checkContentView.contentSize.height);
+
+    if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight)]) {
+        [_delegate adjustCellHeight];
+    }
 }
 
 
@@ -46,9 +51,16 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        if (_delegate && [_delegate respondsToSelector:@selector(didPushEnterAddHeight:)]) {
+            NSLog(@"adding height = %f",self.frame.size.height);
+            [_delegate didPushEnterAddHeight:self.frame.size.height];
+        }
+        return NO;
+    }
+    
     NSLog(@"4 = %@",textView.text);
     if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight)]) {
-        
         [_delegate adjustCellHeight];
     }
     return YES;

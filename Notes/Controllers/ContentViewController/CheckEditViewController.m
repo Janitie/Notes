@@ -14,9 +14,11 @@
 {
     NoteObject * _note;
     BOOL _isUpdating;
+    float addFloat;
 }
 
 @property (nonatomic, strong) CheckCellView * firstCell;
+@property (strong, nonatomic) IBOutlet UIScrollView *tableCellView;
 
 @end
 
@@ -39,7 +41,9 @@
     self.firstCell.checkContentView.inputAccessoryView = self.inputBottomView;
     
     self.firstCell.delegate = self;
-    [self.view addSubview:self.firstCell];
+    [self.tableCellView addSubview:self.firstCell];
+    
+    addFloat = 0;
 }
 
 - (IBAction)backButtonDo:(id)sender {
@@ -87,14 +91,40 @@
 - (CheckCellView *)firstCell {
     if (_firstCell == nil) {
         _firstCell = [[CheckCellView alloc] init];
-        _firstCell.frame = CGRectMake(0, 80, CGRectGetWidth(self.view.frame), 57);
+        _firstCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 57);
     }
     return _firstCell;
 }
 
+- (UIScrollView *)tableCellView {
+    if (_tableCellView == nil) {
+        self.tableCellView = [[UIScrollView alloc] init];
+    }
+    return _tableCellView;
+}
+
+
 - (void)adjustCellHeight {
     NSLog(@"changing frame");
     self.firstCell.frame = CGRectMake(0, self.firstCell.frame.origin.y, self.firstCell.frame.size.width, self.firstCell.checkContentView.frame.size.height + 20);
+}
+
+- (void)didPushEnterAddHeight:(CGFloat)height {
+    NSLog(@"ADD A CELL");
+    NSLog(@" 1 flaot = %f",addFloat);
+    CheckCellView * newCell = [[CheckCellView alloc] init];
+    newCell.delegate = self;
+    newCell.frame = CGRectMake(0,
+                               self.firstCell.frame.origin.y + self.firstCell.frame.size.height + addFloat,
+                               self.view.frame.size.width,
+                               57);
+    
+    newCell.checkContentView.inputView = self.inputBottomView;
+    [self.tableCellView addSubview:newCell];
+    addFloat += height;
+    NSLog(@" 2 flaot = %f",addFloat);
+    self.tableCellView.contentSize = CGSizeMake(self.view.frame.size.width, addFloat);
+
 }
 
 
