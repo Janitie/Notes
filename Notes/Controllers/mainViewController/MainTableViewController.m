@@ -13,6 +13,7 @@
 
 #import "LogInViewController.h"
 #import "ContentViewController.h"
+#import "CheckEditViewController.h"
 
 #import "INSSearchBar.h"
 #import "LLSlideMenu.h"
@@ -411,7 +412,7 @@
 }
 
 - (void)rightButtonDidPush {
-    ContentViewController * checkEdit = [[ContentViewController alloc] initWithBOOL:NO];
+    CheckEditViewController * checkEdit = [[CheckEditViewController alloc] initWithBOOL:NO];
     [self.navigationController pushViewController:checkEdit animated:YES];
 }
 

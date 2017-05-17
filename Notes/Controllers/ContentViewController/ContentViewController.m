@@ -13,8 +13,7 @@
 @interface ContentViewController ()
 {
     NoteObject * _note;
-//    NSString * _title;
-//    NSString * _content;
+
     BOOL _isUpdating;
 }
 @property(nonatomic,strong) LabelView * tagView;
@@ -26,6 +25,7 @@
 - (instancetype)initWithBOOL:(BOOL)isNote {
     if ([super init]) {
         self.isNote = isNote;
+        
     }
     return self;
 }
@@ -41,7 +41,8 @@
     
     self.titleField.text = _note.title;
     self.textView.text = _note.content;
-//    NSString * openId = _note.avObject.objectId;
+    
+    
 }
 
 - (void)setDataNoteObject:(NoteObject *)note {
@@ -66,8 +67,12 @@
                                           }
                                           else {
                                               NSLog(@"error saving");
+                                              [self.navigationController popViewControllerAnimated:YES];
                                           }
                                       }];
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
     
@@ -83,6 +88,7 @@
                                        }
                                        else {
                                            NSLog(@"error deleting");
+                                           [self.navigationController popViewControllerAnimated:YES];
                                        }
                                    }];
         }
@@ -97,6 +103,7 @@
                                 }
                                 else {
                                     NSLog(@"error");
+                                    [self.navigationController popViewControllerAnimated:YES];
                                 }
                             }];
         }
@@ -119,11 +126,6 @@
  
 
 #pragma mark - textFieldDelegate
-
-//- (void)textFieldDidEndEditing:(UITextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-
-
-
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
