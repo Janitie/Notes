@@ -20,6 +20,7 @@
 - (void)keyboardBack;
 
 
+
 @end
 
 @interface CheckCellView : UIView<UITextViewDelegate>
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *checkContentView;
 @property (weak, nonatomic) IBOutlet UIButton *statusButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (assign, nonatomic) BOOL statusDone;
 
 @property (nonatomic, weak) id<checkCellTextViewDelegate> delegate;
 

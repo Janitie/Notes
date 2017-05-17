@@ -376,13 +376,14 @@
         cell = fCell;
         cell.userInteractionEnabled = NO;
     }
-    else if (note.isShared == false) {
+    else if (note.isShared) {
         NoteTableViewCell * nCell = [tableView dequeueReusableCellWithIdentifier:[NoteTableViewCell cellIdentifier] forIndexPath:indexPath];
         nCell.content.text = note.content;
         nCell.date.text = note.createAt;
         cell = nCell;
     } else {
         CheckTableViewCell * cCell = [tableView dequeueReusableCellWithIdentifier:[CheckTableViewCell cellIdentifier] forIndexPath:indexPath];
+        
         cCell.content.text = note.content;
         cCell.time.text = note.createAt;
         cCell.title.text = note.title;
@@ -400,9 +401,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NoteObject * note = self.dataSource[indexPath.row];
-    ContentViewController *detailViewController = [[ContentViewController alloc] init];
-    [detailViewController setDataNoteObject:note];
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    if (note.isNote) {
+        ContentViewController *detailViewController = [[ContentViewController alloc] init];
+        [detailViewController setDataNoteObject:note];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+
+    }
+    else {
+        CheckEditViewController *detailViewController = [[CheckEditViewController alloc] init];
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 #pragma mark - newBtn delegate

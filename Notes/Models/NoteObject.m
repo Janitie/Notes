@@ -62,15 +62,15 @@ static NSString * keyisShared = @"isShared";
 }
 
 - (BOOL)isNote {
-    return [self.avObject objectForKey:keyisNote];
+    return [[self.avObject objectForKey:keyisNote] boolValue];
 }
 
 - (BOOL)isComplete {
-    return [self.avObject objectForKey:keyisComplete];
+    return [[self.avObject objectForKey:keyisComplete] boolValue];
 }
 
 - (BOOL)isShared {
-    return [self.avObject objectForKey:keyisShared];
+    return [[self.avObject objectForKey:keyisShared] boolValue];
 }
 
 

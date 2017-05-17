@@ -62,7 +62,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="0.50833147469999995" blue="0.47682454819999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="Siz-8D-zeH" firstAttribute="bottom" secondItem="ocl-c3-zv8" secondAttribute="bottom" id="BtX-D1-oDi"/>
                         <constraint firstItem="5we-VP-qul" firstAttribute="trailing" secondItem="syM-na-aPk" secondAttribute="trailingMargin" id="LSD-15-oKR"/>
@@ -86,7 +85,6 @@
                 </textField>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-Hp-1jR">
                     <rect key="frame" x="0.0" y="83" width="375" height="551"/>
-                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -141,7 +139,6 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.50833147469999995" blue="0.47682454819999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="mSO-au-xQp" firstAttribute="centerY" secondItem="pk6-BY-8ed" secondAttribute="centerY" id="0X9-cL-kSh"/>
                 <constraint firstItem="JVq-LQ-Cg5" firstAttribute="leading" secondItem="63m-3q-N7r" secondAttribute="trailing" constant="8" id="HUx-vZ-tYh"/>

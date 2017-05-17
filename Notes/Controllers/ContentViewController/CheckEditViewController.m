@@ -60,27 +60,52 @@
 }
 
 - (IBAction)backButtonDo:(id)sender {
+    NSString * content = @"";
+//    content = [content stringByAppendingString:@"apend"];
+    
+    for (CheckCellView * cell in self.cellArray) {
+        NSString * eachString = @"";
+        if (cell.statusDone == NO) {
+            eachString = [eachString stringByAppendingString:@"%[]"];
+        }
+        else {
+            eachString = [eachString stringByAppendingString:@"%[x]"];
+        }
+        eachString = [eachString stringByAppendingString:cell.checkContentView.text];
+        NSLog(@"eachString = %@",eachString);
+        content = [content stringByAppendingString:eachString];
+        NSLog(@"content = %@",content);
+
+    }
+    
     if (_isUpdating == NO) {
-        //只要有一个不空就新建
-        if (![self.titleField.text isEqualToString:@""]) {
-            [NoteService creatNewNoteWithTitle:self.titleField.text
-                                       content:@""
-                                          type:self.isNote
-                                      callback:^(BOOL succeeded) {
-                                          if (succeeded) {
-                                              [self.navigationController popViewControllerAnimated:YES];
-                                          }
-                                          else {
-                                              NSLog(@"error saving");
-                                              [self.navigationController popViewControllerAnimated:YES];
-                                          }
-                                      }];
+        //只要有一个不空就新建,false if
+        if (![self.titleField.text isEqualToString:@""] || ![content isEqualToString:@""]) {
+            if (![self.firstCell.checkContentView.text isEqualToString:@""]) {
+                [NoteService creatNewNoteWithTitle:self.titleField.text
+                                           content:content
+                                              type:self.isNote
+                                          callback:^(BOOL succeeded) {
+                                              if (succeeded) {
+                                                  [self.navigationController popViewControllerAnimated:YES];
+                                              }
+                                              else {
+                                                  NSLog(@"error saving");
+                                                  [self.navigationController popViewControllerAnimated:YES];
+                                              }
+                                          }];
+            }
+            else {
+                [self.navigationController popViewControllerAnimated:YES];
+
+            }
         }
         else {
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
+
 
 - (IBAction)keyboardDownBtnDo:(id)sender {
     [self.view endEditing:YES];

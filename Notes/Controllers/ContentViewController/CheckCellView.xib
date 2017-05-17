@@ -45,11 +45,11 @@
                         <constraint firstAttribute="height" constant="37" id="F9e-W7-8V4"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" flightNumber="YES"/>
                 </textView>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.50833147469999995" blue="0.47682454819999998" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Wmn-jD-N6z" secondAttribute="trailing" constant="10" id="AtQ-JW-QPE"/>
                 <constraint firstItem="Wmn-jD-N6z" firstAttribute="leading" secondItem="5Au-pu-Twm" secondAttribute="trailing" constant="5" id="DBY-la-2MI"/>

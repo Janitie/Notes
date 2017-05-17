@@ -10,7 +10,6 @@
 
 @interface CheckCellView ()
 {
-    BOOL _statusDone;
 }
 
 @end
@@ -21,7 +20,7 @@
     self = [[[NSBundle mainBundle] loadNibNamed:@"CheckCellView" owner:self options:nil] firstObject];
     if (self) {
         self.checkContentView.delegate = self;
-        _statusDone = NO;
+        self.statusDone = NO;
     }
     return self;
 }
