@@ -17,7 +17,6 @@
                 <outlet property="inputBottomView" destination="pk6-BY-8ed" id="jil-RA-klV"/>
                 <outlet property="keyboardDownButton" destination="ocl-c3-zv8" id="eNz-wp-hRi"/>
                 <outlet property="labelButton" destination="5we-VP-qul" id="ecV-wu-Kbe"/>
-                <outlet property="tableView" destination="2ng-Di-bG2" id="J2q-Jb-b1H"/>
                 <outlet property="titleField" destination="ujC-1l-Cf3" id="XOQ-zF-1fg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,10 +26,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="top" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2ng-Di-bG2">
-                    <rect key="frame" x="16" y="83" width="343" height="543"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="syM-na-aPk">
                     <rect key="frame" x="0.0" y="634" width="375" height="33"/>
                     <subviews>
@@ -90,16 +85,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="syM-na-aPk" firstAttribute="top" secondItem="2ng-Di-bG2" secondAttribute="bottom" constant="8" symbolic="YES" id="3G8-kM-dmB"/>
                 <constraint firstAttribute="trailing" secondItem="ujC-1l-Cf3" secondAttribute="trailing" constant="20" id="4eB-An-IHe"/>
-                <constraint firstItem="2ng-Di-bG2" firstAttribute="centerX" secondItem="syM-na-aPk" secondAttribute="centerX" id="HLZ-AH-Mmj"/>
-                <constraint firstItem="2ng-Di-bG2" firstAttribute="top" secondItem="ujC-1l-Cf3" secondAttribute="bottom" id="IF1-yx-FhK"/>
                 <constraint firstItem="ujC-1l-Cf3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="RA7-sQ-tmp"/>
                 <constraint firstItem="syM-na-aPk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SM6-z5-0Bw"/>
                 <constraint firstAttribute="bottom" secondItem="syM-na-aPk" secondAttribute="bottom" id="WV5-UI-RJD"/>
                 <constraint firstAttribute="trailing" secondItem="syM-na-aPk" secondAttribute="trailing" id="baG-bC-ht1"/>
                 <constraint firstItem="ujC-1l-Cf3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="ozD-GZ-51o"/>
-                <constraint firstAttribute="trailing" secondItem="2ng-Di-bG2" secondAttribute="trailing" constant="16" id="z0a-RF-Ceq"/>
             </constraints>
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>

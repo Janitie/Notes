@@ -7,15 +7,16 @@
 //
 
 #import "CheckEditViewController.h"
-#import "CheckSonCell.h"
 #import "NoteService.h"
+#import "CheckCellView.h"
 
-@interface CheckEditViewController ()
+@interface CheckEditViewController ()<checkCellTextViewDelegate>
 {
     NoteObject * _note;
-    
     BOOL _isUpdating;
 }
+
+@property (nonatomic, strong) CheckCellView * firstCell;
 
 @end
 
@@ -32,14 +33,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.titleField.delegate = self;
-    
-    [self.tableView registerNib:[CheckSonCell cellNib]
-         forCellReuseIdentifier:[CheckSonCell cellIdentifier]];
+
     
     self.titleField.inputAccessoryView = self.inputBottomView;
+    self.firstCell.checkContentView.inputAccessoryView = self.inputBottomView;
+    
+    self.firstCell.delegate = self;
+    [self.view addSubview:self.firstCell];
 }
 
 - (IBAction)backButtonDo:(id)sender {
@@ -67,9 +67,11 @@
 
 - (IBAction)keyboardDownBtnDo:(id)sender {
     [self.titleField resignFirstResponder];
+    [self.firstCell.checkContentView resignFirstResponder];
 }
 
 - (IBAction)labelButtonDo:(id)sender {
+    NSLog(@"label");
 }
 
 
@@ -82,36 +84,20 @@
 }// called when 'return' key pressed. return NO to ignore.
 
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (CheckCellView *)firstCell {
+    if (_firstCell == nil) {
+        _firstCell = [[CheckCellView alloc] init];
+        _firstCell.frame = CGRectMake(0, 80, CGRectGetWidth(self.view.frame), 57);
+    }
+    return _firstCell;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CheckSonCell * sonCell = [tableView dequeueReusableCellWithIdentifier:[CheckSonCell cellIdentifier] forIndexPath:indexPath];
-//    sonCell.inputAccessoryView = self.inputBottomView;
-    return sonCell;
+- (void)adjustCellHeight {
+    NSLog(@"changing frame");
+    self.firstCell.frame = CGRectMake(0, self.firstCell.frame.origin.y, self.firstCell.frame.size.width, self.firstCell.checkContentView.frame.size.height + 20);
 }
 
 
-
-
-#pragma mark - Table view delegate
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-}
 
 
 - (void)didReceiveMemoryWarning {

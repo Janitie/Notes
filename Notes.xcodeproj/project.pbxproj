@@ -60,8 +60,8 @@
 		3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC341EC34FDE00F94ED9 /* NoteService.m */; };
 		3BC661371ECBDAD2001D1BFB /* CheckEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */; };
 		3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */; };
-		3BC661391ECBDAD2001D1BFB /* CheckSonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661351ECBDAD2001D1BFB /* CheckSonCell.m */; };
-		3BC6613A1ECBDAD2001D1BFB /* CheckSonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661361ECBDAD2001D1BFB /* CheckSonCell.xib */; };
+		3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */; };
+		3BC6613F1ECC05F5001D1BFB /* CheckCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
 /* End PBXBuildFile section */
 
@@ -149,9 +149,9 @@
 		3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckEditViewController.h; path = ContentViewController/CheckEditViewController.h; sourceTree = "<group>"; };
 		3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckEditViewController.m; path = ContentViewController/CheckEditViewController.m; sourceTree = "<group>"; };
 		3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckEditViewController.xib; path = ContentViewController/CheckEditViewController.xib; sourceTree = "<group>"; };
-		3BC661341ECBDAD2001D1BFB /* CheckSonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckSonCell.h; path = ContentViewController/CheckSonCell.h; sourceTree = "<group>"; };
-		3BC661351ECBDAD2001D1BFB /* CheckSonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckSonCell.m; path = ContentViewController/CheckSonCell.m; sourceTree = "<group>"; };
-		3BC661361ECBDAD2001D1BFB /* CheckSonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckSonCell.xib; path = ContentViewController/CheckSonCell.xib; sourceTree = "<group>"; };
+		3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckCellView.h; path = ContentViewController/CheckCellView.h; sourceTree = "<group>"; };
+		3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckCellView.m; path = ContentViewController/CheckCellView.m; sourceTree = "<group>"; };
+		3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckCellView.xib; path = ContentViewController/CheckCellView.xib; sourceTree = "<group>"; };
 		D816E3EE48F5A4D9B3CD8F26 /* Pods-Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notes/Pods-Notes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,9 +207,9 @@
 				3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */,
 				3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */,
 				3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */,
-				3BC661341ECBDAD2001D1BFB /* CheckSonCell.h */,
-				3BC661351ECBDAD2001D1BFB /* CheckSonCell.m */,
-				3BC661361ECBDAD2001D1BFB /* CheckSonCell.xib */,
+				3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */,
+				3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */,
+				3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */,
 				3B08DDAE1EC9D110007457F2 /* LabelView.h */,
 				3B08DDAF1EC9D110007457F2 /* LabelView.m */,
 				3B08DDB11EC9D15E007457F2 /* LabelView.xib */,
@@ -523,11 +523,11 @@
 				3B1BDA9B1EC065B600C24315 /* CheckTableViewCell.xib in Resources */,
 				3B1BDAA51EC065F100C24315 /* MainTableViewController.xib in Resources */,
 				3B08DDB21EC9D15E007457F2 /* LabelView.xib in Resources */,
+				3BC6613F1ECC05F5001D1BFB /* CheckCellView.xib in Resources */,
 				3B1BDA9C1EC065B600C24315 /* FirstTableViewCell.xib in Resources */,
 				3B08DD8F1EC714E3007457F2 /* Main.storyboard in Resources */,
 				3B1BDA721EBCAEFF00C24315 /* ShareSDK.bundle in Resources */,
 				3B1BDA9D1EC065B600C24315 /* NoteTableViewCell.xib in Resources */,
-				3BC6613A1ECBDAD2001D1BFB /* CheckSonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +591,7 @@
 				3B08DDB01EC9D110007457F2 /* LabelView.m in Sources */,
 				3B61DC2F1EC3403E00F94ED9 /* ReaderObject.m in Sources */,
 				3B1BDAA81EC0661600C24315 /* NewButton.m in Sources */,
+				3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */,
 				3B498B1E1EB4CC54006D6AB1 /* LogInViewController.m in Sources */,
 				3B1BDA9F1EC065B600C24315 /* FirstTableViewCell.m in Sources */,
 				3B1BDAB01EC0CB7100C24315 /* NoteObject.m in Sources */,
@@ -603,7 +604,6 @@
 				3B498AC21EB1C2A8006D6AB1 /* main.m in Sources */,
 				3B08DD8D1EC7149F007457F2 /* UIView+SetRect.m in Sources */,
 				3B1BDAB61EC0E7EE00C24315 /* TagObject.m in Sources */,
-				3BC661391ECBDAD2001D1BFB /* CheckSonCell.m in Sources */,
 				3B1BDAB31EC0D0A900C24315 /* BaseDataModel.m in Sources */,
 				3B1BDAA01EC065B600C24315 /* NoteTableViewCell.m in Sources */,
 				3B1BDA901EC064C600C24315 /* ContentViewController.m in Sources */,

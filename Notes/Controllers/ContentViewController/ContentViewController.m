@@ -137,18 +137,22 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    //second return
 //    NSLog(@"shouldChangeTextInRange text = %@", textView.text);
     return YES;
 }
+
+- (void)textViewDidChange:(UITextView *)textView {
+    //first return
+//    NSLog(@"DidtextViewDidChangeChange text = %@", textView.text);
+}
+
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
 //    NSLog(@"textViewShouldBeginEditing text = %@", textView.text);
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-//    NSLog(@"DidtextViewDidChangeChange text = %@", textView.text);
-}
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
 //    NSLog(@"textViewDidBeginEditing text = %@", textView.text);

@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "NoteObject.h"
 
-@interface CheckEditViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface CheckEditViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
