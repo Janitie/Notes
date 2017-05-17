@@ -17,11 +17,19 @@
 
 // 用于存储TagView
 @property (nonatomic, strong) NSMutableArray * labelTags;
-@property (nonatomic, assign) BOOL canAddNewTag;    // default is NO
+@property (nonatomic, strong) TagView * editTag;
 
 @end
 
 @implementation LabelView
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.canAddNewTag = NO;
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame Addable:(BOOL)canAddNew {
     self = [super initWithFrame:frame];
@@ -66,15 +74,14 @@
         // 设置位置
         tagView.frame = tagFrame;
         // 设置是否被选中
-        tagView.isSelected = [self isSelectedTag:tagStr];
+        tagView.isSelected = [self isTagSelected:tagStr];
         
         [self addSubview:tagView];
     }
     
     // 如果可以添加新标签，则添加一个可编辑的tagView
     if (self.canAddNewTag) {
-        TagView * tagView = [[TagView alloc] init];
-        tagView.delegate = self;
+        TagView * tagView = self.editTag;
         CGRect tagFrame = tagView.frame;
         CGFloat tagWidth = CGRectGetWidth(tagFrame);
         CGFloat tagHeight = CGRectGetHeight(tagFrame);
@@ -105,7 +112,7 @@
     [self.labelTags removeAllObjects];
 }
 
-- (BOOL)isSelectedTag:(NSString *)tagTitle {
+- (BOOL)isTagSelected:(NSString *)tagTitle {
     BOOL isSelected = NO;
     for (NSString *selectedTagStr in self.seletedTags) {
         if ([selectedTagStr isEqualToString:tagTitle]) {
@@ -116,6 +123,25 @@
     return isSelected;
 }
 
+- (void)makeTagSelected:(NSString *)tagTitle {
+    if (![self isTagSelected:tagTitle]) {
+        NSMutableArray * selectedArray = [self.seletedTags mutableCopy];
+        [selectedArray addObject:tagTitle];
+        _seletedTags = selectedArray;
+    }
+}
+
+- (void)makeTagUnSelected:(NSString *)tagTitle {
+    NSMutableArray * selectedArray =[self.seletedTags mutableCopy];
+    for (NSString * selectedTag in selectedArray) {
+        if ([selectedTag isEqualToString:tagTitle]) {
+            [selectedArray removeObject:selectedTag];
+            break;
+        }
+    }
+    _seletedTags = selectedArray;
+}
+
 #pragma mark - Getter
 - (NSMutableArray *)labelTags {
     if (_labelTags == nil) {
@@ -124,8 +150,21 @@
     return _labelTags;
 }
 
+- (TagView *)editTag {
+    if (_editTag == nil) {
+        _editTag = [[TagView alloc] initWithEditable:YES
+                                               title:nil];
+        _editTag.delegate = self;
+    }
+    return _editTag;
+}
 
 #pragma mark - Setter   
+- (void)setCanAddNewTag:(BOOL)canAddNewTag {
+    _canAddNewTag = canAddNewTag;
+    [self updateTagsStyle];
+}
+
 - (void)setAllTags:(NSArray *)allTags {
     _allTags = allTags;
     [self updateTagsStyle];
@@ -137,5 +176,26 @@
 }
 
 
+#pragma mark - Delegate
+- (void)tagDidSelect:(TagView *)tag {
+    if (tag.isSelected) {
+        [self makeTagSelected:tag.tagTitle];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(labelView:didSelectedTag:)]) {
+            [self.delegate labelView:self didSelectedTag:tag.tagTitle];
+        }
+    } else {
+        [self makeTagUnSelected:tag.tagTitle];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(labelView:didDeselectedTag:)]) {
+            [self.delegate labelView:self didDeselectedTag:tag.tagTitle];
+        }
+    }
+}
+
+- (BOOL)tagDidPushReturnKey:(NSString *)tag {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(labelView:didEnterNewTag:)]) {
+        return [self.delegate labelView:self didEnterNewTag:tag];
+    }
+    return NO;
+}
 
 @end

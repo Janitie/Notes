@@ -11,6 +11,7 @@
 @class TagView;
 
 @protocol TagViewDelegate <NSObject>
+
 @optional
 - (void)tagDidSelect:(TagView *)tag;
 - (BOOL)tagDidPushReturnKey:(NSString *)tag;

@@ -16,7 +16,8 @@
 
     BOOL _isUpdating;
 }
-@property(nonatomic,strong) LabelView * tagView;
+@property (nonatomic, strong) IBOutlet LabelView * tagView;
+@property (nonatomic, strong) LabelView * tagInputView;
 
 @end
 
@@ -42,7 +43,9 @@
     self.titleField.text = _note.title;
     self.textView.text = _note.content;
     
-    
+    [self.tagView setCanAddNewTag:YES];
+    [self.tagView setAllTags:@[@"LLLL", @"hello world", @"madan", @"madan", @"madan", @"madan",@"madan"]];
+    [self.tagView setSeletedTags:@[@"LLLL", @"hello world"]];
 }
 
 - (void)setDataNoteObject:(NoteObject *)note {
@@ -50,6 +53,13 @@
     _isUpdating = YES;
 }
 
+#pragma mark - Getter 
+- (LabelView *)tagView {
+    if (_tagView == nil) {
+        _tagView = [[LabelView alloc] initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 100) Addable:YES];
+    }
+    return _tagView;
+}
 
 #pragma mark - button
 

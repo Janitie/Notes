@@ -34,14 +34,33 @@
     return self;
 }
 
+- (instancetype)initWithObjectId:(NSString *)objectId
+{
+    self = [super init];
+    if (self) {
+        self.avObject = [AVObject objectWithClassName:[self className]
+                                             objectId:objectId];
+    }
+    return self;
+}
+
 - (NSString *)className
 {
     return @"baseClassName";
 }
 
++ (AVQuery *)query {
+    return [AVQuery queryWithClassName:[[[self class] new] className]];
+}
+
 + (instancetype)newObject
 {
     return [[self class] new];
+}
+
++ (instancetype)newObjectWithObjectId:(NSString *)objectId
+{
+    return [[[self class] alloc] initWithObjectId:objectId];
 }
 
 + (instancetype)objectWithObject:(AVObject *)object
@@ -65,6 +84,10 @@
     NSDateFormatter * formatter = [NSDateFormatter new];
     formatter.dateFormat = @"yyyy.MM.dd";
     return [formatter stringFromDate:self.avObject.updatedAt];
+}
+
+- (NSString *)objectId {
+    return [self.avObject objectId];
 }
 
 @end

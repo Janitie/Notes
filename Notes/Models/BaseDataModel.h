@@ -19,10 +19,13 @@
 @property (nonatomic, strong, readonly) AVObject * avObject;
 @property (nonatomic, readonly) NSString * createAt;
 @property (nonatomic, readonly) NSString * updateAt;
+@property (nonatomic, readonly) NSString * objectId;
 
++ (AVQuery *) query;
 + (instancetype) newObject;
++ (instancetype) newObjectWithObjectId: (NSString *)objectId;
 + (instancetype) objectWithObject: (AVObject *)object;
 
 - (instancetype) initWithAVObject: (AVObject *)object;
-
+- (instancetype) initWithObjectId: (NSString *)objectId;
 @end

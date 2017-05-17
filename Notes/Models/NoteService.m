@@ -26,7 +26,6 @@
             callback(NO);
         }
     }];
-
 }
 
 
@@ -93,5 +92,137 @@
                             }
                         }];
 }
+
+#pragma mark - Tags
+/// 添加新Tag
++ (void)addNewTag:(NSString *)tagTitle callback:(void (^)(BOOL isSuccess, TagObject * object))callback {
+    if (LocalDataInstance.isLogin) {
+        TagObject * tagObject = [TagObject newObject];
+        tagObject.userId = LocalDataInstance.userId;
+        tagObject.tagName = tagTitle;
+        [tagObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!error) {
+                callback (YES, tagObject);
+            } else {
+                callback (NO, tagObject);
+            }
+        }];
+    } else {
+        callback(NO, nil);
+    }
+}
+
+/// 删除Tag
++ (void)deleteTag:(NSString *)tagId callback:(void (^)(BOOL isSuccess))callback {
+    AVQuery *query = [TagObject query];
+    [query getObjectInBackgroundWithId:tagId
+                                 block:^(AVObject * _Nullable object, NSError * _Nullable error)
+    {
+        if (object != nil) {
+            [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                callback (succeeded);
+            }];
+        } else {
+            callback (YES);
+        }
+    }];
+}
+
+/// 获取用户的标签
++ (void)getTagsWithUserId:(NSString *)userId callback:(void (^)(NSArray<TagObject *> * result))callback {
+    AVQuery * query = [TagObject query];
+    [query whereKey:@"userId" equalTo:userId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (!error) {
+            NSMutableArray * results = [NSMutableArray array];
+            for (AVObject * avObj in objects) {
+                TagObject * tagObj = [[TagObject alloc] initWithAVObject:avObj];
+                [results addObject:tagObj];
+            }
+            callback (results);
+        } else {
+            callback (nil);
+        }
+    }];
+}
+
+/// 获取文章的标签
++ (void)getTagsWithNoteId:(NSString *)noteId callback:(void (^)(NSArray<TagObject *> * result))callback {
+    AVQuery * query = [NoteTagObject query];
+    [query whereKey:@"noteId" equalTo:noteId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (objects && objects.count > 0) {
+            NSMutableArray * tagObjects = [NSMutableArray array];
+            for (AVObject * avObj in objects) {
+                NoteTagObject * obj = [[NoteTagObject alloc] initWithAVObject:avObj];
+                TagObject * tagObj = [TagObject newObjectWithObjectId:obj.tagId];
+                [tagObjects addObject:tagObj.avObject];
+            }
+            [AVObject fetchAllInBackground:tagObjects
+                                     block:^(NSArray * _Nullable objects, NSError * _Nullable error)
+            {
+                if (!error) {
+                    NSMutableArray * tagResults = [NSMutableArray array];
+                    for (AVObject * avObj in objects) {
+                        TagObject * tagObj = [[TagObject alloc] initWithAVObject:avObj];
+                        [tagResults addObject:tagObj];
+                    }
+                    callback (tagResults);
+                } else {
+                    callback (nil);
+                }
+            }];
+        } else {
+            callback (nil);
+        }
+    }];
+}
+
+/// 添加文章标签
++ (void)addNoteTagWithNoteId:(NSString *)noteId
+                       tagId:(NSString *)tagId
+                    callback:(void (^)(BOOL isSuccess))callback
+{
+    AVQuery * query = [NoteTagObject query];
+    [query whereKey:@"noteId" equalTo:noteId];
+    [query whereKey:@"tagId" equalTo:tagId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        if (objects.count <= 0) {
+            NoteTagObject * obj = [NoteTagObject newObject];
+            obj.noteId = noteId;
+            obj.tagId = tagId;
+            [obj.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error)
+            {
+                callback(succeeded);
+            }];
+        } else {
+            callback (YES);
+        }
+    }];
+}
+
+/// 删除文章标签
++ (void)deleteNoteTagWithNoteId:(NSString *)noteId
+                          TagId:(NSString *)tagId
+                       callback:(void (^)(BOOL isSuccess))callback
+{
+    AVQuery * query = [NoteTagObject query];
+    [query whereKey:@"noteId" equalTo:noteId];
+    [query whereKey:@"tagId" equalTo:tagId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        if (objects.count > 0) {
+            [AVObject deleteAllInBackground:objects
+                                      block:^(BOOL succeeded, NSError * _Nullable error)
+            {
+                callback(succeeded);
+            }];
+        } else {
+            callback (YES);
+        }
+    }];
+}
+
 
 @end

@@ -9,7 +9,7 @@
 #import "TagObject.h"
 
 static NSString * KeyName = @"tagName";
-//static NSString * KeyColor = @"tagColor";
+static NSString * KeyUserId = @"userId";
 
 @implementation TagObject
 
@@ -22,14 +22,17 @@ static NSString * KeyName = @"tagName";
     [self.avObject setObject:tagName forKey:KeyName];
 }
 
-//- (void)setTagColor:(colorType)tagColor {
-//    [self.avObject setObject:tagColor forKey:KeyColor];
-//}
+- (void)setUserId:(NSString *)userId {
+    [self.avObject setObject:userId forKey:KeyUserId];
+}
 
 #pragma mark - getter
 - (NSString *)tagName {
     return [self.avObject objectForKey:KeyName];
 }
 
+- (NSString *)userId {
+    return [self.avObject objectForKey:KeyUserId];
+}
 
 @end

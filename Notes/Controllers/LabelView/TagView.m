@@ -58,6 +58,7 @@ alpha:1.0f]
 - (void)setupView {
     // 添加内容
     if (self.isEditable) {
+        [self.titleTextField setText:self.tagTitle];
         [self addSubview:self.titleTextField];
         // 设置View
         self.layer.masksToBounds = YES;
@@ -67,6 +68,7 @@ alpha:1.0f]
         self.backgroundColor = EditBackgroundColor;
         
     } else {
+        [self.titleLabel setText:self.tagTitle];
         [self addSubview:self.titleLabel];
         [self addGesture];
         // 设置View
@@ -99,18 +101,11 @@ alpha:1.0f]
 - (void)resizeTagView {
     UIView * titleView;
     if (self.isEditable) {
+        [self.titleTextField sizeToFit];
+        titleView = self.titleTextField;
+    } else {
         [self.titleLabel sizeToFit];
         titleView = self.titleLabel;
-    } else {
-        BOOL isEmpty = [self.titleTextField.text isEqualToString:@""];
-        if (isEmpty) {
-            self.titleTextField.text = @"添加标签";
-            [self.titleTextField sizeToFit];
-            self.titleTextField.text = @"";
-        } else {
-            [self.titleTextField sizeToFit];
-        }
-        titleView = self.titleTextField;
     }
     
     CGRect viewFrame = self.frame;
