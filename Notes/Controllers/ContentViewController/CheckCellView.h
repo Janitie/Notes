@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class CheckCellView;
+
 @protocol checkCellTextViewDelegate <NSObject>
 
-- (void)adjustCellHeight;
+- (void)adjustCellHeight:(CheckCellView *)cell;
 - (void)didPushEnterAddHeight:(CGFloat)height;
+- (void)deleteCell:(CheckCellView *)cell Height:(CGFloat)height;
+
 
 @end
 

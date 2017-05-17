@@ -36,17 +36,20 @@
 }
 
 - (IBAction)deleteButtonDo:(id)sender {
-    self.checkContentView.text = @"";
-    self.checkContentView.frame = CGRectMake(40, 10, 305, self.checkContentView.contentSize.height);
+//    self.checkContentView.text = @"";
+//    self.checkContentView.frame = CGRectMake(40, 10, 305, self.checkContentView.contentSize.height);
+    
+    NSLog(@" oldheight = %f, contentHeight = %f",self.frame.size.height,self.checkContentView.frame.size.height);
 
-    if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight)]) {
-        [_delegate adjustCellHeight];
+    if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight:)] && [_delegate respondsToSelector:@selector(deleteCell:Height:)]) {
+//        [_delegate adjustCellHeight:self];
+        [_delegate deleteCell:self Height:self.frame.size.height];
     }
 }
 
 
 - (void)textViewDidChange:(UITextView *)textView {
-    NSLog(@"2 = %@",textView.text);
+//    NSLog(@"2 = %@",textView.text);
     self.checkContentView.frame = CGRectMake(40, 10, 305, self.checkContentView.contentSize.height);
 }
 
@@ -59,9 +62,9 @@
         return NO;
     }
     
-    NSLog(@"4 = %@",textView.text);
-    if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight)]) {
-        [_delegate adjustCellHeight];
+//    NSLog(@"4 = %@",textView.text);
+    if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight:)]) {
+        [_delegate adjustCellHeight:self];
     }
     return YES;
 }

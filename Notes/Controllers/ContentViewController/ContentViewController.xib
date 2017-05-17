@@ -154,10 +154,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="34.5" y="123.5"/>
         </view>
-        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="hXc-qN-o13">
-            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </activityIndicatorView>
         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ouG-lI-GY3">
             <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

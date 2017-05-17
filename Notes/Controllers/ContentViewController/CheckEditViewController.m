@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) CheckCellView * firstCell;
 @property (strong, nonatomic) IBOutlet UIScrollView *tableCellView;
+@property (nonatomic, strong) NSMutableArray<CheckCellView *> * cellArray;
+
 
 @end
 
@@ -70,15 +72,12 @@
 }
 
 - (IBAction)keyboardDownBtnDo:(id)sender {
-    [self.titleField resignFirstResponder];
-    [self.firstCell.checkContentView resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 - (IBAction)labelButtonDo:(id)sender {
     NSLog(@"label");
 }
-
-
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -88,6 +87,8 @@
 }// called when 'return' key pressed. return NO to ignore.
 
 
+
+#pragma mark - getter
 - (CheckCellView *)firstCell {
     if (_firstCell == nil) {
         _firstCell = [[CheckCellView alloc] init];
@@ -103,26 +104,65 @@
     return _tableCellView;
 }
 
+- (NSMutableArray<CheckCellView *> *)cellArray {
+    if (_cellArray == nil) {
+        self.cellArray = [[NSMutableArray alloc] init];
+        [self.cellArray addObject:self.firstCell];
+    }
+    return _cellArray;
+}
 
-- (void)adjustCellHeight {
-    NSLog(@"changing frame");
-    self.firstCell.frame = CGRectMake(0, self.firstCell.frame.origin.y, self.firstCell.frame.size.width, self.firstCell.checkContentView.frame.size.height + 20);
+#pragma mark - delegate
+
+- (void)deleteCell:(CheckCellView *)cell Height:(CGFloat)height{
+    NSInteger index = [self.cellArray indexOfObject:cell];
+    if (index != 0) {
+        for (; index < [self.cellArray count] - 1; index++) {
+            CGRect fomalRect = self.cellArray[index + 1].frame;
+            NSLog(@" HEIGHT = %f",cell.frame.size.height);
+            NSLog(@" newHeight = %f",height);
+            fomalRect.origin.y -= height;
+            self.cellArray[index + 1].frame = fomalRect;
+        }
+        [self.cellArray removeObject:cell];
+        [cell removeFromSuperview];
+        addFloat -= height;
+    }
+    else {
+        cell.checkContentView.text = @"";
+        for (; index < [self.cellArray count] - 1; index++) {
+            CGRect fomalRect = self.cellArray[index + 1].frame;
+            fomalRect.origin.y -= height - 57;
+            self.cellArray[index + 1].frame = fomalRect;
+        }
+        addFloat -= height - 57;
+
+    }
+}
+
+- (void)adjustCellHeight:(CheckCellView *)cell {
+//    NSLog(@"changing frame");
+    cell.frame = CGRectMake(0, cell.frame.origin.y, cell.frame.size.width, cell.checkContentView.frame.size.height + 20);
 }
 
 - (void)didPushEnterAddHeight:(CGFloat)height {
     NSLog(@"ADD A CELL");
     NSLog(@" 1 flaot = %f",addFloat);
+    addFloat += height;
+    NSLog(@" 2 flaot = %f",addFloat);
+    
     CheckCellView * newCell = [[CheckCellView alloc] init];
     newCell.delegate = self;
     newCell.frame = CGRectMake(0,
-                               self.firstCell.frame.origin.y + self.firstCell.frame.size.height + addFloat,
+                               addFloat,
                                self.view.frame.size.width,
                                57);
     
-    newCell.checkContentView.inputView = self.inputBottomView;
+    [newCell.checkContentView becomeFirstResponder];
+    newCell.checkContentView.inputAccessoryView = self.inputBottomView;
+    
+    [self.cellArray addObject:newCell];
     [self.tableCellView addSubview:newCell];
-    addFloat += height;
-    NSLog(@" 2 flaot = %f",addFloat);
     self.tableCellView.contentSize = CGSizeMake(self.view.frame.size.width, addFloat);
 
 }
