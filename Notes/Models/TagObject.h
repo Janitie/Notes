@@ -10,16 +10,13 @@
 
 static NSString * TagClass = @"Tag";
 
-//typedef enum : NSUInteger {
-//    Red = 0,
-//    Yellow,
-//    Blue,
-//    Green
-//} colorType;
 
 @interface TagObject : BaseDataModel
 
-@property (nonatomic) NSString * tagName;
+/// 拥有者
+@property (nonatomic, strong) NSString * userId;
+/// tag的名字
+@property (nonatomic, strong) NSString * tagName;
 //@property (nonatomic) colorType tagColor;
 
 

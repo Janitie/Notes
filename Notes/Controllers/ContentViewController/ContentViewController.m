@@ -16,7 +16,8 @@
 
     BOOL _isUpdating;
 }
-@property(nonatomic,strong) LabelView * tagView;
+@property (nonatomic, strong) IBOutlet LabelView * tagView;
+@property (nonatomic, strong) LabelView * tagInputView;
 
 @end
 
@@ -50,6 +51,13 @@
     _isUpdating = YES;
 }
 
+#pragma mark - Getter 
+- (LabelView *)tagView {
+    if (_tagView == nil) {
+        _tagView = [[LabelView alloc] initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 100) Addable:YES];
+    }
+    return _tagView;
+}
 
 #pragma mark - button
 

@@ -14,8 +14,6 @@
 		3B08DD8C1EC7149F007457F2 /* LLSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B08DD861EC7149F007457F2 /* LLSlideMenu.m */; };
 		3B08DD8D1EC7149F007457F2 /* UIView+SetRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B08DD881EC7149F007457F2 /* UIView+SetRect.m */; };
 		3B08DD8F1EC714E3007457F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B08DD8E1EC714E3007457F2 /* Main.storyboard */; };
-		3B08DDB01EC9D110007457F2 /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B08DDAF1EC9D110007457F2 /* LabelView.m */; };
-		3B08DDB21EC9D15E007457F2 /* LabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B08DDB11EC9D15E007457F2 /* LabelView.xib */; };
 		3B1BDA4E1EBB05DF00C24315 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B1BDA4D1EBB05DF00C24315 /* Assets.xcassets */; };
 		3B1BDA681EBCAEFF00C24315 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1BDA531EBCAEFF00C24315 /* ShareSDK.framework */; };
 		3B1BDA691EBCAEFF00C24315 /* ShareSDKConfigFile.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B1BDA561EBCAEFF00C24315 /* ShareSDKConfigFile.bundle */; };
@@ -63,6 +61,11 @@
 		3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */; };
 		3BC6613F1ECC05F5001D1BFB /* CheckCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
+		AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6818261ECCC65C0000774D /* LocalDataModel.m */; };
+		AD68182E1ECCC69B0000774D /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182B1ECCC69B0000774D /* LabelView.m */; };
+		AD68182F1ECCC69B0000774D /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182D1ECCC69B0000774D /* TagView.m */; };
+		AD9647441ECC999000A6AA37 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		ADB931FE1ECBF9D000706FA2 /* (null) in Sources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,9 +84,6 @@
 		3B08DD871EC7149F007457F2 /* UIView+SetRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SetRect.h"; path = "Notes/Views/LLSlideMenu/UIView+SetRect.h"; sourceTree = SOURCE_ROOT; };
 		3B08DD881EC7149F007457F2 /* UIView+SetRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+SetRect.m"; path = "Notes/Views/LLSlideMenu/UIView+SetRect.m"; sourceTree = SOURCE_ROOT; };
 		3B08DD8E1EC714E3007457F2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		3B08DDAE1EC9D110007457F2 /* LabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelView.h; sourceTree = "<group>"; };
-		3B08DDAF1EC9D110007457F2 /* LabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelView.m; sourceTree = "<group>"; };
-		3B08DDB11EC9D15E007457F2 /* LabelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelView.xib; sourceTree = "<group>"; };
 		3B1BDA4D1EBB05DF00C24315 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B1BDA531EBCAEFF00C24315 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		3B1BDA561EBCAEFF00C24315 /* ShareSDKConfigFile.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKConfigFile.bundle; sourceTree = "<group>"; };
@@ -152,6 +152,12 @@
 		3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckCellView.h; path = ContentViewController/CheckCellView.h; sourceTree = "<group>"; };
 		3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckCellView.m; path = ContentViewController/CheckCellView.m; sourceTree = "<group>"; };
 		3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckCellView.xib; path = ContentViewController/CheckCellView.xib; sourceTree = "<group>"; };
+		AD6818251ECCC65C0000774D /* LocalDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDataModel.h; sourceTree = "<group>"; };
+		AD6818261ECCC65C0000774D /* LocalDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDataModel.m; sourceTree = "<group>"; };
+		AD68182A1ECCC69B0000774D /* LabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelView.h; sourceTree = "<group>"; };
+		AD68182B1ECCC69B0000774D /* LabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelView.m; sourceTree = "<group>"; };
+		AD68182C1ECCC69B0000774D /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
+		AD68182D1ECCC69B0000774D /* TagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagView.m; sourceTree = "<group>"; };
 		D816E3EE48F5A4D9B3CD8F26 /* Pods-Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notes/Pods-Notes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +207,7 @@
 		3B1BDA401EB8461600C24315 /* ContentViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD6818291ECCC69B0000774D /* LabelView */,
 				3B1BDA8D1EC064C600C24315 /* ContentViewController.h */,
 				3B1BDA8E1EC064C600C24315 /* ContentViewController.m */,
 				3B1BDA8F1EC064C600C24315 /* ContentViewController.xib */,
@@ -210,9 +217,6 @@
 				3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */,
 				3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */,
 				3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */,
-				3B08DDAE1EC9D110007457F2 /* LabelView.h */,
-				3B08DDAF1EC9D110007457F2 /* LabelView.m */,
-				3B08DDB11EC9D15E007457F2 /* LabelView.xib */,
 			);
 			name = ContentViewController;
 			sourceTree = "<group>";
@@ -309,6 +313,7 @@
 		3B1BDA8C1EC060E000C24315 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AD9647411ECC995D00A6AA37 /* LocalData */,
 				3B1BDAAC1EC0666500C24315 /* DataModel */,
 				3B1BDAAD1EC0666F00C24315 /* Service */,
 			);
@@ -441,6 +446,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AD6818291ECCC69B0000774D /* LabelView */ = {
+			isa = PBXGroup;
+			children = (
+				AD68182A1ECCC69B0000774D /* LabelView.h */,
+				AD68182B1ECCC69B0000774D /* LabelView.m */,
+				AD68182C1ECCC69B0000774D /* TagView.h */,
+				AD68182D1ECCC69B0000774D /* TagView.m */,
+			);
+			path = LabelView;
+			sourceTree = "<group>";
+		};
+		AD9647411ECC995D00A6AA37 /* LocalData */ = {
+			isa = PBXGroup;
+			children = (
+				AD6818251ECCC65C0000774D /* LocalDataModel.h */,
+				AD6818261ECCC65C0000774D /* LocalDataModel.m */,
+			);
+			path = LocalData;
+			sourceTree = "<group>";
+		};
 		C3AC8AB4C5A180F6DC39F879 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,7 +547,6 @@
 				3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */,
 				3B1BDA9B1EC065B600C24315 /* CheckTableViewCell.xib in Resources */,
 				3B1BDAA51EC065F100C24315 /* MainTableViewController.xib in Resources */,
-				3B08DDB21EC9D15E007457F2 /* LabelView.xib in Resources */,
 				3BC6613F1ECC05F5001D1BFB /* CheckCellView.xib in Resources */,
 				3B1BDA9C1EC065B600C24315 /* FirstTableViewCell.xib in Resources */,
 				3B08DD8F1EC714E3007457F2 /* Main.storyboard in Resources */,
@@ -588,9 +612,9 @@
 			files = (
 				3B08DD891EC7149F007457F2 /* LLAnimationManager.m in Sources */,
 				3BC661371ECBDAD2001D1BFB /* CheckEditViewController.m in Sources */,
-				3B08DDB01EC9D110007457F2 /* LabelView.m in Sources */,
 				3B61DC2F1EC3403E00F94ED9 /* ReaderObject.m in Sources */,
 				3B1BDAA81EC0661600C24315 /* NewButton.m in Sources */,
+				AD68182E1ECCC69B0000774D /* LabelView.m in Sources */,
 				3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */,
 				3B498B1E1EB4CC54006D6AB1 /* LogInViewController.m in Sources */,
 				3B1BDA9F1EC065B600C24315 /* FirstTableViewCell.m in Sources */,
@@ -601,12 +625,16 @@
 				3B498AC51EB1C2A8006D6AB1 /* AppDelegate.m in Sources */,
 				3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */,
 				3B08DD8B1EC7149F007457F2 /* LLDisplayLayer.m in Sources */,
+				AD68182F1ECCC69B0000774D /* TagView.m in Sources */,
 				3B498AC21EB1C2A8006D6AB1 /* main.m in Sources */,
 				3B08DD8D1EC7149F007457F2 /* UIView+SetRect.m in Sources */,
 				3B1BDAB61EC0E7EE00C24315 /* TagObject.m in Sources */,
 				3B1BDAB31EC0D0A900C24315 /* BaseDataModel.m in Sources */,
 				3B1BDAA01EC065B600C24315 /* NoteTableViewCell.m in Sources */,
 				3B1BDA901EC064C600C24315 /* ContentViewController.m in Sources */,
+				ADB931FE1ECBF9D000706FA2 /* (null) in Sources */,
+				AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */,
+				AD9647441ECC999000A6AA37 /* (null) in Sources */,
 				3B08DD8A1EC7149F007457F2 /* LLCircleLayer.m in Sources */,
 				3B08DD7E1EC71478007457F2 /* INSSearchBar.m in Sources */,
 				3B61DC321EC341E800F94ED9 /* NoteTagObject.m in Sources */,
@@ -736,6 +764,9 @@
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/Required",
 				);
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${PROJECT_DIR}/Notes/PrefixHeader.pch";
 				INFOPLIST_FILE = Notes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -764,6 +795,9 @@
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/Required",
 				);
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${PROJECT_DIR}/Notes/PrefixHeader.pch";
 				INFOPLIST_FILE = Notes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
