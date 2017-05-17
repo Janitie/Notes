@@ -16,6 +16,9 @@
 - (void)didPushEnterAddHeight:(CGFloat)height;
 - (void)deleteCell:(CheckCellView *)cell Height:(CGFloat)height;
 
+- (void)moveKeyboardFromRect:(CGRect)rect;
+- (void)keyboardBack;
+
 
 @end
 

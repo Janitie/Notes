@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Notes/Controllers/ContentViewController/CheckEditViewController.m"
-            timestampString = "516722239.124964"
+            filePath = "Notes/Controllers/ContentViewController/CheckCellView.m"
+            timestampString = "516724433.208415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "-deleteCell:Height:"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-textViewShouldBeginEditing:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

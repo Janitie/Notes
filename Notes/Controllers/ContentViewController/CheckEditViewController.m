@@ -29,9 +29,20 @@
 - (instancetype)initWithBOOL:(BOOL)isNote {
     if ([super init]) {
         self.isNote = isNote;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
         
     }
     return self;
+}
+
+- (void) keyboardWasShown:(NSNotification *) notif
+{
+    NSDictionary *info = [notif userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGSize keyboardSize = [value CGRectValue].size;
+    
+    NSLog(@"keyBoard:%f", keyboardSize.height);  //216
+    ///keyboardWasShown = YES;
 }
 
 - (void)viewDidLoad {
@@ -112,7 +123,25 @@
     return _cellArray;
 }
 
-#pragma mark - delegate
+#pragma mark - delegates
+
+- (void)moveKeyboardFromRect:(CGRect)rect {
+    //below
+    if (rect.origin.y + rect.size.height > 274) {
+        NSTimeInterval animationDuration = 0.30f;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        
+        float offset = rect.size.height + 90 + (rect.origin.y - 374);//键盘高度293
+        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+        [UIView commitAnimations];
+    }
+}
+
+
+- (void)keyboardBack {
+    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+}
 
 - (void)deleteCell:(CheckCellView *)cell Height:(CGFloat)height{
     NSInteger index = [self.cellArray indexOfObject:cell];
@@ -163,7 +192,7 @@
     
     [self.cellArray addObject:newCell];
     [self.tableCellView addSubview:newCell];
-    self.tableCellView.contentSize = CGSizeMake(self.view.frame.size.width, addFloat);
+    self.tableCellView.contentSize = CGSizeMake(self.view.frame.size.width, addFloat + self.firstCell.frame.size.height);
 
 }
 

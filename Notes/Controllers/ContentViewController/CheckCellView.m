@@ -25,6 +25,9 @@
     }
     return self;
 }
+
+#pragma mark - bouttonDo
+
 - (IBAction)statusButtonDo:(id)sender {
     _statusDone = !_statusDone;
     if (_statusDone == YES) {
@@ -44,6 +47,22 @@
     if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight:)] && [_delegate respondsToSelector:@selector(deleteCell:Height:)]) {
 //        [_delegate adjustCellHeight:self];
         [_delegate deleteCell:self Height:self.frame.size.height];
+    }
+}
+
+#pragma mark - delegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    CGRect rect = self.frame;
+    if (_delegate && [_delegate respondsToSelector:@selector(moveKeyboardFromRect:)]) {
+        [_delegate moveKeyboardFromRect:rect];
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if (_delegate && [_delegate respondsToSelector:@selector(keyboardBack)]) {
+        [_delegate keyboardBack];
     }
 }
 
