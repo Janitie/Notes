@@ -26,6 +26,8 @@
 
 @implementation CheckEditViewController
 
+
+
 - (instancetype)initWithBOOL:(BOOL)isNote {
     if ([super init]) {
         self.isNote = isNote;
@@ -33,6 +35,27 @@
         
     }
     return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+
+    self.titleField.inputAccessoryView = self.inputBottomView;
+    self.firstCell.checkContentView.inputAccessoryView = self.inputBottomView;
+    
+    self.firstCell.delegate = self;
+    [self.tableCellView addSubview:self.firstCell];
+    
+    addFloat = 0;
+    
+    //setView
+    
+}
+
+- (void)setDataNoteObject:(NoteObject *)note {
+    _note = note;
+    _isUpdating = YES;
 }
 
 - (void) keyboardWasShown:(NSNotification *) notif
@@ -45,31 +68,23 @@
     ///keyboardWasShown = YES;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 
-    
-    self.titleField.inputAccessoryView = self.inputBottomView;
-    self.firstCell.checkContentView.inputAccessoryView = self.inputBottomView;
-    
-    self.firstCell.delegate = self;
-    [self.tableCellView addSubview:self.firstCell];
-    
-    addFloat = 0;
-}
+
+#pragma mark - buttonDo
 
 - (IBAction)backButtonDo:(id)sender {
+
+    
     NSString * content = @"";
 //    content = [content stringByAppendingString:@"apend"];
     
     for (CheckCellView * cell in self.cellArray) {
         NSString * eachString = @"";
         if (cell.statusDone == NO) {
-            eachString = [eachString stringByAppendingString:@"%[]"];
+            eachString = [eachString stringByAppendingString:@"%cObject%[ ]"];
         }
         else {
-            eachString = [eachString stringByAppendingString:@"%[x]"];
+            eachString = [eachString stringByAppendingString:@"%cObject%[x]"];
         }
         eachString = [eachString stringByAppendingString:cell.checkContentView.text];
         NSLog(@"eachString = %@",eachString);
@@ -116,14 +131,6 @@
 }
 
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"respond");
-    [self.titleField resignFirstResponder];
-    return YES;
-}// called when 'return' key pressed. return NO to ignore.
-
-
-
 #pragma mark - getter
 - (CheckCellView *)firstCell {
     if (_firstCell == nil) {
@@ -149,6 +156,12 @@
 }
 
 #pragma mark - delegates
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"respond");
+    [self.titleField resignFirstResponder];
+    return YES;
+}// called when 'return' key pressed. return NO to ignore.
 
 - (void)moveKeyboardFromRect:(CGRect)rect {
     //below

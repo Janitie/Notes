@@ -39,10 +39,10 @@
     self.titleField.delegate = self;
     self.textView.delegate = self;
     
+    
     self.titleField.text = _note.title;
     self.textView.text = _note.content;
-    
-    
+
 }
 
 - (void)setDataNoteObject:(NoteObject *)note {
