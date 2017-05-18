@@ -25,6 +25,8 @@
 /// 全部已选的标签
 @property (nonatomic, strong) NSArray * seletedTags;
 
+@property (nonatomic, assign ,readonly) CGFloat supposeHeight;
+
 @property (nonatomic, weak) id<LabelViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame Addable:(BOOL)canAddNew;

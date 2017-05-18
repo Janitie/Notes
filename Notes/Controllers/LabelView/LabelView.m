@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSMutableArray * labelTags;
 @property (nonatomic, strong) TagView * editTag;
 
+@property (nonatomic, assign) CGFloat supposeHeight;
+
 @end
 
 @implementation LabelView
@@ -102,7 +104,8 @@
     }
     
     CGRect viewFrame = self.frame;
-    viewFrame.size.height = (line + 1) * rowHeight;
+    self.supposeHeight = (line + 1) * rowHeight;
+    viewFrame.size.height = self.supposeHeight;
     self.frame = viewFrame;
 }
 

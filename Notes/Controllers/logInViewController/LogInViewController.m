@@ -11,6 +11,8 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
+#import "UserService.h"
+
 @interface LogInViewController ()
 
 @end
@@ -32,19 +34,27 @@
     
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
-     {
-         if (state == SSDKResponseStateSuccess)
-         {
+    {
+        if (state == SSDKResponseStateSuccess)
+        {
+            [UserService loginUserWithWXToken:user.credential.uid
+                                     nickName:user.nickname
+                                         icon:user.icon
+                                     callback:^(BOOL isSuccess)
+            {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
              
-             NSLog(@"uid=%@",user.icon);
-             NSLog(@"%@",user.credential);
-             NSLog(@"token=%@",user.credential.token);
-             NSLog(@"nickname=%@",user.nickname);
-             [self dismissViewControllerAnimated:YES completion:nil];
-             
-             [[NSUserDefaults standardUserDefaults] setValue:user.icon forKey:@"userIcon"];
-             [[NSUserDefaults standardUserDefaults] setValue:user.nickname forKey:@"userName"];
-             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
+    
+//             NSLog(@"uid=%@",user.icon);
+//             NSLog(@"%@",user.credential);
+//             NSLog(@"token=%@",user.credential.token);
+//             NSLog(@"nickname=%@",user.nickname);
+//             [self dismissViewControllerAnimated:YES completion:nil];
+//             
+//             [[NSUserDefaults standardUserDefaults] setValue:user.icon forKey:@"userIcon"];
+//             [[NSUserDefaults standardUserDefaults] setValue:user.nickname forKey:@"userName"];
+//             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
          }
          
          else
