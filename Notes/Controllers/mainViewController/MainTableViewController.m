@@ -338,8 +338,7 @@
     if (indexPath.row == 0) {
         return [FirstTableViewCell cellHeight:nil];
     }
-    else if (note.isShared == false) {
-        
+    else if (note.isShared) {
         return [NoteTableViewCell cellHeight:nil];
     } else {
         // 用何種字體進行顯示
@@ -384,9 +383,24 @@
     } else {
         CheckTableViewCell * cCell = [tableView dequeueReusableCellWithIdentifier:[CheckTableViewCell cellIdentifier] forIndexPath:indexPath];
         
-        cCell.content.text = note.content;
         cCell.time.text = note.createAt;
         cCell.title.text = note.title;
+        
+        if (note.isNote) {
+            cCell.content.text = note.content;
+        }
+        else {
+            NSString * newContent = @"";
+            NSArray * cArray = [note.content componentsSeparatedByString:@"%cObject%"];
+            NSMutableArray * cMArray = [cArray mutableCopy];
+            [cMArray removeObject:[cMArray firstObject]];
+            for (NSString * string in cMArray) {
+                newContent = [newContent stringByAppendingString:string];
+                newContent = [newContent stringByAppendingString:@"\n"];
+            }
+            NSLog(@"string = %@",newContent);
+        cCell.content.text = newContent;
+        }
         cell = cCell;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -409,6 +423,7 @@
     }
     else {
         CheckEditViewController *detailViewController = [[CheckEditViewController alloc] init];
+        [detailViewController setDataNoteObject:note];
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
 }

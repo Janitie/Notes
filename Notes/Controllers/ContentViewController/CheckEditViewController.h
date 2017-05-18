@@ -24,5 +24,7 @@
 @property (assign, nonatomic) BOOL isNote;
 
 - (instancetype)initWithBOOL:(BOOL)isNote;
+- (void)setDataNoteObject:(NoteObject *)note;
+
 
 @end
