@@ -23,27 +23,25 @@
 #pragma mark - button Do
 - (IBAction)tickButtonDo:(id)sender {
     NSLog(@"tick");
-    _statusDone = !_statusDone;
-    if (_statusDone == YES) {
-        _tickButton.selected = YES;
+    self.statusDone = !self.statusDone;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(statusDidChangeTo:fromIndex:)]) {
+        [self.delegate statusDidChangeTo:self.statusDone fromIndex:self.indexNumber];
     }
-    else {
-        _tickButton.selected = NO;
-    }
-    
 }
+
 - (IBAction)deleteButtonDo:(id)sender {
     if (![self.textView.text isEqualToString:@""]) {
-        self.textView.text= @"";
-    }
-    else {
-        if (_delegate && [_delegate respondsToSelector:@selector(deleteCellFromIndex:)]) {
-            [_delegate deleteCellFromIndex:_indexNumber];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(deleteCellFromIndex:)]) {
+            [self.delegate deleteCellFromIndex:self.indexNumber];
         }
     }
 }
 
-
+#pragma mark - setter 
+- (void)setStatusDone:(BOOL)statusDone {
+    _statusDone = statusDone;
+    self.tickButton.selected = _statusDone;
+}
 
 #pragma mark - textView Delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -52,11 +50,11 @@
     CGFloat w = self.textView.frame.size.width;
     self.textView.frame = CGRectMake(x, y, w, self.textView.contentSize.height);
     
-    NSLog(@"1 = %@",textView.text);
+//    NSLog(@"1 = %@",textView.text);
 
     if ([text isEqualToString:@"\n"]) {
-        if (_delegate && [_delegate respondsToSelector:@selector(stringDidConfirm:fromIndex:)]) {
-            [_delegate stringDidConfirm:textView.text fromIndex:self.indexNumber];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(stringDidConfirm:fromIndex:)]) {
+            [self.delegate stringDidConfirm:textView.text fromIndex:self.indexNumber];
         }
         return NO;
     }
@@ -71,21 +69,21 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
-    NSLog(@"2 = %@",textView.text);
+//    NSLog(@"2 = %@",textView.text);
 }
 
 
 //- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
 //    CGRect rect = self.frame;
-//    if (_delegate && [_delegate respondsToSelector:@selector(moveKeyboardFromRect:)]) {
-//        [_delegate moveKeyboardFromRect:rect];
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(moveKeyboardFromRect:)]) {
+//        [self.delegate moveKeyboardFromRect:rect];
 //    }
 //    return YES;
 //}
 //
 //- (void)textViewDidEndEditing:(UITextView *)textView {
-//    if (_delegate && [_delegate respondsToSelector:@selector(keyboardBack)]) {
-//        [_delegate keyboardBack];
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(keyboardBack)]) {
+//        [self.delegate keyboardBack];
 //    }
 //}
 //
@@ -97,16 +95,16 @@
 //
 //- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 //    if ([text isEqualToString:@"\n"]) {
-//        if (_delegate && [_delegate respondsToSelector:@selector(didPushEnterAddHeight:)]) {
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(didPushEnterAddHeight:)]) {
 //            NSLog(@"adding height = %f",self.frame.size.height);
-//            [_delegate didPushEnterAddHeight:self.frame.size.height];
+//            [self.delegate didPushEnterAddHeight:self.frame.size.height];
 //        }
 //        return NO;
 //    }
 //    
 //    //    NSLog(@"4 = %@",textView.text);
-//    if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight:)]) {
-//        [_delegate adjustCellHeight:self];
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(adjustCellHeight:)]) {
+//        [self.delegate adjustCellHeight:self];
 //    }
 //    return YES;
 //}

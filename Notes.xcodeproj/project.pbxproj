@@ -58,10 +58,9 @@
 		3BBDBB321ECD51420051D3D4 /* CheckEachTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB301ECD51420051D3D4 /* CheckEachTableViewCell.m */; };
 		3BBDBB3C1ECD6BD50051D3D4 /* SingleCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */; };
 		3BBDBB3D1ECD6BD50051D3D4 /* SingleCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */; };
+		3BBDBB471ECDE9680051D3D4 /* BSobject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB461ECDE9680051D3D4 /* BSobject.m */; };
 		3BC661371ECBDAD2001D1BFB /* CheckEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */; };
 		3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */; };
-		3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */; };
-		3BC6613F1ECC05F5001D1BFB /* CheckEachTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC6613E1ECC05F5001D1BFB /* CheckEachTableViewCell.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
 		AD59D96C1ECE1484001EB011 /* MBProgressHUD+QuickShow.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59D96B1ECE1484001EB011 /* MBProgressHUD+QuickShow.m */; };
 		AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6818261ECCC65C0000774D /* LocalDataModel.m */; };
@@ -154,6 +153,8 @@
 		3BBDBB391ECD6BD50051D3D4 /* SingleCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SingleCheckCell.h; path = ContentViewController/SingleCheckCell.h; sourceTree = "<group>"; };
 		3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SingleCheckCell.m; path = ContentViewController/SingleCheckCell.m; sourceTree = "<group>"; };
 		3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SingleCheckCell.xib; path = ContentViewController/SingleCheckCell.xib; sourceTree = "<group>"; };
+		3BBDBB451ECDE9680051D3D4 /* BSobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSobject.h; path = ContentViewController/BSobject.h; sourceTree = "<group>"; };
+		3BBDBB461ECDE9680051D3D4 /* BSobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSobject.m; path = ContentViewController/BSobject.m; sourceTree = "<group>"; };
 		3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckEditViewController.h; path = ContentViewController/CheckEditViewController.h; sourceTree = "<group>"; };
 		3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckEditViewController.m; path = ContentViewController/CheckEditViewController.m; sourceTree = "<group>"; };
 		3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckEditViewController.xib; path = ContentViewController/CheckEditViewController.xib; sourceTree = "<group>"; };
@@ -456,11 +457,8 @@
 				3BBDBB391ECD6BD50051D3D4 /* SingleCheckCell.h */,
 				3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */,
 				3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */,
-				3BBDBB2F1ECD51420051D3D4 /* CheckEachTableViewCell.h */,
-				3BBDBB301ECD51420051D3D4 /* CheckEachTableViewCell.m */,
-				3BC6613E1ECC05F5001D1BFB /* CheckEachTableViewCell.xib */,
-				3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */,
-				3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */,
+				3BBDBB451ECDE9680051D3D4 /* BSobject.h */,
+				3BBDBB461ECDE9680051D3D4 /* BSobject.m */,
 			);
 			name = Check;
 			sourceTree = "<group>";
@@ -589,7 +587,6 @@
 				3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */,
 				3B1BDA9B1EC065B600C24315 /* CheckTableViewCell.xib in Resources */,
 				3B1BDAA51EC065F100C24315 /* MainTableViewController.xib in Resources */,
-				3BC6613F1ECC05F5001D1BFB /* CheckEachTableViewCell.xib in Resources */,
 				3B1BDA9C1EC065B600C24315 /* FirstTableViewCell.xib in Resources */,
 				3B08DD8F1EC714E3007457F2 /* Main.storyboard in Resources */,
 				3B1BDA721EBCAEFF00C24315 /* ShareSDK.bundle in Resources */,
@@ -657,11 +654,9 @@
 				3B61DC2F1EC3403E00F94ED9 /* ReaderObject.m in Sources */,
 				3B1BDAA81EC0661600C24315 /* NewButton.m in Sources */,
 				AD68182E1ECCC69B0000774D /* LabelView.m in Sources */,
-				3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */,
 				3B498B1E1EB4CC54006D6AB1 /* LogInViewController.m in Sources */,
 				3B1BDA9F1EC065B600C24315 /* FirstTableViewCell.m in Sources */,
 				3B1BDAB01EC0CB7100C24315 /* NoteObject.m in Sources */,
-				3BBDBB321ECD51420051D3D4 /* CheckEachTableViewCell.m in Sources */,
 				3B08DD8C1EC7149F007457F2 /* LLSlideMenu.m in Sources */,
 				3B1BDAA41EC065F100C24315 /* MainTableViewController.m in Sources */,
 				3BBDBB3C1ECD6BD50051D3D4 /* SingleCheckCell.m in Sources */,

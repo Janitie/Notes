@@ -40,7 +40,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocl-c3-zv8">
-                            <rect key="frame" x="33" y="5" width="25" height="23"/>
+                            <rect key="frame" x="38" y="5" width="25" height="23"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="25" id="lff-Yy-kGm"/>
                             </constraints>
@@ -63,7 +63,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Siz-8D-zeH" firstAttribute="bottom" secondItem="ocl-c3-zv8" secondAttribute="bottom" id="BtX-D1-oDi"/>
-                        <constraint firstItem="ocl-c3-zv8" firstAttribute="leading" secondItem="Siz-8D-zeH" secondAttribute="trailing" id="Qru-qf-guy"/>
+                        <constraint firstItem="ocl-c3-zv8" firstAttribute="leading" secondItem="Siz-8D-zeH" secondAttribute="trailing" constant="5" id="Qru-qf-guy"/>
                         <constraint firstItem="ocl-c3-zv8" firstAttribute="bottom" secondItem="5we-VP-qul" secondAttribute="bottom" id="c2D-Lj-AJj"/>
                         <constraint firstItem="5we-VP-qul" firstAttribute="top" secondItem="syM-na-aPk" secondAttribute="top" constant="5" id="e1y-Tj-ack"/>
                         <constraint firstItem="5we-VP-qul" firstAttribute="trailing" secondItem="syM-na-aPk" secondAttribute="trailingMargin" id="fOQ-Bs-joT"/>
@@ -109,7 +109,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JVq-LQ-Cg5">
-                    <rect key="frame" x="33" y="7" width="25" height="25"/>
+                    <rect key="frame" x="38" y="7" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="3Ye-Ki-HRP"/>
                         <constraint firstAttribute="width" constant="25" id="emZ-6j-xxj"/>
@@ -134,7 +134,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="mSO-au-xQp" firstAttribute="centerY" secondItem="pk6-BY-8ed" secondAttribute="centerY" id="0X9-cL-kSh"/>
-                <constraint firstItem="JVq-LQ-Cg5" firstAttribute="leading" secondItem="63m-3q-N7r" secondAttribute="trailing" id="HUx-vZ-tYh"/>
+                <constraint firstItem="JVq-LQ-Cg5" firstAttribute="leading" secondItem="63m-3q-N7r" secondAttribute="trailing" constant="5" id="HUx-vZ-tYh"/>
                 <constraint firstItem="JVq-LQ-Cg5" firstAttribute="centerY" secondItem="pk6-BY-8ed" secondAttribute="centerY" id="WJT-UP-vcO"/>
                 <constraint firstAttribute="trailing" secondItem="mSO-au-xQp" secondAttribute="trailing" constant="8" id="dVP-hM-tBC"/>
                 <constraint firstItem="63m-3q-N7r" firstAttribute="leading" secondItem="pk6-BY-8ed" secondAttribute="leading" constant="8" id="l5a-DJ-Xsb"/>

@@ -11,8 +11,7 @@
 
 @interface CheckEditViewController : UIViewController
 
-
-
 - (instancetype)initWithBOOL:(BOOL)isNote;
+- (void)setDataNoteObject:(NoteObject *)note;
 
 @end
