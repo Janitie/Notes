@@ -16,7 +16,7 @@
 - (void)stringDidChange:(NSString *)string fromIndex:(NSInteger)index;
 - (void)stringDidConfirm:(NSString *)string fromIndex:(NSInteger)index;
 - (void)deleteCellFromIndex:(NSInteger)index;
-
+- (void)statusDidChangeTo:(BOOL)status fromIndex:(NSInteger)index;
 
 @end
 

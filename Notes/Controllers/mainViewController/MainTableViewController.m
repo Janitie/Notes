@@ -423,7 +423,7 @@
     }
     else {
         CheckEditViewController *detailViewController = [[CheckEditViewController alloc] init];
-//        [detailViewController setDataNoteObject:note];
+        [detailViewController setDataNoteObject:note];
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
 }
