@@ -8,119 +8,101 @@
 
 #import "CheckEditViewController.h"
 #import "NoteService.h"
-#import "CheckCellView.h"
+#import "SingleCheckCell.h"
 
-@interface CheckEditViewController ()<checkCellTextViewDelegate>
+@interface CheckEditViewController ()<singleCheckDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
     NoteObject * _note;
     BOOL _isUpdating;
     float addFloat;
 }
 
-@property (nonatomic, strong) CheckCellView * firstCell;
-@property (strong, nonatomic) IBOutlet UIScrollView *tableCellView;
-@property (nonatomic, strong) NSMutableArray<CheckCellView *> * cellArray;
+//@property (nonatomic, strong) CheckCellView * firstCell;
+//@property (strong, nonatomic) IBOutlet UIScrollView *tableCellView;
+@property (weak, nonatomic) IBOutlet UITextField *titleField;
 
+@property (strong, nonatomic) UITableView * tableView;
+
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *keyboardDownButton;
+@property (weak, nonatomic) IBOutlet UIButton *labelButton;
+@property (strong, nonatomic) IBOutlet UIView *inputBottomView;
+
+@property (strong, nonatomic) NSMutableArray<NSString *> * cellStringArray;
+@property (assign, nonatomic) BOOL isNote;
 
 @end
 
 @implementation CheckEditViewController
 
-
-
 - (instancetype)initWithBOOL:(BOOL)isNote {
     if ([super init]) {
         self.isNote = isNote;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
+                                                     name:UIKeyboardDidShowNotification object:nil];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 
+    [self settings];
+    
+//    addFloat = 0;
+
+//    [self setViewData];
+}
+
+- (void)settings {
     self.titleField.inputAccessoryView = self.inputBottomView;
-    self.firstCell.checkContentView.inputAccessoryView = self.inputBottomView;
+    self.titleField.delegate = self;
     
-    self.firstCell.delegate = self;
-    [self.tableCellView addSubview:self.firstCell];
-    
-    addFloat = 0;
-    
-    //setView
+    [self.tableView registerNib:[SingleCheckCell cellNib]   forCellReuseIdentifier:[SingleCheckCell cellIdentifier]];
+    [self.view addSubview:self.tableView];
     
 }
-
-- (void)setDataNoteObject:(NoteObject *)note {
-    _note = note;
-    _isUpdating = YES;
-}
-
-- (void) keyboardWasShown:(NSNotification *) notif
-{
-    NSDictionary *info = [notif userInfo];
-    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
-    CGSize keyboardSize = [value CGRectValue].size;
-    
-    NSLog(@"keyBoard:%f", keyboardSize.height);  //216
-    ///keyboardWasShown = YES;
-}
-
-
 
 #pragma mark - buttonDo
 
 - (IBAction)backButtonDo:(id)sender {
+//    NSString * content = [self assortContentString];
 
-    
-    NSString * content = @"";
-//    content = [content stringByAppendingString:@"apend"];
-    
-    for (CheckCellView * cell in self.cellArray) {
-        NSString * eachString = @"";
-        if (cell.statusDone == NO) {
-            eachString = [eachString stringByAppendingString:@"%cObject%[ ]"];
-        }
-        else {
-            eachString = [eachString stringByAppendingString:@"%cObject%[x]"];
-        }
-        eachString = [eachString stringByAppendingString:cell.checkContentView.text];
-        NSLog(@"eachString = %@",eachString);
-        content = [content stringByAppendingString:eachString];
-        NSLog(@"content = %@",content);
-
-    }
-    
-    if (_isUpdating == NO) {
-        //只要有一个不空就新建,false if
-        if (![self.titleField.text isEqualToString:@""] || ![content isEqualToString:@""]) {
-            if (![self.firstCell.checkContentView.text isEqualToString:@""]) {
-                [NoteService creatNewNoteWithTitle:self.titleField.text
-                                           content:content
-                                              type:self.isNote
-                                          callback:^(BOOL succeeded) {
-                                              if (succeeded) {
-                                                  [self.navigationController popViewControllerAnimated:YES];
-                                              }
-                                              else {
-                                                  NSLog(@"error saving");
-                                                  [self.navigationController popViewControllerAnimated:YES];
-                                              }
-                                          }];
-            }
-            else {
-                [self.navigationController popViewControllerAnimated:YES];
-
-            }
-        }
-        else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
+//    //从新建入口入,新建check
+//    if (_isUpdating == NO) {
+//        //只有存在一个任务才新建
+//        if (![content isEqualToString:@""]) {
+//                [NoteService creatNewNoteWithTitle:self.titleField.text
+//                                           content:content
+//                                              type:self.isNote
+//                                          callback:^(BOOL succeeded) {
+//                                              if (succeeded) {
+//                                                  [self.navigationController popViewControllerAnimated:YES];
+//                                              }
+//                                              else {
+//                                                  NSLog(@"error saving");
+//                                                  [self.navigationController popViewControllerAnimated:YES];
+//                                              }
+//                                          }];
+//        }
+//        else {
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }
+//    }
+//    //从cell入口入，先显示已有界面
+//    else {
+//        //当全空时删除
+//        if ([content isEqualToString:@""]) {
+//            
+//        }
+//        //只要有改动就上传刷新
+//        else {
+//            
+//        }
+//        
+//    }
 }
-
 
 - (IBAction)keyboardDownBtnDo:(id)sender {
     [self.view endEditing:YES];
@@ -131,109 +113,129 @@
 }
 
 
-#pragma mark - getter
-- (CheckCellView *)firstCell {
-    if (_firstCell == nil) {
-        _firstCell = [[CheckCellView alloc] init];
-        _firstCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 57);
+#pragma mark - Getter
+
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 83, self.view.frame.size.width, 551)];
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-    return _firstCell;
+    return _tableView;
 }
 
-- (UIScrollView *)tableCellView {
-    if (_tableCellView == nil) {
-        self.tableCellView = [[UIScrollView alloc] init];
+- (NSMutableArray<NSString *> *)cellStringArray {
+    if (_cellStringArray == nil) {
+        self.cellStringArray = [[NSMutableArray alloc] init];
+        [self.cellStringArray addObject:@""];
     }
-    return _tableCellView;
+    return _cellStringArray;
 }
 
-- (NSMutableArray<CheckCellView *> *)cellArray {
-    if (_cellArray == nil) {
-        self.cellArray = [[NSMutableArray alloc] init];
-        [self.cellArray addObject:self.firstCell];
-    }
-    return _cellArray;
-}
 
-#pragma mark - delegates
+#pragma mark - TitleField delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSLog(@"respond");
     [self.titleField resignFirstResponder];
     return YES;
-}// called when 'return' key pressed. return NO to ignore.
+}
 
-- (void)moveKeyboardFromRect:(CGRect)rect {
-    //below
-    if (rect.origin.y + rect.size.height > 274) {
-        NSTimeInterval animationDuration = 0.30f;
-        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        
-        float offset = rect.size.height + 90 + (rect.origin.y - 374);//键盘高度293
-        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
-        [UIView commitAnimations];
+
+#pragma mark - TableView DataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.cellStringArray count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString * string = self.cellStringArray[indexPath.row];
+    if ([string isEqualToString:@""]) {
+        return 50.0f;
+    } else {
+        UIFont * font = [UIFont systemFontOfSize:14];
+        NSLog(@"cell string = %@",string);
+        CGSize size = [string sizeWithFont:font constrainedToSize:CGSizeMake(261.0f,500.f) lineBreakMode:NSLineBreakByWordWrapping];
+        CGFloat cellHeight = size.height + 35.0f;
+        return cellHeight;
     }
 }
 
 
-- (void)keyboardBack {
-    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSString * content = self.cellStringArray[indexPath.row];
+    
+    SingleCheckCell * eCell = [tableView dequeueReusableCellWithIdentifier:[SingleCheckCell cellIdentifier] forIndexPath:indexPath];
+    eCell.indexNumber = indexPath.row;
+    eCell.delegate = self;
+    eCell.textView.inputAccessoryView = self.inputBottomView;
+    eCell.textView.text = content;
+    eCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return eCell;
+    
 }
 
-- (void)deleteCell:(CheckCellView *)cell Height:(CGFloat)height{
-    NSInteger index = [self.cellArray indexOfObject:cell];
-    if (index != 0) {
-        for (; index < [self.cellArray count] - 1; index++) {
-            CGRect fomalRect = self.cellArray[index + 1].frame;
-            NSLog(@" HEIGHT = %f",cell.frame.size.height);
-            NSLog(@" newHeight = %f",height);
-            fomalRect.origin.y -= height;
-            self.cellArray[index + 1].frame = fomalRect;
-        }
-        [self.cellArray removeObject:cell];
-        [cell removeFromSuperview];
-        addFloat -= height;
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+
+#pragma mark - cell Delegate
+
+- (void)stringDidChange:(NSString *)string fromIndex:(NSInteger)index {
+    if (index < [self.cellStringArray count]) {
+        self.cellStringArray[index] = string;
+    } else {
+        [self.cellStringArray insertObject:string atIndex:index];
     }
-    else {
-        cell.checkContentView.text = @"";
-        for (; index < [self.cellArray count] - 1; index++) {
-            CGRect fomalRect = self.cellArray[index + 1].frame;
-            fomalRect.origin.y -= height - 57;
-            self.cellArray[index + 1].frame = fomalRect;
-        }
-        addFloat -= height - 57;
+//    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
 
+- (void)stringDidConfirm:(NSString *)string fromIndex:(NSInteger)index{
+    
+    if (index == [self.cellStringArray count] - 1) {
+        [self.cellStringArray addObject:@""];
     }
+    [self.tableView reloadData];
+//    NSLog(@"index = %ld",index);
+//    if (index+1 > [self.cellStringArray count]) {
+//        [self.cellStringArray addObject:string];
+//    }
+//    else {
+//        self.cellStringArray[index] = string;
+//    }
+//    for (NSString * strin in _cellStringArray) {
+//        NSLog(@"each string = %@",strin);
+//    }
+//    
+//    [self.tableView reloadData];
 }
 
-- (void)adjustCellHeight:(CheckCellView *)cell {
-//    NSLog(@"changing frame");
-    cell.frame = CGRectMake(0, cell.frame.origin.y, cell.frame.size.width, cell.checkContentView.frame.size.height + 20);
+- (void)deleteCellFromIndex:(NSInteger)index {
+    [self.cellStringArray removeObjectAtIndex:index];
+    [self.tableView reloadData];
 }
 
-- (void)didPushEnterAddHeight:(CGFloat)height {
-    NSLog(@"ADD A CELL");
-    NSLog(@" 1 flaot = %f",addFloat);
-    addFloat += height;
-    NSLog(@" 2 flaot = %f",addFloat);
-    
-    CheckCellView * newCell = [[CheckCellView alloc] init];
-    newCell.delegate = self;
-    newCell.frame = CGRectMake(0,
-                               addFloat,
-                               self.view.frame.size.width,
-                               57);
-    
-    [newCell.checkContentView becomeFirstResponder];
-    newCell.checkContentView.inputAccessoryView = self.inputBottomView;
-    
-    [self.cellArray addObject:newCell];
-    [self.tableCellView addSubview:newCell];
-    self.tableCellView.contentSize = CGSizeMake(self.view.frame.size.width, addFloat + self.firstCell.frame.size.height);
 
+#pragma mark - keyBoard Notif
+- (void) keyboardWasShown:(NSNotification *) notif
+{
+    NSDictionary *info = [notif userInfo];
+    NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGSize keyboardSize = [value CGRectValue].size;
+    
+    NSLog(@"keyBoard:%f", keyboardSize.height);  //293
+    ///keyboardWasShown = YES;
 }
-
 
 
 
@@ -241,6 +243,47 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//- (void)setDataNoteObject:(NoteObject *)note {
+//    _note = note;
+//    NSLog(@"saveData = %@",_note.content);
+//
+//
+//    _isUpdating = YES;
+//}
+//
+//- (void)setViewData {
+//    self.titleField.text = _note.title;
+//
+//    NSArray * rawArray = [_note.content componentsSeparatedByString:@"%cObject%["];
+//    NSMutableArray * rawMArray = [rawArray mutableCopy];
+//    [rawMArray removeObject:[rawMArray firstObject]];
+//    for ( NSString * string in rawMArray) {
+//        NSLog(@" raw string = %@",string);
+//    }
+//}
+//
+
+//- (NSString *)assortContentString {
+//    NSString * content = @"";
+//
+//    for (CheckCellView * cell in self.cellArray) {
+//        NSString * eachString = @"";
+//        if (cell.statusDone == NO) {
+//            eachString = [eachString stringByAppendingString:@"%cObject%[ ]"];
+//        }
+//        else {
+//            eachString = [eachString stringByAppendingString:@"%cObject%[x]"];
+//        }
+//        eachString = [eachString stringByAppendingString:cell.checkContentView.text];
+////        NSLog(@"eachString = %@",eachString);
+//        content = [content stringByAppendingString:eachString];
+////        NSLog(@"content = %@",content);
+//    }
+//    return content;
+//
+//}
+
 
 /*
 #pragma mark - Navigation

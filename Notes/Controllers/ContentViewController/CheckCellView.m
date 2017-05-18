@@ -8,11 +8,6 @@
 
 #import "CheckCellView.h"
 
-@interface CheckCellView ()
-{
-}
-
-@end
 
 @implementation CheckCellView
 
@@ -38,9 +33,6 @@
 }
 
 - (IBAction)deleteButtonDo:(id)sender {
-//    self.checkContentView.text = @"";
-//    self.checkContentView.frame = CGRectMake(40, 10, 305, self.checkContentView.contentSize.height);
-    
     NSLog(@" oldheight = %f, contentHeight = %f",self.frame.size.height,self.checkContentView.frame.size.height);
 
     if (_delegate && [_delegate respondsToSelector:@selector(adjustCellHeight:)] && [_delegate respondsToSelector:@selector(deleteCell:Height:)]) {

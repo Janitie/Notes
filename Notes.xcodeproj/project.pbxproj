@@ -56,10 +56,13 @@
 		3B61DC2F1EC3403E00F94ED9 /* ReaderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC2E1EC3403E00F94ED9 /* ReaderObject.m */; };
 		3B61DC321EC341E800F94ED9 /* NoteTagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC311EC341E800F94ED9 /* NoteTagObject.m */; };
 		3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC341EC34FDE00F94ED9 /* NoteService.m */; };
+		3BBDBB321ECD51420051D3D4 /* CheckEachTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB301ECD51420051D3D4 /* CheckEachTableViewCell.m */; };
+		3BBDBB3C1ECD6BD50051D3D4 /* SingleCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */; };
+		3BBDBB3D1ECD6BD50051D3D4 /* SingleCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */; };
 		3BC661371ECBDAD2001D1BFB /* CheckEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */; };
 		3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */; };
 		3BC6613D1ECC05D4001D1BFB /* CheckCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */; };
-		3BC6613F1ECC05F5001D1BFB /* CheckCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */; };
+		3BC6613F1ECC05F5001D1BFB /* CheckEachTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC6613E1ECC05F5001D1BFB /* CheckEachTableViewCell.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
 		AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6818261ECCC65C0000774D /* LocalDataModel.m */; };
 		AD68182E1ECCC69B0000774D /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182B1ECCC69B0000774D /* LabelView.m */; };
@@ -146,12 +149,17 @@
 		3B61DC311EC341E800F94ED9 /* NoteTagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTagObject.m; sourceTree = "<group>"; };
 		3B61DC331EC34FDE00F94ED9 /* NoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteService.h; sourceTree = "<group>"; };
 		3B61DC341EC34FDE00F94ED9 /* NoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteService.m; sourceTree = "<group>"; };
+		3BBDBB2F1ECD51420051D3D4 /* CheckEachTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckEachTableViewCell.h; path = ContentViewController/CheckEachTableViewCell.h; sourceTree = "<group>"; };
+		3BBDBB301ECD51420051D3D4 /* CheckEachTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckEachTableViewCell.m; path = ContentViewController/CheckEachTableViewCell.m; sourceTree = "<group>"; };
+		3BBDBB391ECD6BD50051D3D4 /* SingleCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SingleCheckCell.h; path = ContentViewController/SingleCheckCell.h; sourceTree = "<group>"; };
+		3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SingleCheckCell.m; path = ContentViewController/SingleCheckCell.m; sourceTree = "<group>"; };
+		3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SingleCheckCell.xib; path = ContentViewController/SingleCheckCell.xib; sourceTree = "<group>"; };
 		3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckEditViewController.h; path = ContentViewController/CheckEditViewController.h; sourceTree = "<group>"; };
 		3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckEditViewController.m; path = ContentViewController/CheckEditViewController.m; sourceTree = "<group>"; };
 		3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckEditViewController.xib; path = ContentViewController/CheckEditViewController.xib; sourceTree = "<group>"; };
 		3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckCellView.h; path = ContentViewController/CheckCellView.h; sourceTree = "<group>"; };
 		3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckCellView.m; path = ContentViewController/CheckCellView.m; sourceTree = "<group>"; };
-		3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckCellView.xib; path = ContentViewController/CheckCellView.xib; sourceTree = "<group>"; };
+		3BC6613E1ECC05F5001D1BFB /* CheckEachTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckEachTableViewCell.xib; path = ContentViewController/CheckEachTableViewCell.xib; sourceTree = "<group>"; };
 		AD6818251ECCC65C0000774D /* LocalDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDataModel.h; sourceTree = "<group>"; };
 		AD6818261ECCC65C0000774D /* LocalDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDataModel.m; sourceTree = "<group>"; };
 		AD68182A1ECCC69B0000774D /* LabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelView.h; sourceTree = "<group>"; };
@@ -212,12 +220,7 @@
 				3B1BDA8D1EC064C600C24315 /* ContentViewController.h */,
 				3B1BDA8E1EC064C600C24315 /* ContentViewController.m */,
 				3B1BDA8F1EC064C600C24315 /* ContentViewController.xib */,
-				3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */,
-				3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */,
-				3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */,
-				3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */,
-				3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */,
-				3BC6613E1ECC05F5001D1BFB /* CheckCellView.xib */,
+				3BBDBB341ECD514C0051D3D4 /* Check */,
 			);
 			name = ContentViewController;
 			sourceTree = "<group>";
@@ -435,6 +438,24 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		3BBDBB341ECD514C0051D3D4 /* Check */ = {
+			isa = PBXGroup;
+			children = (
+				3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */,
+				3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */,
+				3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */,
+				3BBDBB391ECD6BD50051D3D4 /* SingleCheckCell.h */,
+				3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */,
+				3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */,
+				3BBDBB2F1ECD51420051D3D4 /* CheckEachTableViewCell.h */,
+				3BBDBB301ECD51420051D3D4 /* CheckEachTableViewCell.m */,
+				3BC6613E1ECC05F5001D1BFB /* CheckEachTableViewCell.xib */,
+				3BC6613B1ECC05D4001D1BFB /* CheckCellView.h */,
+				3BC6613C1ECC05D4001D1BFB /* CheckCellView.m */,
+			);
+			name = Check;
+			sourceTree = "<group>";
+		};
 		88348380D56FDCBE0B208A5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,13 +564,14 @@
 				3B1BDA701EBCAEFF00C24315 /* README.txt in Resources */,
 				3B1BDA911EC064C600C24315 /* ContentViewController.xib in Resources */,
 				3B498AD31EB1C2A8006D6AB1 /* LaunchScreen.storyboard in Resources */,
+				3BBDBB3D1ECD6BD50051D3D4 /* SingleCheckCell.xib in Resources */,
 				3B1BDA6C1EBCAEFF00C24315 /* ShareSDKUI.bundle in Resources */,
 				3B1BDA691EBCAEFF00C24315 /* ShareSDKConfigFile.bundle in Resources */,
 				3B1BDA4E1EBB05DF00C24315 /* Assets.xcassets in Resources */,
 				3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */,
 				3B1BDA9B1EC065B600C24315 /* CheckTableViewCell.xib in Resources */,
 				3B1BDAA51EC065F100C24315 /* MainTableViewController.xib in Resources */,
-				3BC6613F1ECC05F5001D1BFB /* CheckCellView.xib in Resources */,
+				3BC6613F1ECC05F5001D1BFB /* CheckEachTableViewCell.xib in Resources */,
 				3B1BDA9C1EC065B600C24315 /* FirstTableViewCell.xib in Resources */,
 				3B08DD8F1EC714E3007457F2 /* Main.storyboard in Resources */,
 				3B1BDA721EBCAEFF00C24315 /* ShareSDK.bundle in Resources */,
@@ -621,8 +643,10 @@
 				3B498B1E1EB4CC54006D6AB1 /* LogInViewController.m in Sources */,
 				3B1BDA9F1EC065B600C24315 /* FirstTableViewCell.m in Sources */,
 				3B1BDAB01EC0CB7100C24315 /* NoteObject.m in Sources */,
+				3BBDBB321ECD51420051D3D4 /* CheckEachTableViewCell.m in Sources */,
 				3B08DD8C1EC7149F007457F2 /* LLSlideMenu.m in Sources */,
 				3B1BDAA41EC065F100C24315 /* MainTableViewController.m in Sources */,
+				3BBDBB3C1ECD6BD50051D3D4 /* SingleCheckCell.m in Sources */,
 				3B1BDA9E1EC065B600C24315 /* CheckTableViewCell.m in Sources */,
 				3B498AC51EB1C2A8006D6AB1 /* AppDelegate.m in Sources */,
 				3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */,
