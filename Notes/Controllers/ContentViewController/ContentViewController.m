@@ -134,6 +134,7 @@
     self.tagView.seletedTags = self.noteTags;
     self.tagInputViewContent.allTags = self.userTags;
     self.tagInputViewContent.seletedTags = self.noteTags;
+    self.contentViewHeight.constant = CGRectGetHeight(self.tagInputViewContent.frame);
 }
 
 - (NSArray *)addTagTitle:(NSString *)tagTitle toArray:(NSArray *)array {

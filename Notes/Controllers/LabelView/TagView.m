@@ -50,6 +50,11 @@ alpha:1.0f]
     return self;
 }
 
+- (void)dealloc {
+    if (_titleTextField != nil) {
+        [_titleTextField removeObserver:self forKeyPath:@"text"];
+    }
+}
 
 #pragma mark - UI
 - (void)setupView {
@@ -173,14 +178,24 @@ alpha:1.0f]
 
 #pragma mark - Text Field Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(tagDidPushReturnKey:)]) {
-        BOOL isSuccess = [self.delegate tagDidPushReturnKey:textField.text];
-        if (isSuccess) {
-            textField.text = @"";
-            [textField resignFirstResponder];
+    if (![textField.text isEqualToString:@""]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(tagDidPushReturnKey:)]) {
+            BOOL isSuccess = [self.delegate tagDidPushReturnKey:textField.text];
+            if (isSuccess) {
+                textField.text = @"";
+                [textField resignFirstResponder];
+            }
         }
     }
     return NO;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.text.length + string.length > 30) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 #pragma mark - Notification 

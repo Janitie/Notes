@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -226,7 +226,7 @@
                     <rect key="frame" x="0.0" y="35" width="375" height="265"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3SG-MD-khQ">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="270"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1om-mr-NoH" customClass="LabelView">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -239,7 +239,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="300" id="88i-Ib-CjO"/>
+                                <constraint firstAttribute="height" constant="270" id="88i-Ib-CjO"/>
                                 <constraint firstAttribute="trailing" secondItem="1om-mr-NoH" secondAttribute="trailing" id="LS6-bQ-USA"/>
                                 <constraint firstItem="1om-mr-NoH" firstAttribute="top" secondItem="3SG-MD-khQ" secondAttribute="top" id="gIw-hV-1O1"/>
                                 <constraint firstItem="1om-mr-NoH" firstAttribute="leading" secondItem="3SG-MD-khQ" secondAttribute="leading" id="iho-37-5hI"/>
@@ -269,7 +269,7 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-512" y="254"/>
+            <point key="canvasLocation" x="-512.5" y="254"/>
         </view>
     </objects>
     <resources>
