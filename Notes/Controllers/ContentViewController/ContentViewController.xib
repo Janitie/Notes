@@ -13,9 +13,14 @@
             <connections>
                 <outlet property="backButton" destination="9Kf-SU-y7H" id="jYV-DM-Rre"/>
                 <outlet property="bottomView" destination="aVO-eW-AqN" id="mys-c3-AzS"/>
+                <outlet property="bottomViewBottomSpace" destination="ryb-gM-V94" id="9pL-my-hc0"/>
+                <outlet property="contentViewHeight" destination="88i-Ib-CjO" id="8Rd-QB-uUC"/>
                 <outlet property="inputBottomView" destination="JjE-Kj-9al" id="HS6-ew-lu7"/>
                 <outlet property="keyboradDownButton" destination="IzV-Kl-HyV" id="pwQ-LX-64O"/>
                 <outlet property="labelButton" destination="gRA-6Y-enD" id="luz-oW-gN7"/>
+                <outlet property="tagInputToolView" destination="ePv-Yt-4Ai" id="WgW-g9-9ey"/>
+                <outlet property="tagInputView" destination="RgD-U9-uwa" id="rD4-CP-EeU"/>
+                <outlet property="tagInputViewContent" destination="1om-mr-NoH" id="dqc-VM-Oho"/>
                 <outlet property="tagView" destination="UiW-5L-vSp" id="tpg-6J-lsa"/>
                 <outlet property="textView" destination="dru-mk-csL" id="tAC-0q-FEC"/>
                 <outlet property="titleField" destination="wTM-0R-wCI" id="a7t-Lj-GfT"/>
@@ -164,7 +169,107 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="34.5" y="123.5"/>
+            <point key="canvasLocation" x="35" y="91"/>
+        </view>
+        <view contentMode="scaleToFill" id="RgD-U9-uwa">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePv-Yt-4Ai">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NvC-n9-fP9">
+                            <rect key="frame" x="8" y="6" width="18" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="18" id="3y6-nn-HHo"/>
+                                <constraint firstAttribute="height" constant="25" id="Mnm-1O-ZMS"/>
+                            </constraints>
+                            <state key="normal" title="&lt;" image="back"/>
+                            <connections>
+                                <action selector="backButtonDo:" destination="-1" eventType="touchUpInside" id="flc-Xz-YsF"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ur-fz-GVw">
+                            <rect key="frame" x="340" y="5" width="27" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="NTG-vI-Vpg"/>
+                                <constraint firstAttribute="width" constant="27" id="ubL-C4-w36"/>
+                            </constraints>
+                            <state key="normal" image="label"/>
+                            <connections>
+                                <action selector="labelButtonDo:" destination="-1" eventType="touchUpInside" id="twr-k7-GRL"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZl-py-vkj">
+                            <rect key="frame" x="34" y="5" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="5mK-Om-jTj"/>
+                                <constraint firstAttribute="height" constant="25" id="uNh-Th-rBE"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="keyBDown"/>
+                            <connections>
+                                <action selector="keyboardDown:" destination="-1" eventType="touchUpInside" id="pq4-Bk-xCl"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="9ur-fz-GVw" firstAttribute="centerY" secondItem="ePv-Yt-4Ai" secondAttribute="centerY" id="2cc-2O-ROk"/>
+                        <constraint firstAttribute="height" constant="35" id="3Bg-Ag-MtA"/>
+                        <constraint firstItem="NvC-n9-fP9" firstAttribute="leading" secondItem="ePv-Yt-4Ai" secondAttribute="leading" constant="8" id="K2D-Yo-Le3"/>
+                        <constraint firstAttribute="bottom" secondItem="NvC-n9-fP9" secondAttribute="bottom" constant="4" id="X8a-te-ccD"/>
+                        <constraint firstItem="zZl-py-vkj" firstAttribute="leading" secondItem="NvC-n9-fP9" secondAttribute="trailing" constant="8" id="kho-39-bgL"/>
+                        <constraint firstAttribute="trailing" secondItem="9ur-fz-GVw" secondAttribute="trailing" constant="8" id="oIx-RQ-Zjz"/>
+                        <constraint firstItem="zZl-py-vkj" firstAttribute="centerY" secondItem="ePv-Yt-4Ai" secondAttribute="centerY" id="t0s-1f-QUC"/>
+                    </constraints>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zII-ae-0Gs">
+                    <rect key="frame" x="0.0" y="35" width="375" height="265"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3SG-MD-khQ">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1om-mr-NoH" customClass="LabelView">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="Vy3-RQ-BiB"/>
+                                        <constraint firstAttribute="height" priority="750" constant="55" id="nil-X4-zr9"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="300" id="88i-Ib-CjO"/>
+                                <constraint firstAttribute="trailing" secondItem="1om-mr-NoH" secondAttribute="trailing" id="LS6-bQ-USA"/>
+                                <constraint firstItem="1om-mr-NoH" firstAttribute="top" secondItem="3SG-MD-khQ" secondAttribute="top" id="gIw-hV-1O1"/>
+                                <constraint firstItem="1om-mr-NoH" firstAttribute="leading" secondItem="3SG-MD-khQ" secondAttribute="leading" id="iho-37-5hI"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="3SG-MD-khQ" firstAttribute="leading" secondItem="zII-ae-0Gs" secondAttribute="leading" id="7Nw-ex-LI1"/>
+                        <constraint firstAttribute="trailing" secondItem="3SG-MD-khQ" secondAttribute="trailing" id="E27-AS-fFL"/>
+                        <constraint firstItem="3SG-MD-khQ" firstAttribute="centerX" secondItem="zII-ae-0Gs" secondAttribute="centerX" id="MDa-pw-Pk8"/>
+                        <constraint firstAttribute="bottom" secondItem="3SG-MD-khQ" secondAttribute="bottom" id="ODC-zV-gbL"/>
+                        <constraint firstItem="3SG-MD-khQ" firstAttribute="top" secondItem="zII-ae-0Gs" secondAttribute="top" id="u9N-4C-6GB"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="zII-ae-0Gs" secondAttribute="bottom" id="5sd-I1-Eyy"/>
+                <constraint firstAttribute="trailing" secondItem="ePv-Yt-4Ai" secondAttribute="trailing" id="6AN-7i-dMA"/>
+                <constraint firstItem="zII-ae-0Gs" firstAttribute="leading" secondItem="RgD-U9-uwa" secondAttribute="leading" id="6f6-QD-exk"/>
+                <constraint firstAttribute="trailing" secondItem="zII-ae-0Gs" secondAttribute="trailing" id="7wm-jc-VT7"/>
+                <constraint firstItem="ePv-Yt-4Ai" firstAttribute="leading" secondItem="RgD-U9-uwa" secondAttribute="leading" id="HRn-Pg-Krj"/>
+                <constraint firstItem="zII-ae-0Gs" firstAttribute="top" secondItem="RgD-U9-uwa" secondAttribute="top" constant="35" id="dbq-Rv-fvM"/>
+                <constraint firstItem="ePv-Yt-4Ai" firstAttribute="top" secondItem="RgD-U9-uwa" secondAttribute="top" id="jZz-mN-Cgn"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-512" y="254"/>
         </view>
     </objects>
     <resources>

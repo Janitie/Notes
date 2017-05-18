@@ -50,9 +50,6 @@ alpha:1.0f]
     return self;
 }
 
-- (void)dealloc {
-    [self.titleTextField removeObserver:self forKeyPath:@"text"];
-}
 
 #pragma mark - UI
 - (void)setupView {

@@ -14,4 +14,7 @@
 
 #include "LocalDataModel.h"
 
+#define ScreenHeight CGRectGetHeight([UIScreen mainScreen].bounds)
+#define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)
+
 #endif /* PrefixHeader_pch */

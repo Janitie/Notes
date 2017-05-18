@@ -11,7 +11,7 @@
 
 #define SpaceX  5.0f
 #define SpaceY  5.0f
-#define ScreenWidth [UIScreen mainScreen].bounds.size.width
+//#define ScreenWidth [UIScreen mainScreen].bounds.size.width
 
 @interface LabelView ()<TagViewDelegate>
 
@@ -76,6 +76,7 @@
         // 设置是否被选中
         tagView.isSelected = [self isTagSelected:tagStr];
         
+        [self.labelTags addObject:tagView];
         [self addSubview:tagView];
     }
     
@@ -101,7 +102,7 @@
     }
     
     CGRect viewFrame = self.frame;
-    viewFrame.size.height = line * rowHeight;
+    viewFrame.size.height = (line + 1) * rowHeight;
     self.frame = viewFrame;
 }
 
