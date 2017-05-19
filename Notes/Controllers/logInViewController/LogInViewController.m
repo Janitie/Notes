@@ -28,10 +28,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)back:(id)sender {
-    
 //    [self loginToWeChat];
-    
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
     {
@@ -46,19 +45,7 @@
                 [MBProgressHUD hideAllWaitingHUDInKeyWindow];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];
-             
-    
-//             NSLog(@"uid=%@",user.icon);
-//             NSLog(@"%@",user.credential);
-//             NSLog(@"token=%@",user.credential.token);
-//             NSLog(@"nickname=%@",user.nickname);
-//             [self dismissViewControllerAnimated:YES completion:nil];
-//             
-//             [[NSUserDefaults standardUserDefaults] setValue:user.icon forKey:@"userIcon"];
-//             [[NSUserDefaults standardUserDefaults] setValue:user.nickname forKey:@"userName"];
-//             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogin"];
          }
-         
          else
          {
              NSLog(@"%@",error);

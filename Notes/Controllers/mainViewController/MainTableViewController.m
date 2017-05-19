@@ -388,8 +388,10 @@
         NSString *content = note.content;
         NSString *title = note.title;
         // 計算出顯示完內容需要的最小尺寸
-        CGSize sizeContent = [content sizeWithFont:fontContent constrainedToSize:CGSizeMake(164.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
-        CGSize sizeTitle = [title sizeWithFont:fontTitle constrainedToSize:CGSizeMake(162.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
+        CGSize sizeContent = [content sizeWithFont:fontContent
+                                 constrainedToSize:CGSizeMake(164.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
+        CGSize sizeTitle = [title sizeWithFont:fontTitle
+                             constrainedToSize:CGSizeMake(162.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
         
         if(sizeTitle.height >= sizeContent.height) {
             CGFloat cellHeight = sizeTitle.height + 50.0f;
@@ -419,7 +421,6 @@
         cell = nCell;
     } else {
         CheckTableViewCell * cCell = [tableView dequeueReusableCellWithIdentifier:[CheckTableViewCell cellIdentifier] forIndexPath:indexPath];
-        
         cCell.time.text = note.createAt;
         cCell.title.text = note.title;
         

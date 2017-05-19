@@ -305,10 +305,10 @@
 		3B1BDA8B1EC060AA00C24315 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3B08DD8E1EC714E3007457F2 /* Main.storyboard */,
-				3B1BDA401EB8461600C24315 /* ContentViewController */,
-				3B498AF11EB30BB6006D6AB1 /* mainViewController */,
 				3B498AF71EB30C4D006D6AB1 /* logInViewController */,
+				3B498AF11EB30BB6006D6AB1 /* mainViewController */,
+				3B1BDA401EB8461600C24315 /* ContentViewController */,
+				3B08DD8E1EC714E3007457F2 /* Main.storyboard */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

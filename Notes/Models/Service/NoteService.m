@@ -10,7 +10,8 @@
 
 @implementation NoteService
 
-+ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content type:(BOOL)isNote callback:(void (^)(BOOL))callback {
++ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content
+                         type:(BOOL)isNote callback:(void (^)(BOOL))callback {
     NoteObject * newNote = [NoteObject newObject];
     newNote.title = title;
     newNote.content = content;
@@ -102,7 +103,8 @@
     }];
 }
 
-+ (void)deleteWithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
++ (void)deleteWithObjectId:(NSString *)objId
+                  callback:(void (^)(BOOL))callback {
     NSString * queryCQL = [NSString stringWithFormat:@"delete from %@ where objectId='%@'",NoteClass,objId];
 
     [AVQuery doCloudQueryInBackgroundWithCQL:queryCQL
@@ -116,13 +118,16 @@
                                     }];
 }
 
-+ (void)updateTitle:(NSString *)newTitle Content:(NSString *)newContent WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
++ (void)updateTitle:(NSString *)newTitle Content:(NSString *)newContent
+       WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
     [self findInNoteBoxWithObjId:objId
                         Callback:^(BOOL succeeded, NoteObject *noteObject) {
                             if (succeeded) {
                                 noteObject.title = newTitle;
                                 noteObject.content = newContent;
-                                [noteObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                [noteObject.avObject
+                                 saveInBackgroundWithBlock:^(BOOL succeeded,
+                                                             NSError * _Nullable error) {
                                     if (succeeded) {
                                         callback(YES);
                                     }
@@ -135,6 +140,7 @@
 }
 
 #pragma mark - Tags
+
 /// 添加新Tag
 + (void)addNewTag:(NSString *)tagTitle callback:(void (^)(BOOL isSuccess, TagObject * object))callback {
     if (LocalDataInstance.isLogin) {
