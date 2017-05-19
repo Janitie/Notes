@@ -15,11 +15,9 @@
 {
     NoteObject * _note;
     BOOL _isUpdating;
-    float addFloat;
 }
 
-//@property (nonatomic, strong) CheckCellView * firstCell;
-//@property (strong, nonatomic) IBOutlet UIScrollView *tableCellView;
+
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 
 @property (strong, nonatomic) UITableView * tableView;
@@ -76,9 +74,6 @@
     NSArray * rawArray = [_note.content componentsSeparatedByString:@"%cObject%["];
     NSMutableArray * rawMArray = [rawArray mutableCopy];
     [rawMArray removeObject:[rawMArray firstObject]];
-//    for (NSString * string in rawMArray) {
-//        NSLog(@" raw string = %@",string);
-//    }
     
     NSMutableArray * noteArray = [NSMutableArray array];
     for (NSString * string in rawMArray) {
@@ -92,10 +87,7 @@
         }
         newObj.content = [string substringFromIndex:2];
         [noteArray addObject:newObj];
-//        [self.cellStringArray addObject:newObj];
-//        NSLog(@"newContent = %@",newObj.content);
-    }
-    
+    }    
     if (noteArray.count > 0) {
         self.cellStringArray = noteArray;
     }
@@ -247,7 +239,8 @@
     } else {
         UIFont * font = [UIFont systemFontOfSize:14];
 //        NSLog(@"cell string = %@",string);
-        CGSize size = [string sizeWithFont:font constrainedToSize:CGSizeMake(261.0f,500.f) lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize size = [string sizeWithFont:font constrainedToSize:CGSizeMake(261.0f,500.f)
+                             lineBreakMode:NSLineBreakByWordWrapping];
         CGFloat cellHeight = size.height + 35.0f;
         return cellHeight;
     }
@@ -286,8 +279,6 @@
         obj.content = string;
         [self.cellStringArray insertObject:obj atIndex:index];
     }
-//    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)stringDidConfirm:(NSString *)string fromIndex:(NSInteger)index{
@@ -296,18 +287,6 @@
         [self.cellStringArray addObject:[BSobject new]];
     }
     [self.tableView reloadData];
-//    NSLog(@"index = %ld",index);
-//    if (index+1 > [self.cellStringArray count]) {
-//        [self.cellStringArray addObject:string];
-//    }
-//    else {
-//        self.cellStringArray[index] = string;
-//    }
-//    for (NSString * strin in _cellStringArray) {
-//        NSLog(@"each string = %@",strin);
-//    }
-//    
-//    [self.tableView reloadData];
 }
 
 - (void)deleteCellFromIndex:(NSInteger)index {
@@ -317,7 +296,6 @@
         [self.tableView reloadData];
         return;
     }
-    
     if (index == 0 && [self.cellStringArray count] <= 1) {
         return;
     }
@@ -337,8 +315,8 @@
     NSValue *value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
     CGSize keyboardSize = [value CGRectValue].size;
     
-//    NSLog(@"keyBoard:%f", keyboardSize.height);  //293
-    ///keyboardWasShown = YES;
+    NSLog(@"keyBoard:%f", keyboardSize.height);  //293
+//    keyboardWasShown = YES;
 }
 
 

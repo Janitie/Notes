@@ -44,14 +44,12 @@
 }
 
 #pragma mark - textView Delegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
+ replacementText:(NSString *)text {
     CGFloat x = self.textView.frame.origin.x;
     CGFloat y = self.textView.frame.origin.y;
     CGFloat w = self.textView.frame.size.width;
     self.textView.frame = CGRectMake(x, y, w, self.textView.contentSize.height);
-    
-//    NSLog(@"1 = %@",textView.text);
-
     if ([text isEqualToString:@"\n"]) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(stringDidConfirm:fromIndex:)]) {
             [self.delegate stringDidConfirm:textView.text fromIndex:self.indexNumber];
