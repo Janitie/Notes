@@ -37,11 +37,13 @@
     {
         if (state == SSDKResponseStateSuccess)
         {
+            [MBProgressHUD showWaitingHUDInKeyWindow];
             [UserService loginUserWithWXToken:user.credential.uid
                                      nickName:user.nickname
                                          icon:user.icon
                                      callback:^(BOOL isSuccess)
             {
+                [MBProgressHUD hideAllWaitingHUDInKeyWindow];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];
              

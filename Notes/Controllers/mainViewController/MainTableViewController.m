@@ -23,7 +23,10 @@
 #import "NoteService.h"
 #import "UserService.h"
 
-@interface MainTableViewController () <INSSearchBarDelegate>
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+
+@interface MainTableViewController () <INSSearchBarDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong)  LLSlideMenu * slideMenu;
 
@@ -58,8 +61,21 @@
 //    new File
     [self.view addSubview:self.bottomBtn];
     
+    [self addNotificationObserver];
+    
     [self makeConstraints];
 
+}
+
+- (void) addNotificationObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshNotesNotification:)
+                                                 name:@"RefreshNotesNotification"
+                                               object:nil];
+}
+
+- (void) removeNotificationObserver {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -80,6 +96,10 @@
     }
 }
 
+- (void)dealloc {
+    [self removeNotificationObserver];
+}
+
 - (void) makeConstraints {
     [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom);
@@ -98,6 +118,12 @@
             self.dataSource = results;
             [self.tableView reloadData];
         }
+    }];
+    
+    [NoteService getTagsWithUserId:LocalDataInstance.userId
+                          callback:^(NSArray<TagObject *> *result)
+    {
+        LocalDataInstance.usedTags = result;
     }];
 }
 
@@ -230,6 +256,7 @@
     //侧栏滑动
     self.leftSwipe = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftHandle:)];
     self.leftSwipe.maximumNumberOfTouches = 1;
+    self.leftSwipe.delegate = self;
     [self.view addGestureRecognizer:_leftSwipe];
 
 }
@@ -263,7 +290,7 @@
         return;
     }
     
-    CGFloat progress = [recognizer translationInView:self.view].x / (self.view.bounds.size.width * 1.0);
+    CGFloat progress = [recognizer translationInView:self.view].x / (self.view.bounds.size.width * 0.85);
     progress = MIN(1.0, MAX(0.0, progress));
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -372,10 +399,7 @@
             CGFloat cellHeight = sizeContent.height + 50.0f;
             return cellHeight;
         }
-        
     }
-    
-    
 }
 
 
@@ -424,13 +448,12 @@
 
 
 #pragma mark - Table view delegate
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NoteObject * note = self.dataSource[indexPath.row];
     if (note.isNote) {
         ContentViewController *detailViewController = [[ContentViewController alloc] init];
         [detailViewController setDataNoteObject:note];
+        [detailViewController setUserTagObjects:LocalDataInstance.usedTags];
         [self.navigationController pushViewController:detailViewController animated:YES];
 
     }
@@ -438,6 +461,109 @@
         CheckEditViewController *detailViewController = [[CheckEditViewController alloc] init];
         [detailViewController setDataNoteObject:note];
         [self.navigationController pushViewController:detailViewController animated:YES];
+    }
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WS(weakSelf);
+    // 添加一个删除按钮
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSLog(@"点击了删除");
+    }];
+    // 添加一个分享按钮
+    
+    UITableViewRowAction *shareRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"分享"handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSLog(@"点击了置顶");
+        NoteObject * noteObj = [weakSelf.dataSource objectAtIndex:indexPath.row];
+        [weakSelf shareNoteWithNoteId:noteObj.objectId];
+    }];
+    shareRowAction.backgroundColor = [UIColor colorWithRed:117.0f/255.0f \
+                                                     green:67.0f/255.0f \
+                                                      blue: 185.0f/255.0f \
+                                                     alpha:1.0f];
+    
+    return @[deleteRowAction, shareRowAction];
+}
+
+#pragma mark - share 
+- (void)shareNoteWithNoteId:(NSString *)noteId {
+    NSArray * imageArray = @[[UIImage imageNamed:@"notess"]];
+    if (imageArray) {
+        NSString * urlStr = [NSString stringWithFormat:@"NoteApp://%@", noteId];
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:@"点击订阅笔记"
+                                         images:imageArray
+                                            url:[NSURL URLWithString:urlStr]
+                                          title:@"分享Note笔记"
+                                           type:SSDKContentTypeAuto];
+        //有的平台要客户端分享需要加此方法，例如微博
+        [shareParams SSDKEnableUseClientShare];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK share:SSDKPlatformTypeWechat
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error)
+        {
+            switch (state) {
+                case SSDKResponseStateSuccess:
+                {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                        message:nil
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"确定"
+                                                              otherButtonTitles:nil];
+                    [alertView show];
+                    break;
+                }
+                    break;
+                case SSDKResponseStateFail:
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                    message:[NSString stringWithFormat:@"%@",error]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil, nil];
+                    [alert show];
+                    break;
+                }
+                    break;
+                default:
+                    break;
+            }
+        }];
+        
+        /*
+        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                   }
+         ];
+         */
     }
 }
 
@@ -455,6 +581,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Gesture delegate 
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer == self.leftSwipe) {
+        UIPanGestureRecognizer * panGes = (UIPanGestureRecognizer *)gestureRecognizer;
+        CGPoint translation = [panGes translationInView:self.view];
+        return (fabs(translation.x) > fabs(translation.y) && translation.x > 0);
+    }
+    return YES;
+}
+
+#pragma mark - Notification 
+- (void) refreshNotesNotification:(NSNotification *)notification
+{
+    [self loadData];
 }
 
 @end

@@ -14,14 +14,28 @@
 
 @interface NoteService : NSObject
 
+/// 创建笔记
++ (void)creatNewNoteWithTitle:(NSString *)title
+                      content:(NSString *)content
+                         type:(BOOL)isNote
+                     callback:(void(^)(BOOL succeeded))callback;
 
-+ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content type:(BOOL)isNote callback:(void(^)(BOOL succeeded))callback;
+/// 订阅笔记
++ (void)addReaderWithNoteId:(NSString *)noteId
+                   callback:(void(^)(BOOL isSuccess))callback;
 
-+ (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback;
+/// 获取用户可读笔记
++ (void)fetchNotes:(NSString *)userId
+          callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback;
 
-+ (void)deleteWithObjectId:(NSString *)objId callback:(void (^)(BOOL isSuccess))callback;
+/// 删除笔记
++ (void)deleteWithObjectId:(NSString *)objId
+                  callback:(void (^)(BOOL isSuccess))callback;
 
-+ (void)updateTitle:(NSString *)newTitle Content:(NSString *)newContent WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback;
+/// 更新笔记
++ (void)updateTitle:(NSString *)newTitle
+            Content:(NSString *)newContent
+       WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback;
 
 /// 添加新Tag
 + (void)addNewTag:(NSString *)tagTitle

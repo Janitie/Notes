@@ -62,6 +62,7 @@
 		3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
 		AD3907241ECE2C94002B7AA6 /* NoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3907231ECE2C94002B7AA6 /* NoteService.m */; };
+		AD3907251ECF65E4002B7AA6 /* MBProgressHUD+QuickShow.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59D96B1ECE1484001EB011 /* MBProgressHUD+QuickShow.m */; };
 		AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6818261ECCC65C0000774D /* LocalDataModel.m */; };
 		AD68182E1ECCC69B0000774D /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182B1ECCC69B0000774D /* LabelView.m */; };
 		AD68182F1ECCC69B0000774D /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182D1ECCC69B0000774D /* TagView.m */; };
@@ -665,6 +666,7 @@
 				AD3907241ECE2C94002B7AA6 /* NoteService.m in Sources */,
 				AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */,
 				3B08DD8A1EC7149F007457F2 /* LLCircleLayer.m in Sources */,
+				AD3907251ECF65E4002B7AA6 /* MBProgressHUD+QuickShow.m in Sources */,
 				3B08DD7E1EC71478007457F2 /* INSSearchBar.m in Sources */,
 				3B61DC321EC341E800F94ED9 /* NoteTagObject.m in Sources */,
 				3B498ACE1EB1C2A8006D6AB1 /* Notes.xcdatamodeld in Sources */,

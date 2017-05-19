@@ -16,6 +16,9 @@
 
 #import "NoteService.h"
 #import "UserService.h"
+#import "MBProgressHUD+QuickShow.h"
+
+#define WS(weakSelf)  __weak __typeof(self) weakSelf = self;
 
 #define ScreenHeight CGRectGetHeight([UIScreen mainScreen].bounds)
 #define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)

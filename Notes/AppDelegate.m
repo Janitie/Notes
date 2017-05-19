@@ -12,7 +12,9 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "WXApi.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UIAlertViewDelegate>
+
+@property (nonatomic, copy) NSString * shareNoteId;
 
 @end
 
@@ -30,7 +32,8 @@
     [self.window setRootViewController:nav];
     [self.window makeKeyAndVisible];
     
-    [AVOSCloud setApplicationId:@"BQuc8AC0uFuUfMO2hmtirFcr-gzGzoHsz" clientKey:@"UYafhCVztDte7zr1lwO8fQ7O"];
+    [AVOSCloud setApplicationId:@"BQuc8AC0uFuUfMO2hmtirFcr-gzGzoHsz"
+                      clientKey:@"UYafhCVztDte7zr1lwO8fQ7O"];
 
 
     return YES;
@@ -94,7 +97,44 @@
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary*)options {
+    
+    NSString * noteId = [[url absoluteString] substringFromIndex:10];
+    NoteObject * noteObj = [NoteObject newObjectWithObjectId:noteId];
+    WS(weakSelf);
+    [noteObj.avObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+        if (!error) {
+            weakSelf.shareNoteId = noteObj.objectId;
+            NSString * message = [NSString stringWithFormat:@"是否接受订阅《%@》？", noteObj.title];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"共享笔记"
+                                                                 message:message
+                                                                delegate:self
+                                                       cancelButtonTitle:@"否"
+                                                       otherButtonTitles:@"是", nil];
+            [alertView show];
+        }
+    }];
+    
+    NSLog(@"noteId = %@", noteId);
+    NSLog(@"openURL = %@", url);
+    NSLog(@"openOptions = %@", options);
     return YES;
+}
+
+#pragma mark - UIAlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [NoteService addReaderWithNoteId:self.shareNoteId
+                                callback:^(BOOL isSuccess)
+        {
+            if (isSuccess) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNotesNotification"
+                                                                    object:nil];
+                [MBProgressHUD showQuickTipWithText:@"已订阅"];
+            } else {
+                [MBProgressHUD showQuickTipWithText:@"订阅失败"];
+            }
+        }];
+    }
 }
 
 #pragma mark - Core Data stack

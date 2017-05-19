@@ -21,10 +21,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
-
-
-
-
+@property (nonatomic, strong) NSArray<TagObject *> * userTagObjects;
+@property (nonatomic, strong) NSArray<TagObject *> * noteTagObjects;
 
 @property (assign, nonatomic) BOOL isNote;
 

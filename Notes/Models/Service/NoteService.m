@@ -20,13 +20,8 @@
 
     [newNote.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            ReaderObject * readerObject = [ReaderObject newObject];
-            readerObject.noteId = newNote.objectId;
-            readerObject.userId = LocalDataInstance.userId;
-            [readerObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error)
-            {
-                callback (succeeded);
-            }];
+            [self addReaderWithNoteId:newNote.objectId
+                             callback:callback];
         }
         else {
             callback(NO);
@@ -34,6 +29,17 @@
     }];
 }
 
++ (void)addReaderWithNoteId:(NSString *)noteId
+                   callback:(void(^)(BOOL isSuccess))callback
+{
+    ReaderObject * readerObject = [ReaderObject newObject];
+    readerObject.noteId = noteId;
+    readerObject.userId = LocalDataInstance.userId;
+    [readerObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error)
+     {
+         callback (succeeded);
+     }];
+}
 
 
 + (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback {
