@@ -43,7 +43,7 @@
 		3B1BDAA41EC065F100C24315 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAA21EC065F100C24315 /* MainTableViewController.m */; };
 		3B1BDAA51EC065F100C24315 /* MainTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1BDAA31EC065F100C24315 /* MainTableViewController.xib */; };
 		3B1BDAA81EC0661600C24315 /* NewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAA71EC0661600C24315 /* NewButton.m */; };
-		3B1BDAAB1EC0665300C24315 /* userObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAAA1EC0665300C24315 /* userObject.m */; };
+		3B1BDAAB1EC0665300C24315 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAAA1EC0665300C24315 /* UserObject.m */; };
 		3B1BDAB01EC0CB7100C24315 /* NoteObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAAF1EC0CB7100C24315 /* NoteObject.m */; };
 		3B1BDAB31EC0D0A900C24315 /* BaseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAB21EC0D0A900C24315 /* BaseDataModel.m */; };
 		3B1BDAB61EC0E7EE00C24315 /* TagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BDAB51EC0E7EE00C24315 /* TagObject.m */; };
@@ -55,18 +55,17 @@
 		3B498B1F1EB4CC54006D6AB1 /* LogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B498B1D1EB4CC54006D6AB1 /* LogInViewController.xib */; };
 		3B61DC2F1EC3403E00F94ED9 /* ReaderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC2E1EC3403E00F94ED9 /* ReaderObject.m */; };
 		3B61DC321EC341E800F94ED9 /* NoteTagObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC311EC341E800F94ED9 /* NoteTagObject.m */; };
-		3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B61DC341EC34FDE00F94ED9 /* NoteService.m */; };
 		3BBDBB3C1ECD6BD50051D3D4 /* SingleCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */; };
 		3BBDBB3D1ECD6BD50051D3D4 /* SingleCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */; };
 		3BBDBB471ECDE9680051D3D4 /* BSobject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDBB461ECDE9680051D3D4 /* BSobject.m */; };
 		3BC661371ECBDAD2001D1BFB /* CheckEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */; };
 		3BC661381ECBDAD2001D1BFB /* CheckEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */; };
 		4E4FAF780306E659B8D7CE37 /* libPods-Notes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E75ED4382256F855B11F88 /* libPods-Notes.a */; };
+		AD3907241ECE2C94002B7AA6 /* NoteService.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3907231ECE2C94002B7AA6 /* NoteService.m */; };
 		AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6818261ECCC65C0000774D /* LocalDataModel.m */; };
 		AD68182E1ECCC69B0000774D /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182B1ECCC69B0000774D /* LabelView.m */; };
 		AD68182F1ECCC69B0000774D /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD68182D1ECCC69B0000774D /* TagView.m */; };
-		AD9647441ECC999000A6AA37 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		ADB931FE1ECBF9D000706FA2 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		AD6818361ECDE99C0000774D /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6818351ECDE99C0000774D /* UserService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,8 +122,8 @@
 		3B1BDAA31EC065F100C24315 /* MainTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTableViewController.xib; sourceTree = "<group>"; };
 		3B1BDAA61EC0661600C24315 /* NewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewButton.h; path = Views/NewButton.h; sourceTree = "<group>"; };
 		3B1BDAA71EC0661600C24315 /* NewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewButton.m; path = Views/NewButton.m; sourceTree = "<group>"; };
-		3B1BDAA91EC0665300C24315 /* userObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userObject.h; sourceTree = "<group>"; };
-		3B1BDAAA1EC0665300C24315 /* userObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userObject.m; sourceTree = "<group>"; };
+		3B1BDAA91EC0665300C24315 /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
+		3B1BDAAA1EC0665300C24315 /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		3B1BDAAE1EC0CB7100C24315 /* NoteObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteObject.h; sourceTree = "<group>"; };
 		3B1BDAAF1EC0CB7100C24315 /* NoteObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteObject.m; sourceTree = "<group>"; };
 		3B1BDAB11EC0D0A900C24315 /* BaseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDataModel.h; sourceTree = "<group>"; };
@@ -145,8 +144,6 @@
 		3B61DC2E1EC3403E00F94ED9 /* ReaderObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderObject.m; sourceTree = "<group>"; };
 		3B61DC301EC341E800F94ED9 /* NoteTagObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTagObject.h; sourceTree = "<group>"; };
 		3B61DC311EC341E800F94ED9 /* NoteTagObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTagObject.m; sourceTree = "<group>"; };
-		3B61DC331EC34FDE00F94ED9 /* NoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteService.h; sourceTree = "<group>"; };
-		3B61DC341EC34FDE00F94ED9 /* NoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteService.m; sourceTree = "<group>"; };
 		3BBDBB391ECD6BD50051D3D4 /* SingleCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SingleCheckCell.h; path = ContentViewController/SingleCheckCell.h; sourceTree = "<group>"; };
 		3BBDBB3A1ECD6BD50051D3D4 /* SingleCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SingleCheckCell.m; path = ContentViewController/SingleCheckCell.m; sourceTree = "<group>"; };
 		3BBDBB3B1ECD6BD50051D3D4 /* SingleCheckCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SingleCheckCell.xib; path = ContentViewController/SingleCheckCell.xib; sourceTree = "<group>"; };
@@ -155,6 +152,10 @@
 		3BC661311ECBDAD2001D1BFB /* CheckEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckEditViewController.h; path = ContentViewController/CheckEditViewController.h; sourceTree = "<group>"; };
 		3BC661321ECBDAD2001D1BFB /* CheckEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckEditViewController.m; path = ContentViewController/CheckEditViewController.m; sourceTree = "<group>"; };
 		3BC661331ECBDAD2001D1BFB /* CheckEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckEditViewController.xib; path = ContentViewController/CheckEditViewController.xib; sourceTree = "<group>"; };
+		AD3907221ECE2C94002B7AA6 /* NoteService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteService.h; sourceTree = "<group>"; };
+		AD3907231ECE2C94002B7AA6 /* NoteService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteService.m; sourceTree = "<group>"; };
+		AD59D96A1ECE1484001EB011 /* MBProgressHUD+QuickShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+QuickShow.h"; sourceTree = "<group>"; };
+		AD59D96B1ECE1484001EB011 /* MBProgressHUD+QuickShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+QuickShow.m"; sourceTree = "<group>"; };
 		AD6818251ECCC65C0000774D /* LocalDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDataModel.h; sourceTree = "<group>"; };
 		AD6818261ECCC65C0000774D /* LocalDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDataModel.m; sourceTree = "<group>"; };
 		AD68182A1ECCC69B0000774D /* LabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelView.h; sourceTree = "<group>"; };
@@ -162,6 +163,8 @@
 		AD68182C1ECCC69B0000774D /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
 		AD68182D1ECCC69B0000774D /* TagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagView.m; sourceTree = "<group>"; };
 		AD6818301ECD47C00000774D /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		AD6818341ECDE99C0000774D /* UserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserService.h; sourceTree = "<group>"; };
+		AD6818351ECDE99C0000774D /* UserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserService.m; sourceTree = "<group>"; };
 		D816E3EE48F5A4D9B3CD8F26 /* Pods-Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notes/Pods-Notes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -324,8 +327,8 @@
 			children = (
 				3B1BDAB11EC0D0A900C24315 /* BaseDataModel.h */,
 				3B1BDAB21EC0D0A900C24315 /* BaseDataModel.m */,
-				3B1BDAA91EC0665300C24315 /* userObject.h */,
-				3B1BDAAA1EC0665300C24315 /* userObject.m */,
+				3B1BDAA91EC0665300C24315 /* UserObject.h */,
+				3B1BDAAA1EC0665300C24315 /* UserObject.m */,
 				3B1BDAAE1EC0CB7100C24315 /* NoteObject.h */,
 				3B1BDAAF1EC0CB7100C24315 /* NoteObject.m */,
 				3B1BDAB41EC0E7EE00C24315 /* TagObject.h */,
@@ -341,10 +344,12 @@
 		3B1BDAAD1EC0666F00C24315 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				3B61DC331EC34FDE00F94ED9 /* NoteService.h */,
-				3B61DC341EC34FDE00F94ED9 /* NoteService.m */,
+				AD3907221ECE2C94002B7AA6 /* NoteService.h */,
+				AD3907231ECE2C94002B7AA6 /* NoteService.m */,
+				AD6818341ECDE99C0000774D /* UserService.h */,
+				AD6818351ECDE99C0000774D /* UserService.m */,
 			);
-			name = Service;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		3B498AB41EB1C2A8006D6AB1 = {
@@ -369,6 +374,7 @@
 		3B498ABF1EB1C2A8006D6AB1 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				AD59D9691ECE1408001EB011 /* Utils */,
 				3B498AC31EB1C2A8006D6AB1 /* AppDelegate.h */,
 				3B498AC41EB1C2A8006D6AB1 /* AppDelegate.m */,
 				3B1BDA8C1EC060E000C24315 /* Models */,
@@ -459,6 +465,15 @@
 				33E75ED4382256F855B11F88 /* libPods-Notes.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AD59D9691ECE1408001EB011 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AD59D96A1ECE1484001EB011 /* MBProgressHUD+QuickShow.h */,
+				AD59D96B1ECE1484001EB011 /* MBProgressHUD+QuickShow.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		AD6818291ECCC69B0000774D /* LabelView */ = {
@@ -638,7 +653,6 @@
 				3BBDBB3C1ECD6BD50051D3D4 /* SingleCheckCell.m in Sources */,
 				3B1BDA9E1EC065B600C24315 /* CheckTableViewCell.m in Sources */,
 				3B498AC51EB1C2A8006D6AB1 /* AppDelegate.m in Sources */,
-				3B61DC351EC34FDE00F94ED9 /* NoteService.m in Sources */,
 				3BBDBB471ECDE9680051D3D4 /* BSobject.m in Sources */,
 				3B08DD8B1EC7149F007457F2 /* LLDisplayLayer.m in Sources */,
 				AD68182F1ECCC69B0000774D /* TagView.m in Sources */,
@@ -648,14 +662,14 @@
 				3B1BDAB31EC0D0A900C24315 /* BaseDataModel.m in Sources */,
 				3B1BDAA01EC065B600C24315 /* NoteTableViewCell.m in Sources */,
 				3B1BDA901EC064C600C24315 /* ContentViewController.m in Sources */,
-				ADB931FE1ECBF9D000706FA2 /* (null) in Sources */,
+				AD3907241ECE2C94002B7AA6 /* NoteService.m in Sources */,
 				AD6818271ECCC65C0000774D /* LocalDataModel.m in Sources */,
-				AD9647441ECC999000A6AA37 /* (null) in Sources */,
 				3B08DD8A1EC7149F007457F2 /* LLCircleLayer.m in Sources */,
 				3B08DD7E1EC71478007457F2 /* INSSearchBar.m in Sources */,
 				3B61DC321EC341E800F94ED9 /* NoteTagObject.m in Sources */,
 				3B498ACE1EB1C2A8006D6AB1 /* Notes.xcdatamodeld in Sources */,
-				3B1BDAAB1EC0665300C24315 /* userObject.m in Sources */,
+				AD6818361ECDE99C0000774D /* UserService.m in Sources */,
+				3B1BDAAB1EC0665300C24315 /* UserObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

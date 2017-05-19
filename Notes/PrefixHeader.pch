@@ -14,6 +14,9 @@
 
 #include "LocalDataModel.h"
 
+#import "NoteService.h"
+#import "UserService.h"
+
 #define ScreenHeight CGRectGetHeight([UIScreen mainScreen].bounds)
 #define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)
 

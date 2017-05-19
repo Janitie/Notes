@@ -31,29 +31,58 @@
 }
 
 #pragma mark - Getter
+- (UserObject *)currentUser {
+    return [UserObject currentUser];
+}
+
+- (NSString *)userId {
+    return self.currentUser.objectId;
+}
+
 - (BOOL)isLogin {
     return [self.mUserDefault boolForKey:@"isLogin"];
 }
 
-- (NSString *)userId {
-    return [self.mUserDefault valueForKey:@"userId"];
+- (NSString *)wxOpenId {
+    return [self.mUserDefault valueForKey:@"wxOpenId"];
 }
 
+- (NSString *)nickName {
+    return [self.mUserDefault valueForKey:@"nickName"];
+}
+
+- (NSString *)userIcon {
+    return [self.mUserDefault valueForKey:@"userIcon"];
+}
 
 - (NSArray *)usedTags {
     return [self.mUserDefault valueForKey:@"usedTags"];
 }
+
 #pragma mark - Setter
 - (void)setIsLogin:(BOOL)isLogin {
     [self.mUserDefault setBool:isLogin forKey:@"isLogin"];
+    [self.mUserDefault synchronize];
 }
 
-- (void)setUserId:(NSString *)userId {
-    [self.mUserDefault setValue:userId forKey:@"userId"];
+- (void)setWxOpenId:(NSString *)wxOpenId {
+    [self.mUserDefault setValue:wxOpenId forKey:@"wxOpenId"];
+    [self.mUserDefault synchronize];
+}
+
+- (void)setNickName:(NSString *)nickName {
+    [self.mUserDefault setValue:nickName forKey:@"nickName"];
+    [self.mUserDefault synchronize];
+}
+
+- (void)setUserIcon:(NSString *)userIcon {
+    [self.mUserDefault setValue:userIcon forKey:@"userIcon"];
+    [self.mUserDefault synchronize];
 }
 
 - (void)setUsedTags:(NSArray *)usedTags {
     [self.mUserDefault setValue:usedTags forKey:@"usedTags"];
+    [self.mUserDefault synchronize];
 }
 
 

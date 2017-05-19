@@ -1,26 +1,26 @@
 //
-//  userObject.m
+//  UserObject.m
 //  Notes
 //
 //  Created by 徐琬璇 on 2017/5/8.
 //  Copyright © 2017年 noneTobacco. All rights reserved.
 //
 
-#import "userObject.h"
+#import "UserObject.h"
 
 
-static NSString * KeyName = @"username";
+static NSString * KeyNickName = @"nickName";
 static NSString * KeyWxid = @"wxopenId";
 static NSString * KeyIcon = @"iconUrl";
 //static NSString * KeyGender = @"genderType";
 
-@interface userObject ()
+@interface UserObject ()
 
 @property (nonatomic, strong) AVUser * user;
 
 @end
 
-@implementation userObject
+@implementation UserObject
 
 - (id) init
 {
@@ -32,13 +32,13 @@ static NSString * KeyIcon = @"iconUrl";
 }
 
 + (instancetype)newUser {
-    userObject *newUser = [userObject new];
+    UserObject *newUser = [UserObject new];
     newUser.user = [AVUser user];
     return newUser;
 }
 
 + (instancetype)currentUser {
-    userObject * currentUser = [userObject new];
+    UserObject * currentUser = [UserObject new];
     currentUser.user = [AVUser currentUser];
     if (currentUser.user){
         return currentUser;
@@ -49,7 +49,7 @@ static NSString * KeyIcon = @"iconUrl";
 
 + (instancetype)userWithUser:(AVUser *)user
 {
-    userObject * existUser = [userObject new];
+    UserObject * existUser = [UserObject new];
     existUser.user = user;
     return existUser;
 }
@@ -61,6 +61,9 @@ static NSString * KeyIcon = @"iconUrl";
     return UserClass;
 }
 
+- (NSString *)objectId {
+    return self.user.objectId;
+}
 
 - (NSString *)createAt
 {
@@ -81,17 +84,17 @@ static NSString * KeyIcon = @"iconUrl";
     self.user.username = username;
 }
 
-- (void)setWxopenId:(NSString *)wxopenId {
-    [self.user setValue:wxopenId forKey:KeyWxid];
+- (void)setPassword:(NSString *)password {
+    self.user.password = password;
+}
+
+- (void)setNickName:(NSString *)nickName {
+    [self.user setObject:nickName forKey:KeyNickName];
 }
 
 - (void)setIconUrl:(NSString *)iconUrl {
-    [self.user setValue:iconUrl forKey:KeyIcon];
+    [self.user setObject:iconUrl forKey:KeyIcon];
 }
-
-//- (void)setGenderType:(GenderType)genderType {
-//    [self.user setValue:genderType forKey:KeyGender];
-//}
 
 
 #pragma mark - getter
@@ -99,13 +102,18 @@ static NSString * KeyIcon = @"iconUrl";
     return self.user.username;
 }
 
+- (NSString *)password {
+    return self.user.password;
+}
+
+- (NSString *)nickName {
+    return [self.user objectForKey:KeyNickName];
+}
+
 - (NSString *)iconUrl {
     return [self.user objectForKey:KeyIcon];
 }
 
-- (NSString *)wxopenId {
-    return [self.user objectForKey:KeyWxid];
-}
 
 
 

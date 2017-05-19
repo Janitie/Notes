@@ -17,15 +17,16 @@ static NSString * UserClass = @"_User";
 //} GenderType;
 
 
-@interface userObject : NSObject
+@interface UserObject : NSObject
 
 @property (nonatomic, strong, readonly) AVUser * user;
 
-/// wxopenid
-@property (nonatomic) NSString * username;      //name
-@property (nonatomic) NSString * wxopenId;      //id
+@property (nonatomic) NSString * username;      //un -> wxOpenId
+@property (nonatomic) NSString * password;      //pw
+@property (nonatomic) NSString * nickName;      //nickname
 @property (nonatomic) NSString * iconUrl;       //face
-//@property (nonatomic) GenderType genderType;    //gender
+
+@property (nonatomic, readonly) NSString * objectId;
 
 - (NSString *)updateAt;
 - (NSString *)createAt;

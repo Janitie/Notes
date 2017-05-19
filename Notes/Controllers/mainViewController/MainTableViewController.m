@@ -21,6 +21,7 @@
 #import <Masonry.h>
 
 #import "NoteService.h"
+#import "UserService.h"
 
 @interface MainTableViewController () <INSSearchBarDelegate>
 
@@ -37,6 +38,8 @@
 @end
 
 @implementation MainTableViewController
+
+@synthesize dataSource = _dataSource;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,17 +65,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    BOOL isLogin = [[NSUserDefaults standardUserDefaults] valueForKey:@"isLogin"];
+    BOOL isLogin = LocalDataInstance.isLogin;
     if (isLogin == YES) {
-        NSString * userName = [[NSUserDefaults standardUserDefaults] valueForKey:@"userName"];
+        NSString * userName = LocalDataInstance.nickName;
         self.userName.text = userName;
         
-        NSURL * userIcon = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] valueForKey:@"userIcon"]];
+        NSURL * userIcon = [NSURL URLWithString:LocalDataInstance.userIcon];
         [self.faceBtn sd_setImageWithURL:userIcon];
+        
+        // get Data
+        [self loadData];
+    } else {
+        [self showLoginViewController];
     }
-    
-    // get Data
-    [self loadData];
 }
 
 - (void) makeConstraints {
@@ -86,7 +91,9 @@
 
 #pragma mark - Data Handle
 - (void)loadData {
-    [NoteService fetchNotes:nil callback:^(BOOL isSuccess, NSArray<NoteObject *> *results) {
+    [NoteService fetchNotes:LocalDataInstance.userId
+                   callback:^(BOOL isSuccess, NSArray<NoteObject *> *results)
+    {
         if (isSuccess) {
             self.dataSource = results;
             [self.tableView reloadData];
@@ -122,6 +129,13 @@
 
     }
     return _tableView;
+}
+
+#pragma mark - Setter 
+- (void)setDataSource:(NSArray *)dataSource {
+    NSMutableArray * tempData = [dataSource mutableCopy];
+    [tempData insertObject:[NSObject new] atIndex:0];
+    _dataSource = tempData;
 }
 
 #pragma mark - Getter
@@ -221,23 +235,26 @@
 }
 - (void)quitWechat {
     //quit
-    
+    [_slideMenu ll_closeSlideMenu];
     //UI
     [self.faceBtn setImage:[UIImage imageNamed:@"defaultUser"]];
     self.userName.text = @"Default_User";
     
-    
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogin"];
-    NSLog(@"quit wechat");
+    [UserService logout];
+    [self showLoginViewController];
 }
 
 - (void)imageViewTapAction {
     [_slideMenu ll_closeSlideMenu];
-    if (!_slideMenu.ll_isOpen) {
-        LogInViewController * log = [[LogInViewController alloc] init];
-        log.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:log animated:YES completion:nil];
-    }
+//    if (!_slideMenu.ll_isOpen) {
+//        [self showLoginViewController];
+//    }
+}
+
+- (void)showLoginViewController {
+    LogInViewController * log = [[LogInViewController alloc] init];
+    log.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:log animated:NO completion:nil];
 }
 
 - (void)swipeLeftHandle:(UIScreenEdgePanGestureRecognizer *)recognizer {
@@ -269,10 +286,6 @@
     }
     
 //    Blur is better
-    
-    
-    
-    
   
 }
 

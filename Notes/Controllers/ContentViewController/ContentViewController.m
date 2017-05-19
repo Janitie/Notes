@@ -31,6 +31,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewBottomSpace;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagViewHeight;
 
 @end
 
@@ -102,6 +103,7 @@
         _isInputtingTag = YES;
         self.tagInputView.frame = self.tagInputOriginFrame;
         [self.view addSubview:self.tagInputView];
+        [self.view endEditing:YES];
         [UIView animateWithDuration:0.25f
                          animations:^
          {
@@ -134,7 +136,9 @@
     self.tagView.seletedTags = self.noteTags;
     self.tagInputViewContent.allTags = self.userTags;
     self.tagInputViewContent.seletedTags = self.noteTags;
+    
     self.contentViewHeight.constant = CGRectGetHeight(self.tagInputViewContent.frame);
+    self.tagViewHeight.constant = self.tagView.supposeHeight;
 }
 
 - (NSArray *)addTagTitle:(NSString *)tagTitle toArray:(NSArray *)array {

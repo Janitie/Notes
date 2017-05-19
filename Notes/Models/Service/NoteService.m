@@ -21,7 +21,13 @@
 
     [newNote.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            callback(YES);
+            ReaderObject * readerObject = [ReaderObject newObject];
+            readerObject.noteId = newNote.objectId;
+            readerObject.userId = LocalDataInstance.userId;
+            [readerObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error)
+            {
+                callback (succeeded);
+            }];
         }
         else {
             callback(NO);
@@ -32,20 +38,49 @@
 
 
 + (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback {
-    AVQuery *query = [AVQuery queryWithClassName:NoteClass];
-//    [query whereKey:@"userId" equalTo:userId];
+//    AVQuery *query = [AVQuery queryWithClassName:NoteClass];
+////    [query whereKey:@"userId" equalTo:userId];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+//        if (error) {
+//            callback (NO, nil);
+//        } else {
+//            NSMutableArray * objectResults = [NSMutableArray array];
+//            for (AVObject * avObj in objects) {
+//                NoteObject * obj = [NoteObject objectWithObject:avObj];
+//                [objectResults addObject:obj];
+//            }
+//            callback (YES, objectResults);
+//        }
+//    }];
+    AVQuery * query = [ReaderObject query];
+    [query whereKey:@"userId" equalTo:userId];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (error) {
-            callback (NO, nil);
-        } else {
-            NSMutableArray * objectResults = [NSMutableArray array];
-            for (AVObject * avObj in objects) {
-                NoteObject * obj = [NoteObject objectWithObject:avObj];
-                [objectResults addObject:obj];
+        if (!error) {
+            NSMutableArray * noteObjs = [NSMutableArray array];
+            for (AVObject * obj in objects) {
+                ReaderObject * reader = [[ReaderObject alloc] initWithAVObject:obj];
+                NoteObject * noteObj = [NoteObject newObjectWithObjectId:reader.noteId];
+                [noteObjs addObject:noteObj.avObject];
             }
-            callback (YES, objectResults);
+            [AVObject fetchAllInBackground:noteObjs
+                                     block:^(NSArray * _Nullable objects, NSError * _Nullable error)
+            {
+                if (!error) {
+                    NSMutableArray * notesResult = [NSMutableArray array];
+                    for (AVObject * avObj in objects) {
+                        NoteObject *noteObj = [[NoteObject alloc] initWithAVObject:avObj];
+                        [notesResult addObject:noteObj];
+                    }
+                    callback (YES, notesResult);
+                } else {
+                    callback (NO, nil);
+                }
+            }];
+        } else {
+            callback (NO, nil);
         }
     }];
+    
 }
 
 + (void)findInNoteBoxWithObjId:(NSString *)objId Callback:(void (^)(BOOL succeeded,NoteObject * noteObject))callback {
@@ -104,7 +139,7 @@
 + (void)addNewTag:(NSString *)tagTitle callback:(void (^)(BOOL isSuccess, TagObject * object))callback {
     if (LocalDataInstance.isLogin) {
         TagObject * tagObject = [TagObject newObject];
-        tagObject.userId = LocalDataInstance.userId;
+        tagObject.userId = LocalDataInstance.currentUser.objectId;
         tagObject.tagName = tagTitle;
         [tagObject.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (!error) {
