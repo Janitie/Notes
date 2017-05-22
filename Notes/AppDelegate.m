@@ -98,23 +98,26 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary*)options {
     
-    NSString * noteId = [[url absoluteString] substringFromIndex:10];
-    NoteObject * noteObj = [NoteObject newObjectWithObjectId:noteId];
-    WS(weakSelf);
-    [noteObj.avObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
-        if (!error) {
-            weakSelf.shareNoteId = noteObj.objectId;
-            NSString * message = [NSString stringWithFormat:@"是否接受订阅《%@》？", noteObj.title];
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"共享笔记"
-                                                                 message:message
-                                                                delegate:self
-                                                       cancelButtonTitle:@"否"
-                                                       otherButtonTitles:@"是", nil];
-            [alertView show];
-        }
-    }];
-    
-    NSLog(@"noteId = %@", noteId);
+    NSString * urlStr = [url absoluteString];
+    NSRange range = [urlStr rangeOfString:@"NoteApp://"];
+    if (range.location < urlStr.length) {
+        NSString * noteId = [urlStr substringFromIndex:10];
+        NSLog(@"noteId = %@", noteId);
+        NoteObject * noteObj = [NoteObject newObjectWithObjectId:noteId];
+        WS(weakSelf);
+        [noteObj.avObject fetchInBackgroundWithBlock:^(AVObject * _Nullable object, NSError * _Nullable error) {
+            if (!error) {
+                weakSelf.shareNoteId = noteObj.objectId;
+                NSString * message = [NSString stringWithFormat:@"是否接受订阅《%@》？", noteObj.title];
+                UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"共享笔记"
+                                                                     message:message
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"否"
+                                                           otherButtonTitles:@"是", nil];
+                [alertView show];
+            }
+        }];
+    }
     NSLog(@"openURL = %@", url);
     NSLog(@"openOptions = %@", options);
     return YES;

@@ -10,8 +10,11 @@
 
 @implementation NoteService
 
-+ (void)creatNewNoteWithTitle:(NSString *)title content:(NSString *)content
-                         type:(BOOL)isNote callback:(void (^)(BOOL))callback {
+/// 创建笔记
++ (void)creatNewNoteWithTitle:(NSString *)title
+                      content:(NSString *)content
+                         type:(BOOL)isNote
+                     callback:(void (^)(BOOL))callback {
     NoteObject * newNote = [NoteObject newObject];
     newNote.title = title;
     newNote.content = content;
@@ -30,6 +33,7 @@
     }];
 }
 
+/// 订阅笔记
 + (void)addReaderWithNoteId:(NSString *)noteId
                    callback:(void(^)(BOOL isSuccess))callback
 {
@@ -43,7 +47,9 @@
 }
 
 
-+ (void)fetchNotes:(NSString *)userId callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback {
+/// 获取用户可阅笔记
++ (void)fetchNotes:(NSString *)userId
+          callback:(void (^)(BOOL isSuccess, NSArray<NoteObject *> * results)) callback {
 //    AVQuery *query = [AVQuery queryWithClassName:NoteClass];
 ////    [query whereKey:@"userId" equalTo:userId];
 //    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -89,7 +95,9 @@
     
 }
 
-+ (void)findInNoteBoxWithObjId:(NSString *)objId Callback:(void (^)(BOOL succeeded,NoteObject * noteObject))callback {
+/// 获取文章
++ (void)findInNoteBoxWithObjId:(NSString *)objId
+                      Callback:(void (^)(BOOL succeeded,NoteObject * noteObject))callback {
     AVQuery * query = [AVQuery queryWithClassName:NoteClass];
     [query whereKey:@"objectId" equalTo:objId];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
@@ -103,6 +111,7 @@
     }];
 }
 
+/// 删除笔记
 + (void)deleteWithObjectId:(NSString *)objId
                   callback:(void (^)(BOOL))callback {
     NSString * queryCQL = [NSString stringWithFormat:@"delete from %@ where objectId='%@'",NoteClass,objId];
@@ -118,6 +127,7 @@
                                     }];
 }
 
+/// 更新文章
 + (void)updateTitle:(NSString *)newTitle Content:(NSString *)newContent
        WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
     [self findInNoteBoxWithObjId:objId
