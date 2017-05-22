@@ -112,7 +112,7 @@
                 [NoteService creatNewNoteWithTitle:self.titleField.text
                                            content:content
                                               type:self.isNote
-                                          callback:^(BOOL succeeded) {
+                                          callback:^(BOOL succeeded, NoteObject * object) {
                                               if (succeeded) {
                                                   [self.navigationController popViewControllerAnimated:YES];
                                               }
@@ -157,7 +157,6 @@
                                 }
                             }];
         }
-        _isUpdating = NO;
     }
 }
 

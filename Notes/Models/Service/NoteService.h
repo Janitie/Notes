@@ -18,7 +18,7 @@
 + (void)creatNewNoteWithTitle:(NSString *)title
                       content:(NSString *)content
                          type:(BOOL)isNote
-                     callback:(void(^)(BOOL succeeded))callback;
+                     callback:(void(^)(BOOL succeeded, NoteObject * object))callback;
 
 /// 订阅笔记
 + (void)addReaderWithNoteId:(NSString *)noteId
@@ -32,6 +32,10 @@
 + (void)deleteWithObjectId:(NSString *)objId
                   callback:(void (^)(BOOL isSuccess))callback;
 
+/// 删除笔记关联
++ (void)deleteReaderWithNoteId:(NSString *)noteId
+                      callback:(void (^)(BOOL isSuccess))callback;
+
 /// 更新笔记
 + (void)updateTitle:(NSString *)newTitle
             Content:(NSString *)newContent
@@ -40,6 +44,10 @@
 /// 添加新Tag
 + (void)addNewTag:(NSString *)tagTitle
          callback:(void (^)(BOOL isSuccess, TagObject * object))callback;
+
+/// 批量添加Tags
++ (void)addTagsWithTitles:(NSArray *)tagTitles callback:(void (^)(BOOL isSuccess, NSArray<TagObject *> * objects))callback;
+
 /// 删除Tag
 + (void)deleteTag:(NSString *)tagId
          callback:(void (^)(BOOL isSuccess))callback;
@@ -58,6 +66,11 @@
 + (void)deleteNoteTagWithNoteId:(NSString *)noteId
                           TagId:(NSString *)tagId
                        callback:(void (^)(BOOL isSuccess))callback;
+
+/// 用新的标签列表替换所有文章标签
++ (void)updateNoteTags:(NSArray<TagObject *> *)tags
+                noteId:(NSString *)noteId
+              callback:(void (^)(BOOL isSuccess))callback;
 
 
 @end

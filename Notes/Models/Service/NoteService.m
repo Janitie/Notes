@@ -14,7 +14,7 @@
 + (void)creatNewNoteWithTitle:(NSString *)title
                       content:(NSString *)content
                          type:(BOOL)isNote
-                     callback:(void (^)(BOOL))callback {
+                     callback:(void (^)(BOOL, NoteObject*))callback {
     NoteObject * newNote = [NoteObject newObject];
     newNote.title = title;
     newNote.content = content;
@@ -25,10 +25,13 @@
     [newNote.avObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [self addReaderWithNoteId:newNote.objectId
-                             callback:callback];
+                             callback:^(BOOL isSuccess)
+            {
+                callback (isSuccess, newNote);
+            }];
         }
         else {
-            callback(NO);
+            callback(NO, nil);
         }
     }];
 }
@@ -127,6 +130,27 @@
                                     }];
 }
 
+/// 删除笔记关联
++ (void)deleteReaderWithNoteId:(NSString *)noteId
+                      callback:(void (^)(BOOL isSuccess))callback  {
+    AVQuery * query = [ReaderObject query];
+    [query whereKey:@"noteId" equalTo:noteId];
+    [query whereKey:@"userId" equalTo:LocalDataInstance.userId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (!error) {
+            if (objects.count > 0) {
+                [AVObject deleteAllInBackground:objects
+                                          block:^(BOOL succeeded, NSError * _Nullable error)
+                {
+                    callback(succeeded);
+                }];
+            }
+        } else {
+            callback (NO);
+        }
+    }];
+}
+
 /// 更新文章
 + (void)updateTitle:(NSString *)newTitle Content:(NSString *)newContent
        WithObjectId:(NSString *)objId callback:(void (^)(BOOL))callback {
@@ -167,6 +191,25 @@
     } else {
         callback(NO, nil);
     }
+}
+
+/// 批量添加Tags
++ (void)addTagsWithTitles:(NSArray *)tagTitles callback:(void (^)(BOOL isSuccess, NSArray<TagObject *> *))callback {
+    NSMutableArray * tags = [NSMutableArray array];
+    NSMutableArray * tagObjs = [NSMutableArray array];
+    for (NSString * title in tagTitles) {
+        TagObject * tagObj = [TagObject new];
+        tagObj.tagName = title;
+        tagObj.userId = LocalDataInstance.userId;
+        [tags addObject:tagObj.avObject];
+        [tagObjs addObject:tagObj];
+    }
+    
+    [AVObject saveAllInBackground:tags
+                            block:^(BOOL succeeded, NSError * _Nullable error)
+    {
+        callback (succeeded, tagObjs);
+    }];
 }
 
 /// 删除Tag
@@ -281,5 +324,42 @@
     }];
 }
 
+/// 用新的标签列表替换所有文章标签
++ (void)updateNoteTags:(NSArray<TagObject *> *)tags
+                noteId:(NSString *)noteId
+              callback:(void (^)(BOOL isSuccess))callback {
+    AVQuery * query = [NoteTagObject query];
+    [query whereKey:@"noteId" equalTo:noteId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        if (!error) {
+            // 删除所有文章标签
+            [AVObject deleteAllInBackground:objects
+                                      block:^(BOOL succeeded, NSError * _Nullable error)
+            {
+                if (succeeded) {
+                    // 批量生成noteTag
+                    NSMutableArray * noteTags = [NSMutableArray array];
+                    for (TagObject * tagObj in tags) {
+                        NoteTagObject * noteTag = [NoteTagObject new];
+                        noteTag.noteId = noteId;
+                        noteTag.tagId = tagObj.objectId;
+                        [noteTags addObject:noteTag.avObject];
+                    }
+                    [AVObject saveAllInBackground:noteTags
+                                            block:^(BOOL succeeded, NSError * _Nullable error)
+                    {
+                        callback (succeeded);
+                    }];
+                } else {
+                    callback (NO);
+                }
+            }];
+        } else {
+            callback (NO);
+        }
+    }];
+
+}
 
 @end

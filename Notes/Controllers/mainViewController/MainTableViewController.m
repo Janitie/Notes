@@ -37,6 +37,9 @@
 @property (nonatomic, strong) INSSearchBar *searchBarWithDelegate;
 //@property (nonatomic, strong) UIView * searchView;
 
+@property (nonatomic, strong) NSArray * tempDataSource;
+
+@property (nonatomic, assign) NSInteger searchTypeIndex;
 
 @end
 
@@ -46,6 +49,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.searchTypeIndex = 0;
     
     self.navigationController.navigationBarHidden = YES;
     
@@ -116,6 +121,7 @@
     {
         if (isSuccess) {
             self.dataSource = results;
+            self.tempDataSource = results;
             [self.tableView reloadData];
         }
     }];
@@ -207,17 +213,45 @@
 }
 
 - (void)naviRightButtonDo:(id)sender {
-    static int touched = 0;
+    self.searchBarWithDelegate.searchField.text = @"";
+    NSInteger touched = self.searchTypeIndex;
+    BOOL isCheck = NO;
+    BOOL isNote = NO;
     if (touched % 3 == 0) {
         [self.naviRight setImage:[UIImage imageNamed:@"notesIcon"] forState:UIControlStateNormal];
+        isNote = YES;
     }
     else if (touched % 3 == 1) {
         [self.naviRight setImage:[UIImage imageNamed:@"checkIcon"] forState:UIControlStateNormal];
+        isCheck = YES;
     }
     else if (touched % 3 == 2) {
         [self.naviRight setImage:[UIImage imageNamed:@"allIcon"] forState:UIControlStateNormal];
+        isNote = YES;
+        isCheck = YES;
     }
-    touched++;
+    self.searchTypeIndex++;
+    
+    NSMutableArray * results = [NSMutableArray array];
+    if (isNote && isCheck) {
+        results = [self.tempDataSource mutableCopy];
+    } else {
+        for (NoteObject * noteObj in self.tempDataSource) {
+            if ([noteObj isKindOfClass:[NoteObject class]]) {
+                if (noteObj.isNote == isNote &&
+                    !noteObj.isNote == isCheck) {
+                    [results addObject:noteObj];
+                }
+            }
+        }
+    }
+    self.dataSource = results;
+    [self.tableView reloadData];
+}
+
+- (void)resetSearchTypeButton {
+    self.searchTypeIndex = 0;
+    [self.naviRight setImage:[UIImage imageNamed:@"allIcon"] forState:UIControlStateNormal];
 }
 
 #pragma mark - SlideMenu
@@ -347,18 +381,41 @@
 
 - (void)searchBarDidTapReturn:(INSSearchBar *)searchBar
 {
-    // Do whatever you deem necessary.
-    // Access the text from the search bar like searchBar.searchField.text
-    
-//    NSLog(@"searching %@",searchBar.searchField.text);
-//    [_searchView removeFromSuperview];
-
+    NSString * searchWord = searchBar.searchField.text;
+    NSMutableArray * results = [NSMutableArray array];
+    if ([searchWord isEqualToString:@""]) {
+        results = [self.tempDataSource mutableCopy];
+    } else {
+        for (NoteObject * noteObj in self.tempDataSource) {
+            if ([noteObj.title containsString:searchWord] ||
+                [noteObj.content containsString:searchWord]) {
+                [results addObject:noteObj];
+            }
+        }
+    }
+    self.dataSource = results;
+    [self.view endEditing:YES];
+    [self.tableView reloadData];
 }
 
 - (void)searchBarTextDidChange:(INSSearchBar *)searchBar
 {
-    // Do whatever you deem necessary.
-    // Access the text from the search bar like searchBar.searchField.text
+    
+    NSString * searchWord = searchBar.searchField.text;
+    NSMutableArray * results = [NSMutableArray array];
+    if ([searchWord isEqualToString:@""]) {
+        results = [self.tempDataSource mutableCopy];
+    } else {
+        for (NoteObject * noteObj in self.tempDataSource) {
+            if ([noteObj.title containsString:searchWord] ||
+                [noteObj.content containsString:searchWord]) {
+                [results addObject:noteObj];
+            }
+        }
+    }
+    self.dataSource = results;
+    [self resetSearchTypeButton];
+    [self.tableView reloadData];
 }
 
 
@@ -454,7 +511,7 @@
     if (note.isNote) {
         ContentViewController *detailViewController = [[ContentViewController alloc] init];
         [detailViewController setDataNoteObject:note];
-        [detailViewController setUserTagObjects:LocalDataInstance.usedTags];
+        [detailViewController setUserTagObjects:(NSMutableArray<TagObject *> *)[LocalDataInstance.usedTags mutableCopy]];
         [self.navigationController pushViewController:detailViewController animated:YES];
 
     }
@@ -470,6 +527,16 @@
     // 添加一个删除按钮
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSLog(@"点击了删除");
+        NoteObject * noteObj = weakSelf.dataSource[indexPath.row];
+        [MBProgressHUD showWaitingHUDInKeyWindow];
+        [NoteService deleteReaderWithNoteId:noteObj.objectId
+                                   callback:^(BOOL isSuccess)
+        {
+            [MBProgressHUD hideAllWaitingHUDInKeyWindow];
+            NSString * msg = isSuccess?@"删除成功":@"删除失败";
+            [MBProgressHUD showQuickTipWithText:msg];
+            [weakSelf loadData];
+        }];
     }];
     // 添加一个分享按钮
     
@@ -531,46 +598,13 @@
                     break;
             }
         }];
-        
-        /*
-        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
-                                 items:nil
-                           shareParams:shareParams
-                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                       
-                       switch (state) {
-                           case SSDKResponseStateSuccess:
-                           {
-                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                   message:nil
-                                                                                  delegate:nil
-                                                                         cancelButtonTitle:@"确定"
-                                                                         otherButtonTitles:nil];
-                               [alertView show];
-                               break;
-                           }
-                           case SSDKResponseStateFail:
-                           {
-                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
-                                                                               message:[NSString stringWithFormat:@"%@",error]
-                                                                              delegate:nil
-                                                                     cancelButtonTitle:@"OK"
-                                                                     otherButtonTitles:nil, nil];
-                               [alert show];
-                               break;
-                           }
-                           default:
-                               break;
-                       }
-                   }
-         ];
-         */
     }
 }
 
 #pragma mark - newBtn delegate
 - (void)leftButtonDidPush {
     ContentViewController * noteEdit = [[ContentViewController alloc] initWithBOOL:YES];
+    [noteEdit setUserTagObjects:(NSMutableArray<TagObject *> *)[LocalDataInstance.usedTags mutableCopy]];
     [self.navigationController pushViewController:noteEdit animated:YES];
 }
 

@@ -30,58 +30,53 @@
 }
 
 - (IBAction)back:(id)sender {
-//    [self loginToWeChat];
+    
+    
+    if (TARGET_IPHONE_SIMULATOR) {
+        NSString * token = @"oBYXeweEz8Ki-wgSGrcvAXD3aB_8";
+        NSString * userNickName = @"🍍菠萝Ho";
+        NSString * userIcon = @"http://wx.qlogo.cn/mmopen/9ouYBkEg8pcfpUZt9JrjgSypXaMZibQ09x9dAKhOadhLd3WThfEbicAmKcBoPTueEZDtDO3PnJNy97ae0SwwURo0mY3mo5aDnQ/0";
+        [self loginUser:token
+               nickName:userNickName
+                   icon:userIcon];
+    } else {
+        [self loginToWeChat:nil];
+    }
+}
+
+- (void)loginToWeChat:(SSDKGetUserStateChangedHandler)handle {
+    WS(weakSelf);
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
     {
-        if (state == SSDKResponseStateSuccess)
-        {
-            [MBProgressHUD showWaitingHUDInKeyWindow];
-            [UserService loginUserWithWXToken:user.credential.uid
-                                     nickName:user.nickname
-                                         icon:user.icon
-                                     callback:^(BOOL isSuccess)
-            {
-                [MBProgressHUD hideAllWaitingHUDInKeyWindow];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }];
-         }
-         else
-         {
-             NSLog(@"%@",error);
-         }
-         
-     }];
-}
-
-- (void)loginToWeChat {
-    //  [SSEThirdPartyLoginHelper loginByPlatform:SSDKPlatformTypeWechat
-//                                   onUserSync:^(SSDKUser *user, SSEUserAssociateHandler associateHandler)
-//    {
-//        //在此回调中可以将社交平台用户信息与自身用户系统进行绑定，最后使用一个唯一用户标识来关联此用户信息。
-//        //在此示例中没有跟用户系统关联，则使用一个社交用户对应一个系统用户的方式。将社交用户的uid作为关联ID传入associateHandler。
-//        associateHandler (user.uid, user, user);
-//        NSLog(@"dd%@",user.rawData);
-//        NSLog(@"dd%@",user.credential);
-//    }
-//                                onLoginResult:^(SSDKResponseState state, SSEBaseUser *user, NSError *error)
-//    {
-//        if (state == SSDKResponseStateSuccess)
-//        {
-//            NSLog(@"lalalala");
-//        }
-//    }];
+        if (state == SSDKResponseStateSuccess) {
+            [weakSelf loginUser:user.credential.uid
+                       nickName:user.nickname
+                           icon:user.icon];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)loginUser:(NSString *)token
+         nickName:(NSString *)nickName
+             icon:(NSString *)userIcon
+{
+    [MBProgressHUD showWaitingHUDInKeyWindow];
+    [UserService loginUserWithWXToken:token
+                             nickName:nickName
+                                 icon:userIcon
+                             callback:^(BOOL isSuccess)
+    {
+        [MBProgressHUD hideAllWaitingHUDInKeyWindow];
+        if (isSuccess) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [MBProgressHUD showQuickTipWithText:@"登录失败"];
+        }
+    }];
 }
-*/
 
 @end

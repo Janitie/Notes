@@ -15,6 +15,7 @@
 @end
 
 @implementation LocalDataModel
+@synthesize usedTags = _usedTags;
 
 + (LocalDataModel *)instance {
     static dispatch_once_t onceToken;
@@ -56,7 +57,7 @@
 }
 
 - (NSArray *)usedTags {
-    return [self.mUserDefault valueForKey:@"usedTags"];
+    return _usedTags;
 }
 
 #pragma mark - Setter
@@ -81,8 +82,7 @@
 }
 
 - (void)setUsedTags:(NSArray *)usedTags {
-    [self.mUserDefault setValue:usedTags forKey:@"usedTags"];
-    [self.mUserDefault synchronize];
+    _usedTags = usedTags;
 }
 
 

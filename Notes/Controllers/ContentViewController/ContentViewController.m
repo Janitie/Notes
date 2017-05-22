@@ -33,9 +33,13 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewBottomSpace;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagViewHeight;
 
+/// 新建的tag
+@property (nonatomic, strong) NSMutableArray<NSString *> * freshTagsTitles;
+
 @end
 
 @implementation ContentViewController
+@synthesize userTagObjects = _userTagObjects;
 
 - (instancetype)initWithBOOL:(BOOL)isNote {
     if ([super init]) {
@@ -60,6 +64,12 @@
     [self.tagInputViewContent setDelegate:self];
     
     _isInputtingTag = NO;
+    
+    if (_isUpdating) {
+        [self getNoteTagsData];
+    } else {
+        [self updateTagView];
+    }
     
     [self addKeyBoardNotificationObserver];
 }
@@ -160,6 +170,21 @@
 }
 
 #pragma mark - Tag Data handle 
+- (void)getNoteTagsData {
+    WS(weakSelf);
+    [NoteService getTagsWithNoteId:_note.objectId
+                          callback:^(NSArray<TagObject *> *result)
+     {
+         weakSelf.noteTagObjects = [result mutableCopy];
+         NSMutableArray * tagTitles = [NSMutableArray array];
+         for (TagObject * tagObj in result) {
+             [tagTitles addObject:tagObj.tagName];
+         }
+         weakSelf.noteTags = tagTitles;
+         [weakSelf updateTagView];
+     }];
+}
+
 - (void)resetNoteTagsWithTagTitles:(NSArray *)tagTitles {
     for (NSString * tagTitle in tagTitles) {
         BOOL isExist = NO;
@@ -184,14 +209,27 @@
     }
 }
 
-- (void)getNoteTagsData {
-    WS(weakSelf);
-    [NoteService getTagsWithNoteId:_note.objectId
-                          callback:^(NSArray<TagObject *> *result)
-    {
-        weakSelf.noteTagObjects = result;
-        [weakSelf updateTagView];
-    }];
+- (void)addTagWithTagTitle:(NSString *)tagTitle
+                  callback:(void (^)(TagObject * tag))callback {
+    BOOL isExist = NO;
+    TagObject * tagObject = nil;
+    for (TagObject * tagObj in self.userTagObjects) {
+        if ([tagObj.tagName isEqualToString:tagTitle]) {
+            tagObject = tagObj;
+            isExist = YES;
+            break;
+        }
+    }
+    if (isExist) {
+        callback(tagObject);
+    } else {
+        [NoteService addNewTag:tagTitle
+                      callback:^(BOOL isSuccess, TagObject *object)
+        {
+            callback (object);
+        }];
+    }
+    
 }
 
 - (void)addTagWithTitle:(NSString *)tagTitle
@@ -228,6 +266,16 @@
     }];
 }
 
+#pragma mark - Setter 
+- (void)setUserTagObjects:(NSMutableArray<TagObject *> *)userTagObjects {
+    _userTagObjects = userTagObjects;
+    NSMutableArray * tagTitles = [NSMutableArray array];
+    for (TagObject * tagObj in userTagObjects) {
+        [tagTitles addObject:tagObj.tagName];
+    }
+    self.userTags = tagTitles;
+}
+
 #pragma mark - Getter
 - (LabelView *)tagView {
     if (_tagView == nil) {
@@ -251,19 +299,38 @@
 }
 
 - (NSArray *)userTags {
-    NSMutableArray * mArray = [NSMutableArray array];
-    for (TagObject * tagObj in self.userTagObjects) {
-        [mArray addObject:tagObj.tagName];
+    if (_userTags == nil) {
+        _userTags = [NSArray array];
     }
-    return mArray;
+    return _userTags;
 }
 
 - (NSArray *)noteTags {
-    NSMutableArray * mArray = [NSMutableArray array];
-    for (TagObject * tagObj in self.noteTagObjects) {
-        [mArray addObject:tagObj.tagName];
+    if (_noteTags == nil) {
+        _noteTags = [NSArray array];
     }
-    return mArray;
+    return _noteTags;
+}
+
+- (NSMutableArray<NSString *> *)freshTagsTitles {
+    if (_freshTagsTitles == nil) {
+        _freshTagsTitles = [NSMutableArray array];
+    }
+    return _freshTagsTitles;
+}
+
+- (NSMutableArray<TagObject *> *)noteTagObjects {
+    if (_noteTagObjects == nil) {
+        _noteTagObjects = [NSMutableArray array];
+    }
+    return _noteTagObjects;
+}
+
+- (NSMutableArray<TagObject *> *)userTagObjects {
+    if (_userTagObjects == nil) {
+        _userTagObjects = [NSMutableArray array];
+    }
+    return _userTagObjects;
 }
 
 #pragma mark - button
@@ -285,56 +352,120 @@
         } else { //只要有改动就上传刷新
             [self updateNote];
         }
-        _isUpdating = NO;
     }
 }
 
 /// 新建Note
 - (void)addNewNote {
+    WS(weakSelf);
     [NoteService creatNewNoteWithTitle:self.titleField.text
                                content:self.textView.text
                                   type:self.isNote
-                              callback:^(BOOL succeeded) {
-                                  if (succeeded) {
-                                      [self.navigationController popViewControllerAnimated:YES];
-                                  }
-                                  else {
-                                      NSLog(@"error saving");
-                                      [self.navigationController popViewControllerAnimated:YES];
-                                  }
-                              }];
+                              callback:^(BOOL succeeded, NoteObject * object)
+    {
+        if (succeeded) {
+            _note = object;
+            [weakSelf updateAllTagsAndNoteTags:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [MBProgressHUD showQuickTipWithText:@"保存失败"];
+                }
+            }];
+        }
+        else {
+            NSLog(@"error saving");
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 /// delete
 - (void)deleteNote {
+    WS(weakSelf);
     [NoteService deleteWithObjectId:_note.avObject.objectId
-                           callback:^(BOOL isSuccess) {
-                               if (isSuccess) {
-                                   [self.navigationController popViewControllerAnimated:YES];
-                               }
-                               else {
-                                   NSLog(@"error deleting");
-                                   [self.navigationController popViewControllerAnimated:YES];
-                               }
-                           }];
+                           callback:^(BOOL isSuccess)
+    {
+        if (isSuccess) {
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }
+        else {
+            [MBProgressHUD showQuickTipWithText:@"保存失败"];
+        }
+    }];
 }
 
 /// update
 - (void)updateNote {
+    WS(weakSelf);
     [NoteService updateTitle:self.titleField.text
                      Content:self.textView.text
                 WithObjectId:_note.avObject.objectId
-                    callback:^(BOOL success) {
-                        if (success) {
-                            [self.navigationController popViewControllerAnimated:YES];
-                        }
-                        else {
-                            NSLog(@"error");
-                            [self.navigationController popViewControllerAnimated:YES];
-                        }
-                    }];
+                    callback:^(BOOL success)
+    {
+        if (success) {
+            [weakSelf updateAllTagsAndNoteTags:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [MBProgressHUD showQuickTipWithText:@"保存失败"];
+                }
+            }];
+        }
+        else {
+            [MBProgressHUD showQuickTipWithText:@"保存失败"];
+        }
+    }];
 }
 
+/// 更新笔记Tag的状态
+- (void)updateAllTagsAndNoteTags:(void (^)(BOOL isSuccess))callback
+{
+    WS(weakSelf);
+    [MBProgressHUD showWaitingHUDInKeyWindow];
+    [self updateUserTags:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf updateNoteTags:^(BOOL isSuccess) {
+                [MBProgressHUD hideAllWaitingHUDInKeyWindow];
+                callback(isSuccess);
+            }];
+        } else {
+            [MBProgressHUD hideAllWaitingHUDInKeyWindow];
+            callback (NO);
+        }
+    }];
+}
+
+/// 更新用户标签
+- (void)updateUserTags:(void (^)(BOOL isSuccess))callback {
+    WS(weakSelf);
+    [NoteService addTagsWithTitles:self.freshTagsTitles
+                          callback:^(BOOL isSuccess, NSArray<TagObject *> * objects)
+    {
+        if (isSuccess) {
+            [weakSelf.userTagObjects addObjectsFromArray:objects];
+            callback (YES);
+        } else {
+            callback (NO);
+        }
+    }];
+}
+
+/// 更新笔记标签
+- (void)updateNoteTags:(void (^)(BOOL isSuccess))callback {
+    NSMutableArray * freshNoteTags = [NSMutableArray array];
+    for (NSString * tagTitle in self.noteTags) {
+        for (TagObject * tagObj in self.userTagObjects) {
+            if ([tagObj.tagName isEqualToString:tagTitle]) {
+                [freshNoteTags addObject:tagObj];
+                break;
+            }
+        }
+    }
+    [NoteService updateNoteTags:freshNoteTags
+                         noteId:_note.objectId
+                       callback:callback];
+}
 
 - (IBAction)labelButtonDo:(id)sender {
     if (_isInputtingTag) {
@@ -416,24 +547,28 @@
 #pragma mark - LabelView Delegate
 - (void)labelView:(LabelView *)labelView didSelectedTag:(NSString *)tagTitle {
     if (labelView == self.tagInputViewContent) {
-        [self resetNoteTagsWithTagTitles:self.tagInputViewContent.seletedTags];
+        self.noteTags = self.tagInputViewContent.seletedTags;
     }
     [self updateTagView];
 }
 
 - (void)labelView:(LabelView *)labelView didDeselectedTag:(NSString *)tagTitle {
     if (labelView == self.tagInputViewContent) {
-        [self resetNoteTagsWithTagTitles:self.tagInputViewContent.seletedTags];
+        self.noteTags = self.tagInputViewContent.seletedTags;
     } else {
-        [self resetNoteTagsWithTagTitles:self.tagView.seletedTags];
+        self.noteTags = self.tagView.seletedTags;
     }
     [self updateTagView];
 }
 
 - (BOOL)labelView:(LabelView *)labelView didEnterNewTag:(NSString *)newTagTitle {
     NSLog(@"newTag = %@", newTagTitle);
+    NSInteger userTagsCount = self.userTags.count;
     self.userTags = [self addTagTitle:newTagTitle toArray:self.userTags];
     self.noteTags = [self addTagTitle:newTagTitle toArray:self.noteTags];
+    if (userTagsCount != self.userTags.count) {
+        [self.freshTagsTitles addObject:newTagTitle];
+    }
     [self updateTagView];
     return YES;
 }
