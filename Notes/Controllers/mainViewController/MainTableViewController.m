@@ -35,6 +35,9 @@
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition * percent;
 
 @property (nonatomic, strong) INSSearchBar *searchBarWithDelegate;
+
+//@property (nonatomic, strong) NSMutableArray<NoteObject *> * readableData;
+
 //@property (nonatomic, strong) UIView * searchView;
 
 @property (nonatomic, strong) NSArray * tempDataSource;
@@ -131,6 +134,7 @@
     {
         LocalDataInstance.usedTags = result;
     }];
+    
 }
 
 #pragma mark - tableView Setup
@@ -196,6 +200,17 @@
 - (NSArray *) dataSource {
     return _dataSource;
 }
+
+//- (NSMutableArray<NoteObject *> *)readableData {
+//    if (_readableData == nil) {
+//        _readableData = [NSMutableArray new];
+//        for (NoteObject * note in self.dataSource) {
+//            [_readableData addObject:note];
+//        }
+//        
+//    }
+//    return _readableData;
+//}
 
 #pragma mark - navigationBar
 
