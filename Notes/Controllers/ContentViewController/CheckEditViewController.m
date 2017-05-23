@@ -194,7 +194,7 @@
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 83, self.view.frame.size.width, 551)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 83, ScreenWidth, ScreenHeight-83-35)];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;

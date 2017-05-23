@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="syM-na-aPk">
-                    <rect key="frame" x="0.0" y="634" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="632" width="375" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Siz-8D-zeH">
                             <rect key="frame" x="8" y="5" width="25" height="23"/>
@@ -70,6 +70,7 @@
                         <constraint firstItem="Siz-8D-zeH" firstAttribute="top" secondItem="ocl-c3-zv8" secondAttribute="top" id="knE-ti-GyI"/>
                         <constraint firstItem="ocl-c3-zv8" firstAttribute="top" secondItem="5we-VP-qul" secondAttribute="top" id="vgj-3p-mXW"/>
                         <constraint firstItem="Siz-8D-zeH" firstAttribute="leading" secondItem="syM-na-aPk" secondAttribute="leadingMargin" id="vhI-N0-GfM"/>
+                        <constraint firstAttribute="height" constant="35" id="xak-0G-sLu"/>
                     </constraints>
                 </view>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入标题" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ujC-1l-Cf3">
@@ -86,9 +87,8 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ujC-1l-Cf3" secondAttribute="trailing" constant="20" id="4eB-An-IHe"/>
                 <constraint firstItem="syM-na-aPk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9Mh-b6-6zT"/>
-                <constraint firstAttribute="bottom" secondItem="syM-na-aPk" secondAttribute="bottom" constant="-7" id="G23-e1-V4w"/>
+                <constraint firstAttribute="bottom" secondItem="syM-na-aPk" secondAttribute="bottom" id="G23-e1-V4w"/>
                 <constraint firstItem="ujC-1l-Cf3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="RA7-sQ-tmp"/>
-                <constraint firstItem="syM-na-aPk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="634" id="Wz5-dU-OmZ"/>
                 <constraint firstItem="syM-na-aPk" firstAttribute="centerX" secondItem="ujC-1l-Cf3" secondAttribute="centerX" id="fo0-ef-wqD"/>
                 <constraint firstItem="ujC-1l-Cf3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="ozD-GZ-51o"/>
             </constraints>
